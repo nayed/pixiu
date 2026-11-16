@@ -12,6 +12,7 @@ import { agoText, timeLeftText } from "@/lib/format";
 import { RULES, type Settings } from "@/lib/pet/config";
 import type { PetState } from "@/lib/pet/state";
 import {
+  currentWindow,
   type EggCrack,
   type Mood,
   type PetView,
@@ -406,15 +407,6 @@ const NAP_SPOT: Record<Stage, { left: number; top: number }> = {
 /** The mouth's top row, where the cookie being eaten sits. */
 const MOUTH_ROW: Record<Stage, number> = { baby: 10, child: 8, teen: 8, adult: 8 };
 
-/** The window as it stands now: once its reset time has passed, it is empty. */
-function current(window: UsageWindow | undefined, now: Date): UsageWindow {
-  if (!window) return { percent: 0, resetsAt: null };
-  if (window.resetsAt && now.getTime() >= Date.parse(window.resetsAt)) {
-    return { percent: 0, resetsAt: null };
-  }
-  return window;
-}
-
 function foodNote(mood: Mood, pet: PetState, session: UsageWindow, now: Date): string {
   if (mood === "stuffed") {
     return session.resetsAt
@@ -434,8 +426,8 @@ function foodNote(mood: Mood, pet: PetState, session: UsageWindow, now: Date): s
 
 function Pet(props: { pet: PetState; now: Date; name: string; stage: Stage; mood: Mood }) {
   const { pet, now, name, stage, mood } = props;
-  const session = current(pet.reading?.short, now);
-  const week = current(pet.reading?.long, now);
+  const session = currentWindow(pet.reading?.short, now);
+  const week = currentWindow(pet.reading?.long, now);
   const top = actorTop(stage);
 
   const motion = mood === "stuffed" ? "px-napping" : mood === "eating" ? "px-eating" : "";

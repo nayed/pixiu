@@ -96,14 +96,29 @@ type Painter = {
   fillRect: CanvasRect["fillRect"];
 };
 
-/** Draws a sprite at one canvas pixel per cell. Scale it up with CSS, never with smoothing. */
-export function paint(context: Painter, drawing: Sprite): void {
+/** The face-only drawing for the toolbar icon, where a full body is unreadable. */
+export function faceSprite(stage: Stage, mood: Mood): Sprite {
+  // No face is drawn eating, and the baby has none sulking. Both fall back to the happy face.
+  const drawn = mood === "eating" || (stage === "baby" && mood === "sulky") ? "happy" : mood;
+  return sprite(`${stage}-face-${drawn}` as SpriteName);
+}
+
+/** The gray face shown while usage can't be read. */
+export function lostFaceSprite(stage: Stage): Sprite {
+  return sprite(`${stage}-face-lost` as SpriteName);
+}
+
+/**
+ * Draws a sprite with hard edges, `scale` canvas pixels per cell. In a page, draw at 1 and
+ * scale up with CSS; the toolbar icon needs real pixels, so it passes a scale.
+ */
+export function paint(context: Painter, drawing: Sprite, scale = 1): void {
   drawing.rows.forEach((row, y) => {
     for (let x = 0; x < row.length; x++) {
       const color = drawing.palette[row.charAt(x)];
       if (!color) continue;
       context.fillStyle = color;
-      context.fillRect(x, y, 1, 1);
+      context.fillRect(x * scale, y * scale, scale, scale);
     }
   });
 }

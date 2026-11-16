@@ -1,7 +1,7 @@
 // What the pet looks like right now. Every surface renders from this, so the popup and the
 // toolbar icon can never disagree. Derived from the state and the clock; nothing is stored.
 
-import type { UsageFailureReason } from "../usage/snapshot";
+import type { UsageFailureReason, UsageWindow } from "../usage/snapshot";
 import { awakeMs } from "./awake";
 import { RULES, type Settings } from "./config";
 import type { PetState } from "./state";
@@ -30,6 +30,15 @@ function crackFor(warmth: number): EggCrack {
   if (warmth >= RULES.fullCrackWarmth) return "full";
   if (warmth >= RULES.firstCrackWarmth) return "small";
   return "none";
+}
+
+/** A usage window as it stands now: once its reset time has passed, it is empty. */
+export function currentWindow(window: UsageWindow | undefined, now: Date): UsageWindow {
+  if (!window) return { percent: 0, resetsAt: null };
+  if (window.resetsAt && now.getTime() >= Date.parse(window.resetsAt)) {
+    return { percent: 0, resetsAt: null };
+  }
+  return window;
 }
 
 /** Waking time since the last meal. Stands still while the pet can't see usage. */
@@ -67,9 +76,7 @@ function moodFor(state: PetState, stage: Stage, now: Date, settings: Settings): 
   const bite = state.lastBite;
   if (bite && time - Date.parse(bite.at) < RULES.eatingMs) return "eating";
 
-  const session = state.reading?.short;
-  const sessionOpen = !session?.resetsAt || time < Date.parse(session.resetsAt);
-  if (session && session.percent >= 100 && sessionOpen) return "stuffed";
+  if (currentWindow(state.reading?.short, now).percent >= 100) return "stuffed";
 
   if (hungerMs(state, now, settings) >= RULES.hungryAfterMs) return "hungry";
   // The baby stage lasts one week, too short to sulk.
