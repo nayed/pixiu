@@ -4,13 +4,14 @@
 
 import { browser } from "wxt/browser";
 import { defineBackground } from "wxt/utils/define-background";
-import { NAME_PET, POLL_NOW } from "@/lib/messages";
+import { validateBackup } from "@/lib/backup";
+import { NAME_PET, POLL_NOW, RESTORE_BACKUP } from "@/lib/messages";
 import { DEFAULT_SETTINGS } from "@/lib/pet/config";
 import { describeEvent, describeView } from "@/lib/pet/describe";
 import { namePet, step } from "@/lib/pet/engine";
 import { newPet } from "@/lib/pet/state";
 import { viewPet } from "@/lib/pet/view";
-import { type LogEntry, load, savePet, savePoll } from "@/lib/store";
+import { type LogEntry, load, savePet, savePoll, saveRestored } from "@/lib/store";
 import { readUsage } from "@/lib/usage/claude";
 
 const POLL_ALARM = "pixiu-poll";
@@ -45,6 +46,13 @@ export default defineBackground(() => {
     }
     if (message?.type === NAME_PET && typeof message.name === "string") {
       void enqueue(() => rename(message.name)).then(done);
+      return true;
+    }
+    if (message?.type === RESTORE_BACKUP) {
+      // Restore, then read usage at once so the pet catches up with the time it was away.
+      void enqueue(() => restore(message.backup))
+        .then(() => enqueue(poll))
+        .then(done);
       return true;
     }
   });
@@ -87,4 +95,12 @@ async function poll(): Promise<void> {
 async function rename(name: string): Promise<void> {
   const { pet } = await load();
   if (pet) await savePet(namePet(pet, name));
+}
+
+async function restore(value: unknown): Promise<void> {
+  // The page that sent this already checked the file. Check again: this is the only writer.
+  const backup = validateBackup(value);
+  if (!backup) return;
+  const entry: LogEntry = { at: new Date().toISOString(), text: "Restored from a backup" };
+  await saveRestored(backup.pet, backup.settings, [entry, ...(backup.log ?? [])]);
 }

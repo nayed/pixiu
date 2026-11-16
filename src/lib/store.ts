@@ -51,6 +51,17 @@ export async function savePet(pet: PetState): Promise<void> {
   await browser.storage.local.set({ pet });
 }
 
+/** Replaces the pet with one from a backup. Settings and log are replaced only if the backup has them. */
+export async function saveRestored(
+  pet: PetState,
+  settings: Settings | undefined,
+  log: LogEntry[],
+): Promise<void> {
+  const update: Stored = { pet, log: log.slice(0, LOG_LIMIT) };
+  if (settings) update.settings = settings;
+  await browser.storage.local.set(update);
+}
+
 /** Calls back whenever anything in the store changes. Returns a function that stops listening. */
 export function onStoreChanged(callback: () => void): () => void {
   const listener = (_changes: unknown, area: string) => {
