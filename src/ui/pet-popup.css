@@ -1,0 +1,447 @@
+/* The pet popup, built from docs/artboards. Colors and sizes come from docs/DESIGN.md.
+   Everything sits on an 8 px grid, the size of one sprite pixel in the scene. */
+
+.pixiu {
+  --ink: #1d1b2e;
+  --raised: #2a2744;
+  --border: #6a63a8;
+  --divider: #3a3660;
+  --text: #f3f1ff;
+  --text-secondary: #b9b4d9;
+  --food: #ff9a3c;
+  --food-text: #ffb366;
+  --growth: #2b6fd0;
+  --warmth: #e8590c;
+  --body: #5cc8a0;
+  --heading: "Pixelify Sans", "Courier New", monospace;
+
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 360px;
+  min-height: 520px;
+  padding: 16px;
+  background: var(--ink);
+  color: var(--text);
+  color-scheme: dark;
+  font-family: "VT323", "Courier New", monospace;
+  font-size: 20px;
+  line-height: 1.1;
+}
+
+.pixiu *,
+.pixiu *::before {
+  box-sizing: border-box;
+}
+
+.pixiu h1,
+.pixiu h2,
+.pixiu p {
+  margin: 0;
+}
+
+.pixiu h1 {
+  font-family: var(--heading);
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1;
+  overflow-wrap: anywhere;
+}
+
+.pixiu h2,
+.pixiu .px-label {
+  color: var(--text);
+  font-family: var(--heading);
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.pixiu a {
+  color: #8cc8ff;
+}
+
+.pixiu :focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 2px;
+}
+
+.px-dim {
+  color: var(--text-secondary);
+}
+
+/* Header */
+
+.px-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.px-title {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  min-width: 0;
+}
+
+.px-icon-button {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 2px solid var(--border);
+  background: var(--raised);
+  color: var(--text);
+  cursor: pointer;
+}
+
+/* Scene */
+
+.px-scene {
+  position: relative;
+  flex: none;
+  height: 220px;
+  border: 4px solid var(--text);
+  background: #bfe8f2;
+  overflow: hidden;
+}
+
+.px-scene.px-gray {
+  background: #d5d9e0;
+}
+
+.px-cloud {
+  position: absolute;
+  height: 8px;
+  background: #ffffff;
+}
+
+.px-grass {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 36px;
+  border-top: 4px solid #4fa354;
+  background: #7cc96b;
+}
+
+.px-gray .px-grass {
+  border-top-color: #8b9388;
+  background: #a9b0a6;
+}
+
+.px-actor {
+  position: absolute;
+  width: 128px;
+  height: 128px;
+}
+
+.px-sprite {
+  display: block;
+  image-rendering: pixelated;
+}
+
+.px-blink {
+  position: absolute;
+  width: 16px;
+  height: 8px;
+  background: var(--body);
+  opacity: 0;
+}
+
+.px-prop {
+  position: absolute;
+}
+
+.px-zz,
+.px-question {
+  position: absolute;
+  color: var(--ink);
+  font-family: var(--heading);
+  font-weight: 700;
+}
+
+.px-zz {
+  font-size: 24px;
+}
+
+.px-question {
+  top: 28px;
+  left: 228px;
+  font-size: 40px;
+  line-height: 1;
+}
+
+.px-meter {
+  position: absolute;
+  top: 22px;
+  left: 252px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 52px;
+}
+
+.px-meter span {
+  color: var(--ink);
+  font-family: var(--heading);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.px-meter-bar {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 2px;
+  width: 16px;
+  height: 128px;
+  padding: 2px;
+  background: var(--ink);
+}
+
+.px-meter-bar i {
+  flex-grow: 1;
+  background: #ffffff;
+}
+
+.px-meter-bar i.px-on {
+  background: var(--fill);
+}
+
+/* Below the scene */
+
+.px-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.px-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.px-food-number {
+  color: var(--food-text);
+  font-family: var(--heading);
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.px-cookies {
+  display: flex;
+  gap: 6px;
+}
+
+.px-footer {
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 2px solid var(--divider);
+}
+
+.px-primary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 44px;
+  padding: 0 12px;
+  border: 0;
+  background: var(--food);
+  color: var(--ink);
+  cursor: pointer;
+  font-family: var(--heading);
+  font-size: 18px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.pixiu a.px-primary {
+  color: var(--ink);
+}
+
+.px-input {
+  width: 100%;
+  height: 44px;
+  padding: 0 12px;
+  border: 2px solid var(--border);
+  background: var(--raised);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 22px;
+}
+
+.px-input::placeholder {
+  color: var(--text-secondary);
+  opacity: 1;
+}
+
+.px-times {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.px-times label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Motion. Everything moves in whole grid units with hard steps; nothing eases.
+   Nothing moves at all for people who ask for reduced motion. */
+
+@media (prefers-reduced-motion: no-preference) {
+  .px-bob {
+    animation: px-bob 1s linear infinite;
+  }
+
+  .px-bob.px-napping {
+    animation-duration: 2.4s;
+  }
+
+  .px-bob.px-eating {
+    animation-duration: 0.4s;
+  }
+
+  .px-wobble {
+    animation: px-wobble 2.4s step-end infinite;
+  }
+
+  .px-wobble.px-fast {
+    animation-duration: 0.8s;
+  }
+
+  .px-hop {
+    animation: px-hop 1.6s step-end infinite;
+  }
+
+  .px-hop.px-fast {
+    animation-duration: 0.6s;
+  }
+
+  .px-twinkle {
+    animation: px-twinkle var(--pace) linear infinite;
+  }
+
+  .px-chomp {
+    animation: px-chomp 1.2s linear infinite;
+  }
+
+  .px-blink {
+    animation: px-blink 4s linear infinite;
+  }
+
+  .px-fresh {
+    animation: px-fresh 0.6s step-end both;
+    animation-delay: calc(var(--order) * 0.3s);
+  }
+}
+
+@keyframes px-bob {
+  0%,
+  49.9% {
+    transform: translateY(0);
+  }
+  50%,
+  100% {
+    transform: translateY(8px);
+  }
+}
+
+@keyframes px-blink {
+  0%,
+  92% {
+    opacity: 0;
+  }
+  93%,
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes px-wobble {
+  0% {
+    transform: translateX(0);
+  }
+  60% {
+    transform: translateX(-8px);
+  }
+  70% {
+    transform: translateX(8px);
+  }
+  80% {
+    transform: translateX(-8px);
+  }
+  90%,
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes px-hop {
+  0% {
+    transform: translateY(0);
+  }
+  70% {
+    transform: translateY(-16px);
+  }
+  80% {
+    transform: translateY(-8px);
+  }
+  90%,
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes px-twinkle {
+  0%,
+  49.9% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0.15;
+  }
+}
+
+/* Whole, then the half nearest the mouth gone, then gone. */
+@keyframes px-chomp {
+  0%,
+  33% {
+    clip-path: inset(0 0 0 0);
+  }
+  33.1%,
+  66% {
+    clip-path: inset(0 50% 0 0);
+  }
+  66.1%,
+  100% {
+    clip-path: inset(0 100% 0 0);
+  }
+}
+
+@keyframes px-fresh {
+  0% {
+    opacity: 0.2;
+    transform: translateY(-3px);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-3px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
