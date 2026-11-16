@@ -13,7 +13,7 @@
   --growth: #2b6fd0;
   --warmth: #e8590c;
   --body: #5cc8a0;
-  --heading: "Pixelify Sans", "Courier New", monospace;
+  --heading: "Jersey 15", "Courier New", monospace;
 
   box-sizing: border-box;
   display: flex;
@@ -43,8 +43,8 @@
 
 .pixiu h1 {
   font-family: var(--heading);
-  font-size: 28px;
-  font-weight: 700;
+  font-size: 38px;
+  font-weight: 400;
   line-height: 1;
   overflow-wrap: anywhere;
 }
@@ -53,8 +53,9 @@
 .pixiu .px-label {
   color: var(--text);
   font-family: var(--heading);
-  font-size: 18px;
-  font-weight: 600;
+  font-size: 24px;
+  line-height: 1;
+  font-weight: 400;
 }
 
 .pixiu a {
@@ -166,17 +167,17 @@
   position: absolute;
   color: var(--ink);
   font-family: var(--heading);
-  font-weight: 700;
+  font-weight: 400;
 }
 
 .px-zz {
-  font-size: 24px;
+  font-size: 30px;
 }
 
 .px-question {
   top: 28px;
   left: 228px;
-  font-size: 40px;
+  font-size: 52px;
   line-height: 1;
 }
 
@@ -194,8 +195,9 @@
 .px-meter span {
   color: var(--ink);
   font-family: var(--heading);
-  font-size: 16px;
-  font-weight: 700;
+  font-size: 22px;
+  line-height: 1;
+  font-weight: 400;
 }
 
 .px-meter-bar {
@@ -235,8 +237,9 @@
 .px-food-number {
   color: var(--food-text);
   font-family: var(--heading);
-  font-size: 18px;
-  font-weight: 600;
+  font-size: 24px;
+  line-height: 1;
+  font-weight: 400;
 }
 
 .px-cookies {
@@ -262,8 +265,8 @@
   color: var(--ink);
   cursor: pointer;
   font-family: var(--heading);
-  font-size: 18px;
-  font-weight: 700;
+  font-size: 24px;
+  font-weight: 400;
   text-decoration: none;
 }
 

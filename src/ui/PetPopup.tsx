@@ -1,8 +1,7 @@
 // The pet popup. It renders from the pet's state and a clock and nothing else, so the real
 // popup and the debug page (with its pretend clock) show exactly the same thing.
 
-import "@fontsource/pixelify-sans/600.css";
-import "@fontsource/pixelify-sans/700.css";
+import "@fontsource/jersey-15/400.css";
 import "@fontsource/vt323/400.css";
 import "./pet-popup.css";
 

@@ -34,10 +34,10 @@ Food is orange and growth is blue everywhere. The two also differ in lightness, 
 
 ### Type
 
-- **Pixelify Sans** (600 and 700) for headings and numbers.
+- **Jersey 15** for headings and numbers. The mockups use Pixelify Sans, which was replaced during the build because its capital C reads as an O ("Crixus" looked like "Orixus").
 - **VT323** for body text, at 20 px or larger.
 
-Both are on Google Fonts. Bundle the font files inside the extension; do not load them from the network. Check each font's license before bundling.
+Both are on Google Fonts under the Open Font License. The extension bundles them from the Fontsource packages and does not load them from the network.
 
 ## Sprites
 

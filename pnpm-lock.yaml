@@ -8,7 +8,7 @@ importers:
 
   .:
     dependencies:
-      '@fontsource/pixelify-sans':
+      '@fontsource/jersey-15':
         specifier: ^5.3.0
         version: 5.3.0
       '@fontsource/vt323':
@@ -223,8 +223,8 @@ packages:
   '@emnapi/wasi-threads@2.2.0':
     resolution: {integrity: sha512-JP7OYH38Q7+pyTAe14raZHLQIK7BDKbdwji+Xi3pcd/6QkJYQH3SX4wu6EplGrGJWRepoNzedfm0G3B9Z4e9Rw==}
 
-  '@fontsource/pixelify-sans@5.3.0':
-    resolution: {integrity: sha512-4RCe9nXbi7wUu5+H0FNX1sgPZ2kJ1MmY1uTkEfvQIzzqhoS8zGKJaJfdK8oreE0OU+5gM+NdurFi3H3FJRBvyw==}
+  '@fontsource/jersey-15@5.3.0':
+    resolution: {integrity: sha512-S7k74/1Gr6g08m7lF1pNW3ey2GbPyfk5RzOx6xBTfTmjQUeAGaO/U3GsEZrY8BVi5dX0OAwHtvho8i3LaPyO0w==}
 
   '@fontsource/vt323@5.3.0':
     resolution: {integrity: sha512-3w33Rg/0+R1587HQfz4t7Q7e0GGeCqr3wmzIwqdGInUnrGEwMA5eX39GP4Z9wpTQnwfhVOhYuxuRwRUeIcicbw==}
@@ -1532,7 +1532,7 @@ snapshots:
       tslib: 2.9.1
     optional: true
 
-  '@fontsource/pixelify-sans@5.3.0': {}
+  '@fontsource/jersey-15@5.3.0': {}
 
   '@fontsource/vt323@5.3.0': {}
 
