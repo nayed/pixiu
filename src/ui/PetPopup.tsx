@@ -46,9 +46,20 @@ export type PetPopupProps = {
   debugUrl?: string;
 };
 
-/** An absolute position inside the scene, in screen pixels. */
+/** The scene's height inside its border when nothing squeezes it. */
+const SCENE_HEIGHT = 212;
+
+/** An absolute position inside the scene, in screen pixels from its top left. */
 function place(left: number, top: number) {
   return { left: `${left}px`, top: `${top}px` };
+}
+
+/**
+ * The same position for something that stands on the grass: `top` is where it sits in a
+ * full-height scene, and it stays on the ground if the scene gets shorter.
+ */
+function stand(left: number, top: number, height = 16 * UNIT) {
+  return { left: `${left}px`, bottom: `${SCENE_HEIGHT - top - height}px` };
 }
 
 type Body = { title: string; detail?: string; content: ComponentChildren };
@@ -166,7 +177,7 @@ function actorTop(stage: Stage): number {
 
 function StillActor(props: { sprite: SpriteData; label: string; top?: number }) {
   return (
-    <div class="px-actor" style={place(96, props.top ?? 56)}>
+    <div class="px-actor" style={stand(96, props.top ?? 56)}>
       <Sprite sprite={props.sprite} scale={UNIT} label={props.label} />
     </div>
   );
@@ -218,7 +229,7 @@ function Egg(props: { warmth: number; crack: EggCrack }) {
   return (
     <>
       <Scene clouds>
-        <div class={`px-actor ${wobble}`} style={place(76, 56)}>
+        <div class={`px-actor ${wobble}`} style={stand(76, 56)}>
           <Sprite sprite={eggSprite(crack)} scale={UNIT} label="A speckled pixel-art egg" />
         </div>
         <Meter percent={percent} color="var(--warmth)" label={`Egg warmth: ${percent} percent`} />
@@ -240,7 +251,7 @@ function FirstRun() {
   return (
     <>
       <Scene clouds>
-        <div class="px-actor" style={place(96, 56)}>
+        <div class="px-actor" style={stand(96, 56)}>
           <Sprite sprite={eggSprite("none")} scale={UNIT} label="A speckled pixel-art egg" />
         </div>
       </Scene>
@@ -295,7 +306,7 @@ function Hatching(props: PetPopupProps & { stage: Stage; frame: HatchFrame }) {
   if (!baby) {
     // Left unnamed past its first birthday: no shell anymore, but it still needs a name.
     actor = (
-      <div class="px-actor px-bob" style={place(96, actorTop(stage))}>
+      <div class="px-actor px-bob" style={stand(96, actorTop(stage))}>
         <Sprite
           sprite={bodySprite(stage, "happy")}
           scale={UNIT}
@@ -306,7 +317,7 @@ function Hatching(props: PetPopupProps & { stage: Stage; frame: HatchFrame }) {
     );
   } else if (frame === "cracked") {
     actor = (
-      <div class="px-actor px-wobble px-fast" style={place(96, 56)}>
+      <div class="px-actor px-wobble px-fast" style={stand(96, 56)}>
         <Sprite
           sprite={sprite("egg-hatching")}
           scale={UNIT}
@@ -316,7 +327,7 @@ function Hatching(props: PetPopupProps & { stage: Stage; frame: HatchFrame }) {
     );
   } else if (frame === "peeking") {
     actor = (
-      <div class="px-actor px-hop px-fast" style={place(96, 56)}>
+      <div class="px-actor px-hop px-fast" style={stand(96, 56)}>
         <Sprite
           sprite={sprite("hatch-peeking")}
           scale={UNIT}
@@ -326,7 +337,7 @@ function Hatching(props: PetPopupProps & { stage: Stage; frame: HatchFrame }) {
     );
   } else {
     actor = (
-      <div class="px-actor px-hop" style={place(96, 56)}>
+      <div class="px-actor px-hop" style={stand(96, 56)}>
         <Sprite
           sprite={sprite("hatch-hatched")}
           scale={UNIT}
@@ -442,7 +453,7 @@ function Pet(props: { pet: PetState; now: Date; name: string; stage: Stage; mood
   return (
     <>
       <Scene clouds>
-        <div class={`px-actor px-bob ${motion}`} style={place(76, top)}>
+        <div class={`px-actor px-bob ${motion}`} style={stand(76, top)}>
           <Sprite
             sprite={bodySprite(stage, mood)}
             scale={UNIT}
@@ -455,7 +466,7 @@ function Pet(props: { pet: PetState; now: Date; name: string; stage: Stage; mood
           <div
             class="px-prop px-chomp"
             aria-hidden="true"
-            style={place(76 + UNIT, top + MOUTH_ROW[stage] * UNIT)}
+            style={stand(76 + UNIT, top + MOUTH_ROW[stage] * UNIT, 5 * UNIT)}
           >
             <Sprite sprite={sprite("cookie-full")} scale={5} />
           </div>
