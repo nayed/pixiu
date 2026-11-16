@@ -1,15 +1,72 @@
+/* The debug page: plain controls beside a live copy of the popup. */
+:root {
+  --ink: #1d1b2e;
+  --raised: #2a2744;
+  --border: #6a63a8;
+  --divider: #3a3660;
+  --text: #f3f1ff;
+  --text-secondary: #b9b4d9;
+  --food: #ff9a3c;
+}
+
 body {
-  width: auto;
-  max-width: 760px;
+  margin: 0;
+  background: #14131f;
+  color: var(--text);
+  font:
+    15px / 1.4 ui-monospace,
+    monospace;
+}
+
+main {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 32px;
+  max-width: 1100px;
   margin: 0 auto;
+  padding: 24px 16px;
+}
+
+.preview {
+  position: sticky;
+  top: 24px;
+  flex: none;
+  width: 360px;
+}
+
+.controls {
+  flex: 1 1 420px;
+  min-width: 0;
+}
+
+h1 {
+  margin: 0 0 12px;
+  font-size: 22px;
+}
+
+h2 {
+  margin: 12px 0 8px;
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+p {
+  margin: 0;
 }
 
 section {
   margin-top: 20px;
 }
 
-h2 {
-  margin: 12px 0 8px;
+.detail {
+  color: var(--text-secondary);
+}
+
+.preview-note {
+  margin-top: 8px;
+  color: var(--text-secondary);
 }
 
 .headline {
@@ -21,6 +78,52 @@ h2 {
   flex-wrap: wrap;
   align-items: center;
   gap: 8px;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid var(--border);
+  background: var(--raised);
+  color: var(--text);
+  font: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.button.primary {
+  border-color: var(--food);
+  background: var(--food);
+  color: var(--ink);
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.button:focus-visible,
+label.button:focus-within {
+  outline: 2px solid var(--text);
+  outline-offset: 2px;
+}
+
+.notice {
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  background: var(--raised);
+}
+
+.confirm {
+  margin-top: 12px;
+}
+
+.confirm .row {
+  margin-top: 12px;
 }
 
 dl {
@@ -38,8 +141,8 @@ dd {
   margin: 0;
 }
 
-select,
-input {
+.controls select,
+.controls input {
   box-sizing: border-box;
   min-height: 44px;
   padding: 0 8px;
@@ -49,6 +152,17 @@ input {
   font: inherit;
 }
 
+.log {
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+  color: var(--text-secondary);
+}
+
+.log time {
+  color: var(--text);
+}
+
 details {
   margin: 20px 0;
   color: var(--text-secondary);
@@ -56,19 +170,6 @@ details {
 
 pre {
   overflow: auto;
-}
-
-.confirm {
-  margin-top: 12px;
-}
-
-.confirm .row {
-  margin-top: 12px;
-}
-
-label.button:focus-within {
-  outline: 2px solid var(--text);
-  outline-offset: 2px;
 }
 
 .visually-hidden {
