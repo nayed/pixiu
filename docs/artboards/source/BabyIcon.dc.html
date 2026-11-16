@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Token Pet toolbar icon, baby stage</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600;700&family=VT323&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#8cc8ff}a:hover{color:#bfe0ff}
+</style>
+</helmet>
+<div style="width: 960px; height: 520px; box-sizing: border-box; padding: 40px; display: flex; flex-direction: column; gap: 24px; background: #1d1b2e; color: #f3f1ff; font-family: 'VT323', 'Courier New', monospace; font-size: 20px; line-height: 1.1">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<h1 style="margin: 0; font-family: 'Pixelify Sans', 'Courier New', monospace; font-size: 28px; font-weight: 700; line-height: 1">Toolbar icon: baby</h1>
+<p style="margin: 0; color: #b9b4d9">The baby's face, still wearing a piece of eggshell. No horns yet.</p>
+</div>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); padding: 20px 0; background: #bfe8f2">
+<div style="display: flex; justify-content: center">
+<div role="img" aria-label="Happy baby face icon" style="position: relative; width: 96px; height: 96px">
+<div style="position: absolute; left: -6px; top: -6px; width: 6px; height: 6px; box-shadow: {{happy6}}"></div>
+</div>
+</div>
+<div style="display: flex; justify-content: center">
+<div role="img" aria-label="Hungry baby face icon, crying with its mouth open" style="position: relative; width: 96px; height: 96px">
+<div style="position: absolute; left: -6px; top: -6px; width: 6px; height: 6px; box-shadow: {{hungry6}}"></div>
+</div>
+</div>
+<div style="display: flex; justify-content: center">
+<div role="img" aria-label="Stuffed baby face icon, eyes closed" style="position: relative; width: 96px; height: 96px">
+<div style="position: absolute; left: -6px; top: -6px; width: 6px; height: 6px; box-shadow: {{stuffed6}}"></div>
+</div>
+</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr))">
+<div style="display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 0 10px; text-align: center">
+<h2 style="margin: 0; font-family: 'Pixelify Sans', 'Courier New', monospace; font-size: 20px; font-weight: 600">Happy</h2>
+<p style="margin: 0; color: #b9b4d9">Fed in the last few hours</p>
+<p style="margin: 0; color: #ffb366">Badge: 62</p>
+</div>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 0 10px; text-align: center">
+<h2 style="margin: 0; font-family: 'Pixelify Sans', 'Courier New', monospace; font-size: 20px; font-weight: 600">Hungry</h2>
+<p style="margin: 0; color: #b9b4d9">No meal for a while</p>
+<p style="margin: 0; color: #ffb366">Badge: !</p>
+</div>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 0 10px; text-align: center">
+<h2 style="margin: 0; font-family: 'Pixelify Sans', 'Courier New', monospace; font-size: 20px; font-weight: 600">Stuffed</h2>
+<p style="margin: 0; color: #b9b4d9">Session limit reached</p>
+<p style="margin: 0; color: #ffb366">Badge: zz</p>
+</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: auto">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 48px; box-sizing: border-box; padding: 0 16px; background: #e9ebf0; color: #4b4f59">
+<span>Light toolbar, actual size</span>
+<div aria-hidden="true" style="display: flex; align-items: center; gap: 16px">
+<div style="position: relative; width: 16px; height: 16px"><div style="position: absolute; left: -1px; top: -1px; width: 1px; height: 1px; box-shadow: {{happy1}}"></div></div>
+<div style="position: relative; width: 16px; height: 16px"><div style="position: absolute; left: -1px; top: -1px; width: 1px; height: 1px; box-shadow: {{hungry1}}"></div></div>
+<div style="position: relative; width: 16px; height: 16px"><div style="position: absolute; left: -1px; top: -1px; width: 1px; height: 1px; box-shadow: {{stuffed1}}"></div></div>
+</div>
+</div>
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 48px; box-sizing: border-box; padding: 0 16px; background: #2b2d33; color: #c9ccd4">
+<span>Dark toolbar, actual size</span>
+<div aria-hidden="true" style="display: flex; align-items: center; gap: 16px">
+<div style="position: relative; width: 16px; height: 16px"><div style="position: absolute; left: -1px; top: -1px; width: 1px; height: 1px; box-shadow: {{happy1}}"></div></div>
+<div style="position: relative; width: 16px; height: 16px"><div style="position: absolute; left: -1px; top: -1px; width: 1px; height: 1px; box-shadow: {{hungry1}}"></div></div>
+<div style="position: relative; width: 16px; height: 16px"><div style="position: absolute; left: -1px; top: -1px; width: 1px; height: 1px; box-shadow: {{stuffed1}}"></div></div>
+</div>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":960,"height":520}}'>
+class Component extends DCLogic {
+shadow(rows, pal, s) {
+var out = [];
+var sp = s >= 3 ? 0.25 : 0;
+for (var y = 0; y < rows.length; y++) {
+for (var x = 0; x < rows[y].length; x++) {
+var c = pal[rows[y][x]];
+if (c) out.push(((x + 1) * s) + 'px ' + ((y + 1) * s) + 'px 0 ' + sp + 'px ' + c);
+}
+}
+return out.join(',');
+}
+face(mood) {
+var base = [
+'.....kkkkkk.....',
+'....kwwwwwwk....',
+'...kwwwwwwwwk...',
+'..kwkwwkkwwkwk..',
+'.kkykykyykykykk.',
+'kyyyyyyyyyyyyyyk',
+'kyykkkyyyykkkyyk',
+'kyykwkyyyykwkyyk',
+'kyykkkyyyykkkyyk',
+'kyyyyyyyyyyyyyyk',
+'kppyyyyyyyyyyppk',
+'kyyyykyyyykyyyyk',
+'kyyyyykkkkyyyyyk',
+'kyyyyyyyyyyyyyyk',
+'.kyyyyyyyyyyyyk.',
+'..kkkkkkkkkkkk..'
+];
+var plain = 'kyyyyyyyyyyyyyyk';
+var over = {
+happy: {},
+hungry: { 9: 'kyyybyyyyyybyyyk', 10: 'kyyybyyyyyybyyyk', 11: 'kyyyyykkkkyyyyyk', 12: 'kyyyyykrrkyyyyyk', 13: 'kyyyyykkkkyyyyyk' },
+stuffed: { 6: plain, 7: 'kyykkkyyyykkkyyk', 8: plain, 11: plain, 12: 'kyyyyyykkyyyyyyk' }
+};
+var o = over[mood] || {};
+var rows = [];
+for (var i = 0; i < 16; i++) rows.push(o[i] || base[i]);
+return rows;
+}
+renderVals() {
+var pal = { k: '#1d1b2e', y: '#5cc8a0', w: '#fff6dc', p: '#ff7a90', r: '#8a2b3a', b: '#4aa8ff' };
+return {
+happy6: this.shadow(this.face('happy'), pal, 6),
+happy1: this.shadow(this.face('happy'), pal, 1),
+hungry6: this.shadow(this.face('hungry'), pal, 6),
+hungry1: this.shadow(this.face('hungry'), pal, 1),
+stuffed6: this.shadow(this.face('stuffed'), pal, 6),
+stuffed1: this.shadow(this.face('stuffed'), pal, 1)
+};
+}
+}
+</script>
+</body>
+</html>

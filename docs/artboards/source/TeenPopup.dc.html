@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Token Pet popup, teen stage</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600;700&family=VT323&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#8cc8ff}a:hover{color:#bfe0ff}
+@keyframes tp-bob8{0%,49.9%{transform:translateY(0)}50%,100%{transform:translateY(8px)}}
+@keyframes tp-blink{0%,92%{opacity:0}93%,100%{opacity:1}}
+@media (prefers-reduced-motion: reduce){.tp-anim{animation:none!important}}
+</style>
+</helmet>
+<div style="width: 360px; height: 520px; box-sizing: border-box; padding: 16px; display: flex; flex-direction: column; gap: 14px; background: #1d1b2e; color: #f3f1ff; font-family: 'VT323', 'Courier New', monospace; font-size: 20px; line-height: 1.1">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
+<div style="display: flex; align-items: baseline; gap: 12px">
+<h1 style="margin: 0; font-family: 'Pixelify Sans', 'Courier New', monospace; font-size: 28px; font-weight: 700; line-height: 1">Mochi</h1>
+<p style="margin: 0; color: #b9b4d9">Age 9</p>
+</div>
+<button aria-label="Settings" style="width: 44px; height: 44px; padding: 0; display: flex; align-items: center; justify-content: center; background: #2a2744; border: 2px solid #6a63a8; color: #f3f1ff; cursor: pointer">
+<svg aria-hidden="true" width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><path d="M3 6h9M16 6h3M3 16h3M10 16h9"></path><rect x="12" y="4" width="4" height="4"></rect><rect x="6" y="14" width="4" height="4"></rect></svg>
+</button>
+</div>
+<div style="position: relative; box-sizing: border-box; height: 220px; background: #bfe8f2; border: 4px solid #f3f1ff; overflow: hidden">
+<div aria-hidden="true" style="position: absolute; left: 20px; top: 20px; width: 48px; height: 8px; background: #ffffff"></div>
+<div aria-hidden="true" style="position: absolute; left: 28px; top: 12px; width: 24px; height: 8px; background: #ffffff"></div>
+<div aria-hidden="true" style="position: absolute; left: 0; right: 0; bottom: 0; height: 36px; background: #7cc96b; border-top: 4px solid #4fa354; box-sizing: border-box"></div>
+<div class="tp-anim" style="position: absolute; left: 76px; top: 48px; width: 128px; height: 128px; animation: {{bob}}">
+<div role="img" aria-label="Mochi as a teen, a taller jade green pet with long horns and a tuft of hair" style="position: absolute; left: 0; top: 0; width: 128px; height: 128px">
+<div style="position: absolute; left: -8px; top: -8px; width: 8px; height: 8px; box-shadow: {{pet}}"></div>
+</div>
+<sc-if value="{{blinks}}" hint-placeholder-val="{{false}}">
+<div class="tp-anim" aria-hidden="true" style="position: absolute; left: -8px; top: -8px; width: 8px; height: 8px; box-shadow: {{blink}}; animation: tp-blink 4s linear infinite"></div>
+</sc-if>
+</div>
+<sc-if value="{{asleep}}" hint-placeholder-val="{{false}}">
+<div aria-hidden="true" style="position: absolute; left: 200px; top: 16px; font-family: 'Pixelify Sans', 'Courier New', monospace; font-size: 24px; font-weight: 700; color: #1d1b2e">z Z</div>
+</sc-if>
+<div role="img" aria-label="Growth this week: 41 percent of the way to the next birthday" style="position: absolute; left: 252px; top: 22px; width: 52px; display: flex; flex-direction: column; align-items: center; gap: 6px">
+<span style="font-family: 'Pixelify Sans', 'Courier New', monospace; font-size: 16px; font-weight: 700; color: #1d1b2e">41%</span>
+<div style="width: 16px; height: 128px; box-sizing: border-box; padding: 2px; display: flex; flex-direction: column-reverse; gap: 2px; background: #1d1b2e">
+<sc-for list="{{growSegs}}" as="seg" hint-placeholder-count="10">
+<div style="flex-grow: 1; background: {{seg.c}}"></div>
+</sc-for>
+</div>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; justify-content: space-between; align-items: baseline; gap: 8px">
+<h2 style="margin: 0; font-family: 'Pixelify Sans', 'Courier New', monospace; font-size: 18px; font-weight: 600">Food this session</h2>
+<span style="font-family: 'Pixelify Sans', 'Courier New', monospace; font-size: 18px; font-weight: 600; color: #ffb366">{{foodPct}}%</span>
+</div>
+<div aria-hidden="true" style="display: flex; gap: 6px">
+<sc-for list="{{food}}" as="f" hint-placeholder-count="10">
+<div style="position: relative; width: 24px; height: 24px">
+<div style="position: absolute; left: -3px; top: -3px; width: 3px; height: 3px; box-shadow: {{f.s}}"></div>
+</div>
+</sc-for>
+</div>
+<p style="margin: 0; color: #b9b4d9">{{foodNote}}</p>
+</div>
+<div style="display: flex; justify-content: space-between; align-items: baseline; gap: 8px">
+<p style="margin: 0">Growth this week</p>
+<p style="margin: 0; color: #b9b4d9">Birthday in 3 d 4 h</p>
+</div>
+<label style="display: flex; align-items: center; gap: 10px; min-height: 44px; margin-top: auto; border-top: 2px solid #3a3660; cursor: pointer">
+<input type="checkbox" checked style="width: 20px; height: 20px; margin: 0; accent-color: #ff9a3c">
+<span>Show Mochi on the Claude page</span>
+</label>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"mood":{"editor":"enum","options":["happy","hungry","stuffed","sulky"],"default":"happy"},"$preview":{"width":360,"height":520}}'>
+class Component extends DCLogic {
+shadow(rows, pal, s) {
+var out = [];
+var sp = s >= 3 ? 0.25 : 0;
+for (var y = 0; y < rows.length; y++) {
+for (var x = 0; x < rows[y].length; x++) {
+var c = pal[rows[y][x]];
+if (c) out.push(((x + 1) * s) + 'px ' + ((y + 1) * s) + 'px 0 ' + sp + 'px ' + c);
+}
+}
+return out.join(',');
+}
+teen(mood) {
+var F = {
+happy: [
+'...kk......kk...',
+'..khhk....khhk..',
+'..khhk.kk.khhk..',
+'..kkhhkyykhhkk..',
+'..kyyyyyyyyyyk..',
+'..kyyyyyyyyyyk..',
+'..kyweyyyyweyk..',
+'..kyeeyyyyeeyk..',
+'..kpyyyyyyyypk..',
+'..kyyykyykyyyk..',
+'..kyyyykkyyyyk..',
+'..kyyyyyyyyyyk..',
+'..kyyyyyyyyyok..',
+'..kyyyyyyyyook..',
+'..kooykkkkyook..',
+'..kkkk....kkkk..'
+],
+hungry: [
+'................',
+'...kk......kk...',
+'..khhk.kk.khhk..',
+'..kkhhkyykhhkk..',
+'..kyyyyyyyyyyk..',
+'..kyyyyyyyyyyk..',
+'..kyweyyyyweyk..',
+'..kyeeyyyyeeyk..',
+'..kyyyyyyyyyyk..',
+'..kyyyykkyyyyk..',
+'..kyyykyykyyyk..',
+'...kyyyyyyyyk...',
+'...kyyyyyyyok...',
+'...kyyyyyyook...',
+'...kooykkyook...',
+'...kkkk..kkkk...'
+],
+stuffed: [
+'...kk......kk...',
+'..khhk....khhk..',
+'..khhk.kk.khhk..',
+'..kkhhkyykhhkk..',
+'..kyyyyyyyyyyk..',
+'..kyyyyyyyyyyk..',
+'..kyyyyyyyyyyk..',
+'..keeeyyyyeeek..',
+'..kpyyyyyyyypk..',
+'..kyyyykkyyyyk..',
+'.kyyyyyyyyyyyyk.',
+'.kyyybbbbbbyyyk.',
+'kyyybbbbbbbbyyyk',
+'kyyybbbbbbbbyyok',
+'.kooykkkkkkyook.',
+'..kkkk....kkkk..'
+],
+sulky: [
+'...kk...........',
+'..khhk.....kk...',
+'..khhk.kk.khhk..',
+'..kkhhkyykhhkk..',
+'..kyyyyyyyyyyk..',
+'..kykkkyykkkyk..',
+'..kyyeyyyyeyyk..',
+'..kyyyyyyyyyyk..',
+'..kyyyyyyyyyyk..',
+'..kyyyyyyyyyyk..',
+'..kyyykkkkyyyk..',
+'..kyyyyyyyyyyk..',
+'..kyyyyyyyyyok..',
+'..kyyyyyyyyook..',
+'..kooykkkkyook..',
+'..kkkk....kkkk..'
+]
+};
+return F[mood] || F.happy;
+}
+blinkPatch() {
+var rows = [];
+for (var i = 0; i < 16; i++) rows.push(i === 6 ? '....yy....yy....' : '................');
+return rows;
+}
+cookie() {
+return [
+'..kkkk..',
+'.kcccck.',
+'kccdccck',
+'kcccccdk',
+'kcdcccck',
+'kcccdcck',
+'.kcccck.',
+'..kkkk..'
+];
+}
+renderVals() {
+var mood = this.props.mood ?? 'happy';
+var M = {
+happy: { pct: 62, note: 'Session resets in 2 h 10 min' },
+hungry: { pct: 8, note: 'Not eating. Send a message to feed it' },
+stuffed: { pct: 100, note: 'Full. Napping for 1 h 25 min' },
+sulky: { pct: 20, note: 'Underfed for 2 weeks. Meals fix it' }
+};
+var m = M[mood] || M.happy;
+var pal = { k: '#1d1b2e', e: '#1d1b2e', y: '#5cc8a0', o: '#3a9e7c', w: '#ffffff', h: '#f3d98b', p: '#ff7a90', b: '#e3f7ec' };
+if (mood === 'sulky') pal = { k: '#1d1b2e', e: '#1d1b2e', y: '#a9b8a6', o: '#869784', w: '#ffffff', h: '#c9c2a0', p: '#a9b8a6', b: '#a9b8a6' };
+var full = this.shadow(this.cookie(), { k: '#7a3610', c: '#ff9a3c', d: '#b3541e' }, 3);
+var empty = this.shadow(this.cookie(), { k: '#4a4578', c: '#26233d', d: '#26233d' }, 3);
+var n = Math.round(m.pct / 10);
+var food = [];
+for (var i = 0; i < 10; i++) food.push({ s: i < n ? full : empty });
+var grow = [];
+for (var j = 0; j < 10; j++) grow.push({ c: j < 4 ? '#2b6fd0' : '#ffffff' });
+return {
+pet: this.shadow(this.teen(mood), pal, 8),
+blink: this.shadow(this.blinkPatch(), pal, 8),
+blinks: mood === 'happy' || mood === 'hungry',
+asleep: mood === 'stuffed',
+bob: mood === 'stuffed' ? 'tp-bob8 2.4s linear infinite' : 'tp-bob8 1s linear infinite',
+foodPct: m.pct,
+foodNote: m.note,
+food: food,
+growSegs: grow
+};
+}
+}
+</script>
+</body>
+</html>

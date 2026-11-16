@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Token Pet popup, hatching moment</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600;700&family=VT323&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#8cc8ff}a:hover{color:#bfe0ff}
+input::placeholder{color:#b9b4d9;opacity:1}
+@keyframes tp-pop8{0%{transform:translateY(0)}70%{transform:translateY(-16px)}80%{transform:translateY(-8px)}90%,100%{transform:translateY(0)}}
+@keyframes tp-blink{0%,92%{opacity:0}93%,100%{opacity:1}}
+@keyframes tp-twinkle{0%,49.9%{opacity:1}50%,100%{opacity:0.15}}
+@media (prefers-reduced-motion: reduce){.tp-anim{animation:none!important}}
+</style>
+</helmet>
+<div style="width: 360px; height: 520px; box-sizing: border-box; padding: 16px; display: flex; flex-direction: column; gap: 14px; background: #1d1b2e; color: #f3f1ff; font-family: 'VT323', 'Courier New', monospace; font-size: 20px; line-height: 1.1">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
+<h1 style="margin: 0; font-family: 'Pixelify Sans', 'Courier New', monospace; font-size: 28px; font-weight: 700; line-height: 1">{{heading}}</h1>
+<button aria-label="Settings" style="width: 44px; height: 44px; padding: 0; display: flex; align-items: center; justify-content: center; background: #2a2744; border: 2px solid #6a63a8; color: #f3f1ff; cursor: pointer">
+<svg aria-hidden="true" width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><path d="M3 6h9M16 6h3M3 16h3M10 16h9"></path><rect x="12" y="4" width="4" height="4"></rect><rect x="6" y="14" width="4" height="4"></rect></svg>
+</button>
+</div>
+<div style="position: relative; box-sizing: border-box; height: 220px; background: #bfe8f2; border: 4px solid #f3f1ff; overflow: hidden">
+<div aria-hidden="true" style="position: absolute; left: 0; right: 0; bottom: 0; height: 36px; background: #7cc96b; border-top: 4px solid #4fa354; box-sizing: border-box"></div>
+<div class="tp-anim" aria-hidden="true" style="position: absolute; left: 44px; top: 36px; width: 20px; height: 20px; animation: tp-twinkle 0.9s linear infinite">
+<div style="position: absolute; left: -4px; top: -4px; width: 4px; height: 4px; box-shadow: {{sparkW}}"></div>
+</div>
+<div class="tp-anim" aria-hidden="true" style="position: absolute; left: 252px; top: 28px; width: 20px; height: 20px; animation: tp-twinkle 1.3s linear infinite">
+<div style="position: absolute; left: -4px; top: -4px; width: 4px; height: 4px; box-shadow: {{sparkY}}"></div>
+</div>
+<div class="tp-anim" aria-hidden="true" style="position: absolute; left: 264px; top: 108px; width: 20px; height: 20px; animation: tp-twinkle 0.7s linear infinite">
+<div style="position: absolute; left: -4px; top: -4px; width: 4px; height: 4px; box-shadow: {{sparkW}}"></div>
+</div>
+<div class="tp-anim" aria-hidden="true" style="position: absolute; left: 28px; top: 116px; width: 20px; height: 20px; animation: tp-twinkle 1.1s linear infinite">
+<div style="position: absolute; left: -4px; top: -4px; width: 4px; height: 4px; box-shadow: {{sparkY}}"></div>
+</div>
+<div class="tp-anim" style="position: absolute; left: 96px; top: 56px; width: 128px; height: 128px; animation: {{pop}}">
+<div role="img" aria-label="A baby pet sitting in the bottom half of its eggshell, wearing the top half as a hat" style="position: absolute; left: 0; top: 0; width: 128px; height: 128px">
+<div style="position: absolute; left: -8px; top: -8px; width: 8px; height: 8px; box-shadow: {{pet}}"></div>
+</div>
+<sc-if value="{{hatched}}" hint-placeholder-val="{{true}}">
+<div class="tp-anim" aria-hidden="true" style="position: absolute; left: -8px; top: -8px; width: 8px; height: 8px; box-shadow: {{blink}}; animation: tp-blink 4s linear infinite"></div>
+</sc-if>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<label for="tp-name" style="font-family: 'Pixelify Sans', 'Courier New', monospace; font-size: 18px; font-weight: 600">Name your pet</label>
+<input id="tp-name" type="text" placeholder="Type a name" style="height: 44px; box-sizing: border-box; padding: 0 12px; background: #2a2744; border: 2px solid #6a63a8; color: #f3f1ff; font-family: 'VT323', 'Courier New', monospace; font-size: 22px">
+<button style="min-height: 44px; padding: 0 12px; background: #ff9a3c; border: 0; color: #1d1b2e; font-family: 'Pixelify Sans', 'Courier New', monospace; font-size: 18px; font-weight: 700; cursor: pointer">Say hello</button>
+</div>
+<p style="margin: 0; color: #b9b4d9">You can rename it later in settings.</p>
+<p style="margin: auto 0 0; padding-top: 12px; border-top: 2px solid #3a3660">Age 0. Its first birthday is your next weekly reset.</p>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"frame":{"editor":"enum","options":["peeking","hatched"],"default":"hatched"},"$preview":{"width":360,"height":520}}'>
+class Component extends DCLogic {
+shadow(rows, pal, s) {
+var out = [];
+var sp = s >= 3 ? 0.25 : 0;
+for (var y = 0; y < rows.length; y++) {
+for (var x = 0; x < rows[y].length; x++) {
+var c = pal[rows[y][x]];
+if (c) out.push(((x + 1) * s) + 'px ' + ((y + 1) * s) + 'px 0 ' + sp + 'px ' + c);
+}
+}
+return out.join(',');
+}
+hatch(frame) {
+var F = {
+peeking: [
+'......kkkk......',
+'....kkwwwwkk....',
+'...kwwwwwwwwk...',
+'..kwwsswwwwwwk..',
+'.kwwwsswwwwwwwk.',
+'.kwkwwkwwkwwkwk.',
+'..kkkkkkkkkkkk..',
+'..kkwkkkkkkwkk..',
+'.kwkwwkwwkwwkwk.',
+'.kwwwwwwwwsswwk.',
+'.kwwsswwwwwwwdk.',
+'.kwwsswwwwwwddk.',
+'..kwwwwwwwwddk..',
+'..kdwwwwwwdddk..',
+'...kkddddddkk...',
+'.....kkkkkk.....'
+],
+hatched: [
+'................',
+'................',
+'......kkkk......',
+'.....kwwwwk.....',
+'....kwkwwkwk....',
+'...kkykyykykk...',
+'..kyyyyyyyyyyk..',
+'..kyheyyyyheyk..',
+'..kyeeyyyyeeyk..',
+'.kkpyyykkyyypkk.',
+'.kwkyykwwkyykwk.',
+'.kwwkkwwwwkkwdk.',
+'..kwwwwwwwwddk..',
+'..kdwwwwwwdddk..',
+'...kkddddddkk...',
+'.....kkkkkk.....'
+]
+};
+return F[frame] || F.hatched;
+}
+blinkPatch() {
+var rows = [];
+for (var i = 0; i < 16; i++) rows.push(i === 7 ? '....yy....yy....' : '................');
+return rows;
+}
+spark() {
+return ['..x..', '..x..', 'xxxxx', '..x..', '..x..'];
+}
+renderVals() {
+var frame = this.props.frame ?? 'hatched';
+var hatched = frame !== 'peeking';
+var pal = { k: '#1d1b2e', e: '#1d1b2e', y: '#5cc8a0', w: '#fff6dc', h: '#ffffff', s: '#5cc8a0', d: '#e6d3a3', p: '#ff7a90' };
+return {
+heading: hatched ? 'It hatched!' : 'Something is moving',
+hatched: hatched,
+pet: this.shadow(this.hatch(frame), pal, 8),
+blink: this.shadow(this.blinkPatch(), pal, 8),
+pop: hatched ? 'tp-pop8 1.6s step-end infinite' : 'tp-pop8 0.6s step-end infinite',
+sparkW: this.shadow(this.spark(), { x: '#ffffff' }, 4),
+sparkY: this.shadow(this.spark(), { x: '#ffd23f' }, 4)
+};
+}
+}
+</script>
+</body>
+</html>

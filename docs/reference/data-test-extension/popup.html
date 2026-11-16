@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Token Pet data test</title>
+<style>
+  body { margin: 0; padding: 14px; width: 420px; font: 13px/1.4 system-ui, sans-serif; color: #1d1b2e; background: #fafafa; }
+  h1 { margin: 0 0 10px; font-size: 16px; }
+  h2 { margin: 16px 0 6px; font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { padding: 4px 6px; text-align: left; border-bottom: 1px solid #ddd; vertical-align: top; }
+  th { font-weight: 600; }
+  .yes { color: #1a6b2f; font-weight: 600; }
+  .no { color: #a11a1a; font-weight: 600; }
+  .muted { color: #555; }
+  button { margin-top: 12px; padding: 8px 12px; font: inherit; cursor: pointer; }
+  pre { max-height: 180px; overflow: auto; padding: 8px; background: #fff; border: 1px solid #ddd; font-size: 11px; white-space: pre-wrap; word-break: break-word; }
+</style>
+</head>
+<body>
+<h1>Token Pet data test</h1>
+
+<h2>The three answers</h2>
+<table>
+  <tr><th>Read from a Claude tab</th><td id="answer-tab">No attempt yet</td></tr>
+  <tr><th>Read from the background, tab open</th><td id="answer-bg-open">No attempt yet</td></tr>
+  <tr><th>Read from the background, no tab</th><td id="answer-bg-closed">No attempt yet</td></tr>
+</table>
+
+<h2>Latest values</h2>
+<table>
+  <tr><th>Session used</th><td id="session-percent">-</td></tr>
+  <tr><th>Session resets</th><td id="session-reset">-</td></tr>
+  <tr><th>Week used</th><td id="week-percent">-</td></tr>
+  <tr><th>Week resets</th><td id="week-reset">-</td></tr>
+</table>
+
+<button id="poll-now">Check from the background now</button>
+
+<h2>Log (newest first)</h2>
+<table id="log"><tr><td class="muted">Nothing recorded yet.</td></tr></table>
+
+<details>
+  <summary>Raw response from the latest successful read</summary>
+  <pre id="raw">-</pre>
+</details>
+
+<script src="popup.js"></script>
+</body>
+</html>

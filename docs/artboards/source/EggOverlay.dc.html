@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Token Pet on-page overlay, egg stage</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600;700&family=VT323&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#8cc8ff}a:hover{color:#bfe0ff}
+@keyframes tp-wob5{0%{transform:translateX(0)}60%{transform:translateX(-5px)}70%{transform:translateX(5px)}80%{transform:translateX(-5px)}90%,100%{transform:translateX(0)}}
+@media (prefers-reduced-motion: reduce){.tp-anim{animation:none!important}}
+</style>
+</helmet>
+<div style="position: relative; width: 1200px; height: 720px; box-sizing: border-box; display: flex; background: {{c.page}}; color: {{c.text}}; font-family: 'VT323', 'Courier New', monospace; font-size: 20px; line-height: 1.1; overflow: hidden">
+<div aria-hidden="true" style="width: 220px; box-sizing: border-box; padding: 24px 16px; display: flex; flex-direction: column; gap: 12px; background: {{c.side}}">
+<div style="height: 20px; width: 120px; background: {{c.blockB}}"></div>
+<div style="height: 12px; width: 170px; background: {{c.blockA}}; margin-top: 16px"></div>
+<div style="height: 12px; width: 140px; background: {{c.blockA}}"></div>
+<div style="height: 12px; width: 160px; background: {{c.blockA}}"></div>
+<div style="height: 12px; width: 110px; background: {{c.blockA}}"></div>
+<div style="height: 12px; width: 150px; background: {{c.blockA}}"></div>
+</div>
+<div style="flex-grow: 1; display: flex; flex-direction: column; align-items: center; padding: 24px 0 32px">
+<div style="width: 520px; display: flex; flex-direction: column; gap: 20px; flex-grow: 1">
+<p style="margin: 0">Claude page (grey placeholder, not the real layout)</p>
+<div aria-hidden="true" style="align-self: flex-end; width: 300px; height: 56px; background: {{c.blockB}}"></div>
+<div aria-hidden="true" style="width: 440px; height: 132px; background: {{c.blockA}}"></div>
+<div aria-hidden="true" style="align-self: flex-end; width: 220px; height: 40px; background: {{c.blockB}}"></div>
+<div aria-hidden="true" style="width: 400px; height: 96px; background: {{c.blockA}}"></div>
+<div style="margin-top: auto; box-sizing: border-box; height: 76px; padding: 12px 16px; border: 2px solid {{c.blockB}}; background: {{c.side}}">Message box (placeholder)</div>
+</div>
+</div>
+<div style="position: absolute; right: 36px; bottom: 36px; display: flex; flex-direction: column; align-items: flex-end; gap: 20px">
+<sc-if value="{{showStats}}" hint-placeholder-val="{{true}}">
+<div style="width: 220px; box-sizing: border-box; padding: 12px; display: flex; flex-direction: column; gap: 10px; background: #1d1b2e; color: #f3f1ff; box-shadow: 0 0 0 4px #f3f1ff, 0 0 0 8px #1d1b2e">
+<div style="display: flex; align-items: baseline; justify-content: space-between; gap: 8px">
+<h2 style="margin: 0; font-family: 'Pixelify Sans', 'Courier New', monospace; font-size: 20px; font-weight: 700; line-height: 1">Egg</h2>
+<p style="margin: 0; color: #b9b4d9">Not hatched</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<div style="display: flex; justify-content: space-between; gap: 8px"><span>Warmth</span><span style="color: #ffb366">{{pct}}%</span></div>
+<div aria-hidden="true" style="display: flex; gap: 3px">
+<sc-for list="{{segs}}" as="seg" hint-placeholder-count="10">
+<div style="flex-grow: 1; height: 8px; background: {{seg.c}}"></div>
+</sc-for>
+</div>
+</div>
+<p style="margin: 0; color: #b9b4d9">{{note}}</p>
+<button style="min-height: 44px; padding: 0 12px; background: #2a2744; border: 2px solid #6a63a8; color: #f3f1ff; font-family: 'VT323', 'Courier New', monospace; font-size: 20px; cursor: pointer">Hide on this page</button>
+</div>
+</sc-if>
+<div style="position: relative; width: 128px; height: 96px; background: #bfe8f2; overflow: hidden; box-shadow: 0 0 0 4px #f3f1ff, 0 0 0 8px #1d1b2e">
+<div aria-hidden="true" style="position: absolute; left: 0; right: 0; bottom: 0; height: 20px; background: #7cc96b; border-top: 4px solid #4fa354; box-sizing: border-box"></div>
+<div class="tp-anim" style="position: absolute; left: 24px; top: 2px; width: 80px; height: 80px; animation: {{wobble}}">
+<div role="img" aria-label="The egg, in a small window in the corner of the page" style="position: absolute; left: 0; top: 0; width: 80px; height: 80px">
+<div style="position: absolute; left: -5px; top: -5px; width: 5px; height: 5px; box-shadow: {{egg}}"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"stage":{"editor":"enum","options":["new","warming","hatching"],"default":"warming"},"page":{"editor":"enum","options":["dark","light"],"default":"dark"},"showStats":{"editor":"boolean","default":true},"$preview":{"width":1200,"height":720}}'>
+class Component extends DCLogic {
+shadow(rows, pal, s) {
+var out = [];
+var sp = s >= 3 ? 0.25 : 0;
+for (var y = 0; y < rows.length; y++) {
+for (var x = 0; x < rows[y].length; x++) {
+var c = pal[rows[y][x]];
+if (c) out.push(((x + 1) * s) + 'px ' + ((y + 1) * s) + 'px 0 ' + sp + 'px ' + c);
+}
+}
+return out.join(',');
+}
+egg(stage) {
+var rows = [
+'................',
+'......kkkk......',
+'....kkwwwwkk....',
+'...kwwwwwwwwk...',
+'..kwwwwwwwwwwk..',
+'..kwwsswwwwwwk..',
+'.kwwwsswwwwwwwk.',
+'.kwwwwwwwwsswwk.',
+'.kwwwwwwwwsswwk.',
+'.kwwwwwwwwwwwwk.',
+'.kwwsswwwwwwwdk.',
+'.kwwsswwwwwwddk.',
+'..kwwwwwwwwddk..',
+'..kdwwwwwwdddk..',
+'...kkddddddkk...',
+'.....kkkkkk.....'
+];
+var pts = [];
+if (stage === 'warming') pts = [[5, 7], [6, 8], [7, 7], [8, 8]];
+if (stage === 'hatching') { for (var x = 2; x <= 13; x++) pts.push([x, x % 2 ? 7 : 8]); }
+var grid = rows.map(function (r) { return r.split(''); });
+pts.forEach(function (p) { grid[p[1]][p[0]] = 'k'; });
+return grid.map(function (r) { return r.join(''); });
+}
+renderVals() {
+var stage = this.props.stage ?? 'warming';
+var S = {
+'new': { pct: 0, note: 'Send a message to warm it.', wobble: 'none' },
+warming: { pct: 40, note: 'Hatches at 100%.', wobble: 'tp-wob5 2.4s step-end infinite' },
+hatching: { pct: 90, note: 'Almost there.', wobble: 'tp-wob5 0.8s step-end infinite' }
+};
+var s = S[stage] || S.warming;
+var dark = (this.props.page ?? 'dark') === 'dark';
+var c = dark
+? { page: '#1f1f1d', side: '#181816', blockA: '#2d2d2a', blockB: '#3a3a36', text: '#b5b5ae' }
+: { page: '#f1f1ee', side: '#e4e4e0', blockA: '#e4e4e0', blockB: '#d2d2cc', text: '#55554f' };
+var pal = { k: '#1d1b2e', w: '#fff6dc', s: '#5cc8a0', d: '#e6d3a3' };
+var n = Math.round(s.pct / 10);
+var segs = [];
+for (var i = 0; i < 10; i++) segs.push({ c: i < n ? '#ff9a3c' : '#3a3660' });
+return {
+c: c,
+egg: this.shadow(this.egg(stage), pal, 5),
+wobble: s.wobble,
+showStats: this.props.showStats ?? true,
+pct: s.pct,
+note: s.note,
+segs: segs
+};
+}
+}
+</script>
+</body>
+</html>

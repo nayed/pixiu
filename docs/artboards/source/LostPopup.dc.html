@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Token Pet popup, cannot reach Claude</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600;700&family=VT323&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#8cc8ff}a:hover{color:#bfe0ff}
+@keyframes tp-bob8{0%,49.9%{transform:translateY(0)}50%,100%{transform:translateY(8px)}}
+@keyframes tp-blink{0%,92%{opacity:0}93%,100%{opacity:1}}
+@media (prefers-reduced-motion: reduce){.tp-anim{animation:none!important}}
+</style>
+</helmet>
+<div style="width: 360px; height: 520px; box-sizing: border-box; padding: 16px; display: flex; flex-direction: column; gap: 14px; background: #1d1b2e; color: #f3f1ff; font-family: 'VT323', 'Courier New', monospace; font-size: 20px; line-height: 1.1">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
+<div style="display: flex; align-items: baseline; gap: 12px">
+<h1 style="margin: 0; font-family: 'Pixelify Sans', 'Courier New', monospace; font-size: 28px; font-weight: 700; line-height: 1">Mochi</h1>
+<p style="margin: 0; color: #b9b4d9">Age 6</p>
+</div>
+<button aria-label="Settings" style="width: 44px; height: 44px; padding: 0; display: flex; align-items: center; justify-content: center; background: #2a2744; border: 2px solid #6a63a8; color: #f3f1ff; cursor: pointer">
+<svg aria-hidden="true" width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><path d="M3 6h9M16 6h3M3 16h3M10 16h9"></path><rect x="12" y="4" width="4" height="4"></rect><rect x="6" y="14" width="4" height="4"></rect></svg>
+</button>
+</div>
+<div style="position: relative; box-sizing: border-box; height: 220px; background: #d5d9e0; border: 4px solid #f3f1ff; overflow: hidden">
+<div aria-hidden="true" style="position: absolute; left: 0; right: 0; bottom: 0; height: 36px; background: #a9b0a6; border-top: 4px solid #8b9388; box-sizing: border-box"></div>
+<div role="img" aria-label="Mochi in gray, standing still with a question mark above its head" style="position: absolute; left: 96px; top: 56px; width: 128px; height: 128px">
+<div style="position: absolute; left: -8px; top: -8px; width: 8px; height: 8px; box-shadow: {{pet}}"></div>
+</div>
+<div aria-hidden="true" style="position: absolute; left: 228px; top: 28px; font-family: 'Pixelify Sans', 'Courier New', monospace; font-size: 40px; font-weight: 700; line-height: 1; color: #1d1b2e">?</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<h2 style="margin: 0; font-family: 'Pixelify Sans', 'Courier New', monospace; font-size: 20px; font-weight: 600">Can't reach Claude</h2>
+<p style="margin: 0; color: #b9b4d9">{{note}}</p>
+</div>
+<sc-if value="{{signedOut}}" hint-placeholder-val="{{true}}">
+<a href="https://claude.ai" style="display: flex; align-items: center; justify-content: center; min-height: 44px; background: #ff9a3c; color: #1d1b2e; text-decoration: none; font-family: 'Pixelify Sans', 'Courier New', monospace; font-size: 18px; font-weight: 700">Open Claude</a>
+</sc-if>
+<p style="margin: auto 0 0; padding-top: 12px; border-top: 2px solid #3a3660">Last seen 12 min ago. Mochi doesn't get hungry while it can't see.</p>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"reason":{"editor":"enum","options":["signedOut","offline","changed"],"default":"signedOut"},"$preview":{"width":360,"height":520}}'>
+class Component extends DCLogic {
+shadow(rows, pal, s) {
+var out = [];
+var sp = s >= 3 ? 0.25 : 0;
+for (var y = 0; y < rows.length; y++) {
+for (var x = 0; x < rows[y].length; x++) {
+var c = pal[rows[y][x]];
+if (c) out.push(((x + 1) * s) + 'px ' + ((y + 1) * s) + 'px 0 ' + sp + 'px ' + c);
+}
+}
+return out.join(',');
+}
+renderVals() {
+var reason = this.props.reason ?? 'signedOut';
+var N = {
+signedOut: 'You are signed out of Claude in this browser. Sign in and Mochi picks up where it left off.',
+offline: 'No internet connection. Mochi will look again when you are back online.',
+changed: 'Claude changed its usage page and this extension cannot read it yet. Check for an update.'
+};
+var rows = [
+'................',
+'....kk....kk....',
+'...khhk..khhk...',
+'..kkhhkkkkhhkk..',
+'.kyyyyyyyyyyyyk.',
+'.kyyyyyyyyyyyyk.',
+'kyyyyyyyyyyyyyyk',
+'kyyyweyyyyweyyyk',
+'kyyyeeyyyyeeyyyk',
+'kyyyyyyyyyyyyyyk',
+'kyyyyyyyyyyyyyyk',
+'kyyyyyykkyyyyyyk',
+'.kyyyyyyyyyyyok.',
+'.kooyyyyyyyoook.',
+'..kkkkkkkkkkkk..',
+'................'
+];
+var pal = { k: '#1d1b2e', e: '#1d1b2e', y: '#c2c4cf', o: '#9a9dab', w: '#ffffff', h: '#dcdde4' };
+return {
+pet: this.shadow(rows, pal, 8),
+note: N[reason] || N.signedOut,
+signedOut: reason === 'signedOut'
+};
+}
+}
+</script>
+</body>
+</html>

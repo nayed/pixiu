@@ -1,0 +1,1400 @@
+{
+ "grid": "Each sprite is rows of characters; \".\" is transparent; other characters index into that sprite's palette.",
+ "sprites": {
+  "egg-new": {
+   "width": 16,
+   "height": 16,
+   "rows": [
+    "................",
+    "......kkkk......",
+    "....kkwwwwkk....",
+    "...kwwwwwwwwk...",
+    "..kwwwwwwwwwwk..",
+    "..kwwsswwwwwwk..",
+    ".kwwwsswwwwwwwk.",
+    ".kwwwwwwwwsswwk.",
+    ".kwwwwwwwwsswwk.",
+    ".kwwwwwwwwwwwwk.",
+    ".kwwsswwwwwwwdk.",
+    ".kwwsswwwwwwddk.",
+    "..kwwwwwwwwddk..",
+    "..kdwwwwwwdddk..",
+    "...kkddddddkk...",
+    ".....kkkkkk....."
+   ],
+   "palette": {
+    "k": "#1d1b2e",
+    "w": "#fff6dc",
+    "s": "#5cc8a0",
+    "d": "#e6d3a3"
+   }
+  },
+  "egg-warming": {
+   "width": 16,
+   "height": 16,
+   "rows": [
+    "................",
+    "......kkkk......",
+    "....kkwwwwkk....",
+    "...kwwwwwwwwk...",
+    "..kwwwwwwwwwwk..",
+    "..kwwsswwwwwwk..",
+    ".kwwwsswwwwwwwk.",
+    ".kwwwkwkwwsswwk.",
+    ".kwwwwkwkwsswwk.",
+    ".kwwwwwwwwwwwwk.",
+    ".kwwsswwwwwwwdk.",
+    ".kwwsswwwwwwddk.",
+    "..kwwwwwwwwddk..",
+    "..kdwwwwwwdddk..",
+    "...kkddddddkk...",
+    ".....kkkkkk....."
+   ],
+   "palette": {
+    "k": "#1d1b2e",
+    "w": "#fff6dc",
+    "s": "#5cc8a0",
+    "d": "#e6d3a3"
+   }
+  },
+  "egg-hatching": {
+   "width": 16,
+   "height": 16,
+   "rows": [
+    "................",
+    "......kkkk......",
+    "....kkwwwwkk....",
+    "...kwwwwwwwwk...",
+    "..kwwwwwwwwwwk..",
+    "..kwwsswwwwwwk..",
+    ".kwwwsswwwwwwwk.",
+    ".kwkwkwkwkskwkk.",
+    ".kkwkwkwkwkskwk.",
+    ".kwwwwwwwwwwwwk.",
+    ".kwwsswwwwwwwdk.",
+    ".kwwsswwwwwwddk.",
+    "..kwwwwwwwwddk..",
+    "..kdwwwwwwdddk..",
+    "...kkddddddkk...",
+    ".....kkkkkk....."
+   ],
+   "palette": {
+    "k": "#1d1b2e",
+    "w": "#fff6dc",
+    "s": "#5cc8a0",
+    "d": "#e6d3a3"
+   }
+  },
+  "hatch-peeking": {
+   "width": 16,
+   "height": 16,
+   "rows": [
+    "......kkkk......",
+    "....kkwwwwkk....",
+    "...kwwwwwwwwk...",
+    "..kwwsswwwwwwk..",
+    ".kwwwsswwwwwwwk.",
+    ".kwkwwkwwkwwkwk.",
+    "..kkkkkkkkkkkk..",
+    "..kkwkkkkkkwkk..",
+    ".kwkwwkwwkwwkwk.",
+    ".kwwwwwwwwsswwk.",
+    ".kwwsswwwwwwwdk.",
+    ".kwwsswwwwwwddk.",
+    "..kwwwwwwwwddk..",
+    "..kdwwwwwwdddk..",
+    "...kkddddddkk...",
+    ".....kkkkkk....."
+   ],
+   "palette": {
+    "k": "#1d1b2e",
+    "w": "#fff6dc",
+    "s": "#5cc8a0",
+    "d": "#e6d3a3"
+   }
+  },
+  "hatch-hatched": {
+   "width": 16,
+   "height": 16,
+   "rows": [
+    "................",
+    "................",
+    "......kkkk......",
+    ".....kwwwwk.....",
+    "....kwkwwkwk....",
+    "...kkykyykykk...",
+    "..kyyyyyyyyyyk..",
+    "..kyheyyyyheyk..",
+    "..kyeeyyyyeeyk..",
+    ".kkpyyykkyyypkk.",
+    ".kwkyykwwkyykwk.",
+    ".kwwkkwwwwkkwdk.",
+    "..kwwwwwwwwddk..",
+    "..kdwwwwwwdddk..",
+    "...kkddddddkk...",
+    ".....kkkkkk....."
+   ],
+   "palette": {
+    "k": "#1d1b2e",
+    "w": "#fff6dc",
+    "y": "#5cc8a0",
+    "h": "#ffffff",
+    "e": "#1d1b2e",
+    "p": "#ff7a90",
+    "d": "#e6d3a3"
+   }
+  },
+  "sparkle-white": {
+   "width": 5,
+   "height": 5,
+   "rows": [
+    "..x..",
+    "..x..",
+    "xxxxx",
+    "..x..",
+    "..x.."
+   ],
+   "palette": {
+    "x": "#ffffff"
+   }
+  },
+  "sparkle-gold": {
+   "width": 5,
+   "height": 5,
+   "rows": [
+    "..x..",
+    "..x..",
+    "xxxxx",
+    "..x..",
+    "..x.."
+   ],
+   "palette": {
+    "x": "#ffd23f"
+   }
+  },
+  "baby-body-happy": {
+   "width": 16,
+   "height": 16,
+   "rows": [
+    "................",
+    "................",
+    "................",
+    "................",
+    "......kkkk......",
+    ".....kwwwwk.....",
+    "....kwkwwkwk....",
+    "...kkykyykykk...",
+    "..kyyyyyyyyyyk..",
+    "..kyweyyyyweyk..",
+    "..kyeeyyyyeeyk..",
+    "..kpyyykkyyypk..",
+    "..kyyyyyyyyyok..",
+    "...kooyyyyook...",
+    "....kkkkkkkk....",
+    "................"
+   ],
+   "palette": {
+    "k": "#1d1b2e",
+    "w": "#fff6dc",
+    "y": "#5cc8a0",
+    "e": "#1d1b2e",
+    "p": "#ff7a90",
+    "o": "#3a9e7c"
+   }
+  },
+  "baby-body-hungry": {
+   "width": 16,
+   "height": 16,
+   "rows": [
+    "................",
+    "................",
+    "................",
+    "................",
+    "......kkkk......",
+    ".....kwwwwk.....",
+    "....kwkwwkwk....",
+    "...kkykyykykk...",
+    "..kyyyyyyyyyyk..",
+    "..kyweyyyyweyk..",
+    "..kyeeyyyyeeyk..",
+    "..kyybkkkkbyyk..",
+    "..kyyykrrkyyok..",
+    "...kooykkyook...",
+    "....kkkkkkkk....",
+    "................"
+   ],
+   "palette": {
+    "k": "#1d1b2e",
+    "w": "#fff6dc",
+    "y": "#5cc8a0",
+    "e": "#1d1b2e",
+    "b": "#4aa8ff",
+    "r": "#8a2b3a",
+    "o": "#3a9e7c"
+   }
+  },
+  "baby-body-stuffed": {
+   "width": 16,
+   "height": 16,
+   "rows": [
+    "................",
+    "................",
+    "................",
+    "................",
+    "......kkkk......",
+    ".....kwwwwk.....",
+    "....kwkwwkwk....",
+    "...kkykyykykk...",
+    "..kyyyyyyyyyyk..",
+    "..kyyyyyyyyyyk..",
+    "..kyeeyyyyeeyk..",
+    "..kpyyykkyyypk..",
+    ".kyyybbbbbbyyyk.",
+    "..kooybbbbyook..",
+    "...kkkkkkkkkk...",
+    "................"
+   ],
+   "palette": {
+    "k": "#1d1b2e",
+    "w": "#fff6dc",
+    "y": "#5cc8a0",
+    "e": "#1d1b2e",
+    "p": "#ff7a90",
+    "b": "#e3f7ec",
+    "o": "#3a9e7c"
+   }
+  },
+  "baby-body-eating": {
+   "width": 16,
+   "height": 16,
+   "rows": [
+    "................",
+    "................",
+    "................",
+    "................",
+    "......kkkk......",
+    ".....kwwwwk.....",
+    "....kwkwwkwk....",
+    "...kkykyykykk...",
+    "..kyyyyyyyyyyk..",
+    "..kyweyyyyweyk..",
+    "..kyeeyyyyeeyk..",
+    "..kpyykkkkyypk..",
+    "..kyyykrrkyyok..",
+    "...kooykkyook...",
+    "....kkkkkkkk....",
+    "................"
+   ],
+   "palette": {
+    "k": "#1d1b2e",
+    "w": "#fff6dc",
+    "y": "#5cc8a0",
+    "e": "#1d1b2e",
+    "p": "#ff7a90",
+    "r": "#8a2b3a",
+    "o": "#3a9e7c"
+   }
+  },
+  "child-body-happy": {
+   "width": 16,
+   "height": 16,
+   "rows": [
+    "................",
+    "....kk....kk....",
+    "...khhk..khhk...",
+    "..kkhhkkkkhhkk..",
+    ".kyyyyyyyyyyyyk.",
+    ".kyyyyyyyyyyyyk.",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyweyyyyweyyyk",
+    "kyyyeeyyyyeeyyyk",
+    "kyppyyyyyyyyppyk",
+    "kyyyyykyykyyyyyk",
+    "kyyyyyykkyyyyyyk",
+    ".kyyyyyyyyyyyok.",
+    ".kooyyyyyyyoook.",
+    "..kkkkkkkkkkkk..",
+    "................"
+   ],
+   "palette": {
+    "k": "#1d1b2e",
+    "h": "#f3d98b",
+    "y": "#5cc8a0",
+    "w": "#ffffff",
+    "e": "#1d1b2e",
+    "p": "#ff7a90",
+    "o": "#3a9e7c"
+   }
+  },
+  "child-body-hungry": {
+   "width": 16,
+   "height": 16,
+   "rows": [
+    "................",
+    "................",
+    "....kk....kk....",
+    "...khhk..khhk...",
+    "..kkhhkkkkhhkk..",
+    "..kyyyyyyyyyyk..",
+    "..kyyyyyyyyyyk..",
+    "..kyweyyyyweyk..",
+    "..kyeeyyyyeeyk..",
+    "..kyyyyyyyyyyk..",
+    "..kyyyykkyyyyk..",
+    "..kyyykyykyyyk..",
+    "..kyyyyyyyyyok..",
+    "..kooyyyyyyook..",
+    "...kkkkkkkkkk...",
+    "................"
+   ],
+   "palette": {
+    "k": "#1d1b2e",
+    "h": "#f3d98b",
+    "y": "#5cc8a0",
+    "w": "#ffffff",
+    "e": "#1d1b2e",
+    "o": "#3a9e7c"
+   }
+  },
+  "child-body-stuffed": {
+   "width": 16,
+   "height": 16,
+   "rows": [
+    "................",
+    "................",
+    "....kk....kk....",
+    "..kkhhkkkkhhkk..",
+    ".kyyyyyyyyyyyyk.",
+    ".kyyyyyyyyyyyyk.",
+    "kyyeeeyyyyeeeyyk",
+    "kyppyyyyyyyyppyk",
+    "kyyyyyykkyyyyyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyybbbbbbyyyyk",
+    "kyyybbbbbbbbyyyk",
+    "kyyybbbbbbbbyyyk",
+    ".kooybbbbbbyook.",
+    "..kkkkkkkkkkkk..",
+    "................"
+   ],
+   "palette": {
+    "k": "#1d1b2e",
+    "h": "#f3d98b",
+    "y": "#5cc8a0",
+    "e": "#1d1b2e",
+    "p": "#ff7a90",
+    "b": "#e3f7ec",
+    "o": "#3a9e7c"
+   }
+  },
+  "child-body-sulky": {
+   "width": 16,
+   "height": 16,
+   "rows": [
+    "................",
+    "....kk..........",
+    "...khhk...kk....",
+    "..kkhhkkkkhhkk..",
+    ".kyyyyyyyyyyyyk.",
+    ".kyyyyyyyyyyyyk.",
+    "kyyyyyyyyyyyyyyk",
+    "kyykkkyyyykkkyyk",
+    "kyyyeeyyyyeeyyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyykkkkyyyyyk",
+    ".kyyyyyyyyyyyok.",
+    ".kooyyyyyyyoook.",
+    "..kkkkkkkkkkkk..",
+    "................"
+   ],
+   "palette": {
+    "k": "#1d1b2e",
+    "h": "#c9c2a0",
+    "y": "#a9b8a6",
+    "e": "#1d1b2e",
+    "o": "#869784"
+   }
+  },
+  "child-body-eating": {
+   "width": 16,
+   "height": 16,
+   "rows": [
+    "................",
+    "....kk....kk....",
+    "...khhk..khhk...",
+    "..kkhhkkkkhhkk..",
+    ".kyyyyyyyyyyyyk.",
+    ".kyyyyyyyyyyyyk.",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyweyyyyweyyyk",
+    "kyyyeeyyyyeeyyyk",
+    "kyppyykkkkyyppyk",
+    "kyyyyykrrkyyyyyk",
+    "kyyyyykkkkyyyyyk",
+    ".kyyyyyyyyyyyok.",
+    ".kooyyyyyyyoook.",
+    "..kkkkkkkkkkkk..",
+    "................"
+   ],
+   "palette": {
+    "k": "#1d1b2e",
+    "h": "#f3d98b",
+    "y": "#5cc8a0",
+    "w": "#ffffff",
+    "e": "#1d1b2e",
+    "p": "#ff7a90",
+    "r": "#8a2b3a",
+    "o": "#3a9e7c"
+   }
+  },
+  "teen-body-happy": {
+   "width": 16,
+   "height": 16,
+   "rows": [
+    "...kk......kk...",
+    "..khhk....khhk..",
+    "..khhk.kk.khhk..",
+    "..kkhhkyykhhkk..",
+    "..kyyyyyyyyyyk..",
+    "..kyyyyyyyyyyk..",
+    "..kyweyyyyweyk..",
+    "..kyeeyyyyeeyk..",
+    "..kpyyyyyyyypk..",
+    "..kyyykyykyyyk..",
+    "..kyyyykkyyyyk..",
+    "..kyyyyyyyyyyk..",
+    "..kyyyyyyyyyok..",
+    "..kyyyyyyyyook..",
+    "..kooykkkkyook..",
+    "..kkkk....kkkk.."
+   ],
+   "palette": {
+    "k": "#1d1b2e",
+    "h": "#f3d98b",
+    "y": "#5cc8a0",
+    "w": "#ffffff",
+    "e": "#1d1b2e",
+    "p": "#ff7a90",
+    "o": "#3a9e7c"
+   }
+  },
+  "teen-body-hungry": {
+   "width": 16,
+   "height": 16,
+   "rows": [
+    "................",
+    "...kk......kk...",
+    "..khhk.kk.khhk..",
+    "..kkhhkyykhhkk..",
+    "..kyyyyyyyyyyk..",
+    "..kyyyyyyyyyyk..",
+    "..kyweyyyyweyk..",
+    "..kyeeyyyyeeyk..",
+    "..kyyyyyyyyyyk..",
+    "..kyyyykkyyyyk..",
+    "..kyyykyykyyyk..",
+    "...kyyyyyyyyk...",
+    "...kyyyyyyyok...",
+    "...kyyyyyyook...",
+    "...kooykkyook...",
+    "...kkkk..kkkk..."
+   ],
+   "palette": {
+    "k": "#1d1b2e",
+    "h": "#f3d98b",
+    "y": "#5cc8a0",
+    "w": "#ffffff",
+    "e": "#1d1b2e",
+    "o": "#3a9e7c"
+   }
+  },
+  "teen-body-stuffed": {
+   "width": 16,
+   "height": 16,
+   "rows": [
+    "...kk......kk...",
+    "..khhk....khhk..",
+    "..khhk.kk.khhk..",
+    "..kkhhkyykhhkk..",
+    "..kyyyyyyyyyyk..",
+    "..kyyyyyyyyyyk..",
+    "..kyyyyyyyyyyk..",
+    "..keeeyyyyeeek..",
+    "..kpyyyyyyyypk..",
+    "..kyyyykkyyyyk..",
+    ".kyyyyyyyyyyyyk.",
+    ".kyyybbbbbbyyyk.",
+    "kyyybbbbbbbbyyyk",
+    "kyyybbbbbbbbyyok",
+    ".kooykkkkkkyook.",
+    "..kkkk....kkkk.."
+   ],
+   "palette": {
+    "k": "#1d1b2e",
+    "h": "#f3d98b",
+    "y": "#5cc8a0",
+    "e": "#1d1b2e",
+    "p": "#ff7a90",
+    "b": "#e3f7ec",
+    "o": "#3a9e7c"
+   }
+  },
+  "teen-body-sulky": {
+   "width": 16,
+   "height": 16,
+   "rows": [
+    "...kk...........",
+    "..khhk.....kk...",
+    "..khhk.kk.khhk..",
+    "..kkhhkyykhhkk..",
+    "..kyyyyyyyyyyk..",
+    "..kykkkyykkkyk..",
+    "..kyyeyyyyeyyk..",
+    "..kyyyyyyyyyyk..",
+    "..kyyyyyyyyyyk..",
+    "..kyyyyyyyyyyk..",
+    "..kyyykkkkyyyk..",
+    "..kyyyyyyyyyyk..",
+    "..kyyyyyyyyyok..",
+    "..kyyyyyyyyook..",
+    "..kooykkkkyook..",
+    "..kkkk....kkkk.."
+   ],
+   "palette": {
+    "k": "#1d1b2e",
+    "h": "#c9c2a0",
+    "y": "#a9b8a6",
+    "e": "#1d1b2e",
+    "o": "#869784"
+   }
+  },
+  "teen-body-eating": {
+   "width": 16,
+   "height": 16,
+   "rows": [
+    "...kk......kk...",
+    "..khhk....khhk..",
+    "..khhk.kk.khhk..",
+    "..kkhhkyykhhkk..",
+    "..kyyyyyyyyyyk..",
+    "..kyyyyyyyyyyk..",
+    "..kyweyyyyweyk..",
+    "..kyeeyyyyeeyk..",
+    "..kpyyyyyyyypk..",
+    "..kyyykkkkyyyk..",
+    "..kyyykrrkyyyk..",
+    "..kyyykkkkyyyk..",
+    "..kyyyyyyyyyok..",
+    "..kyyyyyyyyook..",
+    "..kooykkkkyook..",
+    "..kkkk....kkkk.."
+   ],
+   "palette": {
+    "k": "#1d1b2e",
+    "h": "#f3d98b",
+    "y": "#5cc8a0",
+    "w": "#ffffff",
+    "e": "#1d1b2e",
+    "p": "#ff7a90",
+    "r": "#8a2b3a",
+    "o": "#3a9e7c"
+   }
+  },
+  "adult-body-happy": {
+   "width": 16,
+   "height": 16,
+   "rows": [
+    ".kkk........kkk.",
+    "khhhk......khhhk",
+    ".kkhhk.kk.khhkk.",
+    "..kkhhkyykhhkk..",
+    ".kyyyyyyyyyyyyk.",
+    ".kyyyyyyyyyyyyk.",
+    ".kyyweyyyyweyyk.",
+    ".kyyeeyyyyeeyyk.",
+    ".kyppyyyyyyppyk.",
+    ".kyyyykyykyyyyk.",
+    "kyyyyyykkyyyyyyk",
+    "kyyyybbbbbbyyyyk",
+    "kyyybbbbbbbbyyyk",
+    "kyyybbbbbbbbyyok",
+    ".kooykkkkkkyook.",
+    "..kkkk....kkkk.."
+   ],
+   "palette": {
+    "k": "#1d1b2e",
+    "h": "#f3d98b",
+    "y": "#5cc8a0",
+    "w": "#ffffff",
+    "e": "#1d1b2e",
+    "p": "#ff7a90",
+    "b": "#e3f7ec",
+    "o": "#3a9e7c"
+   }
+  },
+  "adult-body-hungry": {
+   "width": 16,
+   "height": 16,
+   "rows": [
+    "................",
+    ".kkk........kkk.",
+    "khhhk..kk..khhhk",
+    ".kkhhkkyykkhhkk.",
+    "..kyyyyyyyyyyk..",
+    "..kyyyyyyyyyyk..",
+    "..kyweyyyyweyk..",
+    "..kyeeyyyyeeyk..",
+    "..kyyyyyyyyyyk..",
+    "..kyyyykkyyyyk..",
+    "..kyyykyykyyyk..",
+    "..kyyybbbbyyyk..",
+    "..kyybbbbbbyok..",
+    "..kyybbbbbbook..",
+    "..kooykkkkyook..",
+    "..kkkk....kkkk.."
+   ],
+   "palette": {
+    "k": "#1d1b2e",
+    "h": "#f3d98b",
+    "y": "#5cc8a0",
+    "w": "#ffffff",
+    "e": "#1d1b2e",
+    "b": "#e3f7ec",
+    "o": "#3a9e7c"
+   }
+  },
+  "adult-body-stuffed": {
+   "width": 16,
+   "height": 16,
+   "rows": [
+    ".kkk........kkk.",
+    "khhhk......khhhk",
+    ".kkhhk.kk.khhkk.",
+    "..kkhhkyykhhkk..",
+    ".kyyyyyyyyyyyyk.",
+    ".kyyyyyyyyyyyyk.",
+    ".kyyyyyyyyyyyyk.",
+    ".kyeeeyyyyeeeyk.",
+    ".kyppyyyyyyppyk.",
+    ".kyyyyykkyyyyyk.",
+    "kyyyybbbbbbyyyyk",
+    "kyyybbbbbbbbyyyk",
+    "kyybbbbbbbbbbyyk",
+    "kyybbbbbbbbbbyok",
+    ".kooykkkkkkyook.",
+    "..kkkk....kkkk.."
+   ],
+   "palette": {
+    "k": "#1d1b2e",
+    "h": "#f3d98b",
+    "y": "#5cc8a0",
+    "e": "#1d1b2e",
+    "p": "#ff7a90",
+    "b": "#e3f7ec",
+    "o": "#3a9e7c"
+   }
+  },
+  "adult-body-sulky": {
+   "width": 16,
+   "height": 16,
+   "rows": [
+    ".kkk............",
+    "khhhk......kkk..",
+    ".kkhhk.kk.khhkk.",
+    "..kkhhkyykhhkk..",
+    ".kyyyyyyyyyyyyk.",
+    ".kyykkkyykkkyyk.",
+    ".kyyyeyyyyeyyyk.",
+    ".kyyyyyyyyyyyyk.",
+    ".kyyyyyyyyyyyyk.",
+    ".kyyyyyyyyyyyyk.",
+    "kyyyyykkkkyyyyyk",
+    "kyyyybbbbbbyyyyk",
+    "kyyybbbbbbbbyyyk",
+    "kyyybbbbbbbbyyok",
+    ".kooykkkkkkyook.",
+    "..kkkk....kkkk.."
+   ],
+   "palette": {
+    "k": "#1d1b2e",
+    "h": "#c9c2a0",
+    "y": "#a9b8a6",
+    "e": "#1d1b2e",
+    "b": "#c9d4c6",
+    "o": "#869784"
+   }
+  },
+  "adult-body-eating": {
+   "width": 16,
+   "height": 16,
+   "rows": [
+    ".kkk........kkk.",
+    "khhhk......khhhk",
+    ".kkhhk.kk.khhkk.",
+    "..kkhhkyykhhkk..",
+    ".kyyyyyyyyyyyyk.",
+    ".kyyyyyyyyyyyyk.",
+    ".kyyweyyyyweyyk.",
+    ".kyyeeyyyyeeyyk.",
+    ".kyppyyyyyyppyk.",
+    ".kyyyykkkkyyyyk.",
+    "kyyyyykrrkyyyyyk",
+    "kyyyyykkkkyyyyyk",
+    "kyyybbbbbbbbyyyk",
+    "kyyybbbbbbbbyyok",
+    ".kooykkkkkkyook.",
+    "..kkkk....kkkk.."
+   ],
+   "palette": {
+    "k": "#1d1b2e",
+    "h": "#f3d98b",
+    "y": "#5cc8a0",
+    "w": "#ffffff",
+    "e": "#1d1b2e",
+    "p": "#ff7a90",
+    "r": "#8a2b3a",
+    "b": "#e3f7ec",
+    "o": "#3a9e7c"
+   }
+  },
+  "child-body-lost": {
+   "width": 16,
+   "height": 16,
+   "rows": [
+    "................",
+    "....kk....kk....",
+    "...khhk..khhk...",
+    "..kkhhkkkkhhkk..",
+    ".kyyyyyyyyyyyyk.",
+    ".kyyyyyyyyyyyyk.",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyweyyyyweyyyk",
+    "kyyyeeyyyyeeyyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyyykkyyyyyyk",
+    ".kyyyyyyyyyyyok.",
+    ".kooyyyyyyyoook.",
+    "..kkkkkkkkkkkk..",
+    "................"
+   ],
+   "palette": {
+    "k": "#1d1b2e",
+    "h": "#dcdde4",
+    "y": "#c2c4cf",
+    "w": "#ffffff",
+    "e": "#1d1b2e",
+    "o": "#9a9dab"
+   }
+  },
+  "cookie-full": {
+   "width": 8,
+   "height": 8,
+   "rows": [
+    "..kkkk..",
+    ".kcccck.",
+    "kccdccck",
+    "kcccccdk",
+    "kcdcccck",
+    "kcccdcck",
+    ".kcccck.",
+    "..kkkk.."
+   ],
+   "palette": {
+    "k": "#7a3610",
+    "c": "#ff9a3c",
+    "d": "#b3541e"
+   }
+  },
+  "cookie-empty": {
+   "width": 8,
+   "height": 8,
+   "rows": [
+    "..kkkk..",
+    ".kcccck.",
+    "kccdccck",
+    "kcccccdk",
+    "kcdcccck",
+    "kcccdcck",
+    ".kcccck.",
+    "..kkkk.."
+   ],
+   "palette": {
+    "k": "#4a4578",
+    "c": "#26233d",
+    "d": "#26233d"
+   }
+  },
+  "baby-face-happy": {
+   "width": 16,
+   "height": 16,
+   "rows": [
+    ".....kkkkkk.....",
+    "....kwwwwwwk....",
+    "...kwwwwwwwwk...",
+    "..kwkwwkkwwkwk..",
+    ".kkykykyykykykk.",
+    "kyyyyyyyyyyyyyyk",
+    "kyykkkyyyykkkyyk",
+    "kyykwkyyyykwkyyk",
+    "kyykkkyyyykkkyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kppyyyyyyyyyyppk",
+    "kyyyykyyyykyyyyk",
+    "kyyyyykkkkyyyyyk",
+    "kyyyyyyyyyyyyyyk",
+    ".kyyyyyyyyyyyyk.",
+    "..kkkkkkkkkkkk.."
+   ],
+   "palette": {
+    "k": "#1d1b2e",
+    "w": "#fff6dc",
+    "y": "#5cc8a0",
+    "p": "#ff7a90"
+   }
+  },
+  "baby-face-hungry": {
+   "width": 16,
+   "height": 16,
+   "rows": [
+    ".....kkkkkk.....",
+    "....kwwwwwwk....",
+    "...kwwwwwwwwk...",
+    "..kwkwwkkwwkwk..",
+    ".kkykykyykykykk.",
+    "kyyyyyyyyyyyyyyk",
+    "kyykkkyyyykkkyyk",
+    "kyykwkyyyykwkyyk",
+    "kyykkkyyyykkkyyk",
+    "kyyybyyyyyybyyyk",
+    "kyyybyyyyyybyyyk",
+    "kyyyyykkkkyyyyyk",
+    "kyyyyykrrkyyyyyk",
+    "kyyyyykkkkyyyyyk",
+    ".kyyyyyyyyyyyyk.",
+    "..kkkkkkkkkkkk.."
+   ],
+   "palette": {
+    "k": "#1d1b2e",
+    "w": "#fff6dc",
+    "y": "#5cc8a0",
+    "b": "#4aa8ff",
+    "r": "#8a2b3a"
+   }
+  },
+  "baby-face-stuffed": {
+   "width": 16,
+   "height": 16,
+   "rows": [
+    ".....kkkkkk.....",
+    "....kwwwwwwk....",
+    "...kwwwwwwwwk...",
+    "..kwkwwkkwwkwk..",
+    ".kkykykyykykykk.",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kyykkkyyyykkkyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kppyyyyyyyyyyppk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyyykkyyyyyyk",
+    "kyyyyyyyyyyyyyyk",
+    ".kyyyyyyyyyyyyk.",
+    "..kkkkkkkkkkkk.."
+   ],
+   "palette": {
+    "k": "#1d1b2e",
+    "w": "#fff6dc",
+    "y": "#5cc8a0",
+    "p": "#ff7a90"
+   }
+  },
+  "child-face-happy": {
+   "width": 16,
+   "height": 16,
+   "rows": [
+    "..kk........kk..",
+    ".khhk......khhk.",
+    "kkhhkkkkkkkkhhkk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kyykkkyyyykkkyyk",
+    "kyykwkyyyykwkyyk",
+    "kyykkkyyyykkkyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kppyyyyyyyyyyppk",
+    "kyyyykyyyykyyyyk",
+    "kyyyyykkkkyyyyyk",
+    "kyyyyyyyyyyyyyyk",
+    ".kyyyyyyyyyyyyk.",
+    "..kkkkkkkkkkkk.."
+   ],
+   "palette": {
+    "k": "#1d1b2e",
+    "h": "#f3d98b",
+    "y": "#5cc8a0",
+    "w": "#ffffff",
+    "p": "#ff7a90"
+   }
+  },
+  "child-face-hungry": {
+   "width": 16,
+   "height": 16,
+   "rows": [
+    "................",
+    "..kk........kk..",
+    "kkhhkkkkkkkkhhkk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kyykkkyyyykkkyyk",
+    "kyykwkyyyykwkyyk",
+    "kyykkkyyyykkkyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyykkkkyyyyyk",
+    "kyyyyykrrkyyyyyk",
+    "kyyyyykkkkyyyyyk",
+    ".kyyyyyyyyyyyyk.",
+    "..kkkkkkkkkkkk.."
+   ],
+   "palette": {
+    "k": "#1d1b2e",
+    "h": "#f3d98b",
+    "y": "#5cc8a0",
+    "w": "#ffffff",
+    "r": "#8a2b3a"
+   }
+  },
+  "child-face-stuffed": {
+   "width": 16,
+   "height": 16,
+   "rows": [
+    "..kk........kk..",
+    ".khhk......khhk.",
+    "kkhhkkkkkkkkhhkk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kyykkkyyyykkkyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kppyyyyyyyyyyppk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyyykkyyyyyyk",
+    "kyyyyyyyyyyyyyyk",
+    ".kyyyyyyyyyyyyk.",
+    "..kkkkkkkkkkkk.."
+   ],
+   "palette": {
+    "k": "#1d1b2e",
+    "h": "#f3d98b",
+    "y": "#5cc8a0",
+    "p": "#ff7a90"
+   }
+  },
+  "child-face-sulky": {
+   "width": 16,
+   "height": 16,
+   "rows": [
+    "..kk........kk..",
+    ".khhk......khhk.",
+    "kkhhkkkkkkkkhhkk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kykkyyyyyyyykkyk",
+    "kyykkkyyyykkkyyk",
+    "kyykwkyyyykwkyyk",
+    "kyykkkyyyykkkyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyykkkkyyyyyk",
+    "kyyyyyyyyyyyyyyk",
+    ".kyyyyyyyyyyyyk.",
+    "..kkkkkkkkkkkk.."
+   ],
+   "palette": {
+    "k": "#1d1b2e",
+    "h": "#c9c2a0",
+    "y": "#a9b8a6",
+    "w": "#ffffff"
+   }
+  },
+  "teen-face-happy": {
+   "width": 16,
+   "height": 16,
+   "rows": [
+    ".kk..........kk.",
+    "khhk...kk...khhk",
+    "khhk..kyyk..khhk",
+    "kkhhkkyyyykkhhkk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kyykkkyyyykkkyyk",
+    "kyykwkyyyykwkyyk",
+    "kyykkkyyyykkkyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kppyyyyyyyyyyppk",
+    "kyyyykyyyykyyyyk",
+    "kyyyyykkkkyyyyyk",
+    "kyyyyyyyyyyyyyyk",
+    ".kyyyyyyyyyyyyk.",
+    "..kkkkkkkkkkkk.."
+   ],
+   "palette": {
+    "k": "#1d1b2e",
+    "h": "#f3d98b",
+    "y": "#5cc8a0",
+    "w": "#ffffff",
+    "p": "#ff7a90"
+   }
+  },
+  "teen-face-hungry": {
+   "width": 16,
+   "height": 16,
+   "rows": [
+    "................",
+    ".kk....kk....kk.",
+    "khhk..kyyk..khhk",
+    "kkhhkkyyyykkhhkk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kyykkkyyyykkkyyk",
+    "kyykwkyyyykwkyyk",
+    "kyykkkyyyykkkyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyykkkkyyyyyk",
+    "kyyyyykrrkyyyyyk",
+    "kyyyyykkkkyyyyyk",
+    ".kyyyyyyyyyyyyk.",
+    "..kkkkkkkkkkkk.."
+   ],
+   "palette": {
+    "k": "#1d1b2e",
+    "h": "#f3d98b",
+    "y": "#5cc8a0",
+    "w": "#ffffff",
+    "r": "#8a2b3a"
+   }
+  },
+  "teen-face-stuffed": {
+   "width": 16,
+   "height": 16,
+   "rows": [
+    ".kk..........kk.",
+    "khhk...kk...khhk",
+    "khhk..kyyk..khhk",
+    "kkhhkkyyyykkhhkk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kyykkkyyyykkkyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kppyyyyyyyyyyppk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyyykkyyyyyyk",
+    "kyyyyyyyyyyyyyyk",
+    ".kyyyyyyyyyyyyk.",
+    "..kkkkkkkkkkkk.."
+   ],
+   "palette": {
+    "k": "#1d1b2e",
+    "h": "#f3d98b",
+    "y": "#5cc8a0",
+    "p": "#ff7a90"
+   }
+  },
+  "teen-face-sulky": {
+   "width": 16,
+   "height": 16,
+   "rows": [
+    ".kk..........kk.",
+    "khhk...kk...khhk",
+    "khhk..kyyk..khhk",
+    "kkhhkkyyyykkhhkk",
+    "kyyyyyyyyyyyyyyk",
+    "kykkyyyyyyyykkyk",
+    "kyykkkyyyykkkyyk",
+    "kyykwkyyyykwkyyk",
+    "kyykkkyyyykkkyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyykkkkyyyyyk",
+    "kyyyyyyyyyyyyyyk",
+    ".kyyyyyyyyyyyyk.",
+    "..kkkkkkkkkkkk.."
+   ],
+   "palette": {
+    "k": "#1d1b2e",
+    "h": "#c9c2a0",
+    "y": "#a9b8a6",
+    "w": "#ffffff"
+   }
+  },
+  "adult-face-happy": {
+   "width": 16,
+   "height": 16,
+   "rows": [
+    "kkk..........kkk",
+    "khhk...kk...khhk",
+    "kkhhk.kyyk.khhkk",
+    "kkkhhkkyykkhhkkk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kyykkkyyyykkkyyk",
+    "kyykwkyyyykwkyyk",
+    "kyykkkyyyykkkyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kppyyyyyyyyyyppk",
+    "kyyyykyyyykyyyyk",
+    "kyyyyykkkkyyyyyk",
+    "kyyyybbbbbbyyyyk",
+    ".kyybbbbbbbbyyk.",
+    "..kkkkkkkkkkkk.."
+   ],
+   "palette": {
+    "k": "#1d1b2e",
+    "h": "#f3d98b",
+    "y": "#5cc8a0",
+    "w": "#ffffff",
+    "p": "#ff7a90",
+    "b": "#e3f7ec"
+   }
+  },
+  "adult-face-hungry": {
+   "width": 16,
+   "height": 16,
+   "rows": [
+    "................",
+    "kkk....kk....kkk",
+    "khhk..kyyk..khhk",
+    "kkhhkkyyyykkhhkk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kyykkkyyyykkkyyk",
+    "kyykwkyyyykwkyyk",
+    "kyykkkyyyykkkyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyykkkkyyyyyk",
+    "kyyyyykrrkyyyyyk",
+    "kyyyyykkkkyyyyyk",
+    ".kyybbbbbbbbyyk.",
+    "..kkkkkkkkkkkk.."
+   ],
+   "palette": {
+    "k": "#1d1b2e",
+    "h": "#f3d98b",
+    "y": "#5cc8a0",
+    "w": "#ffffff",
+    "r": "#8a2b3a",
+    "b": "#e3f7ec"
+   }
+  },
+  "adult-face-stuffed": {
+   "width": 16,
+   "height": 16,
+   "rows": [
+    "kkk..........kkk",
+    "khhk...kk...khhk",
+    "kkhhk.kyyk.khhkk",
+    "kkkhhkkyykkhhkkk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kyykkkyyyykkkyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kppyyyyyyyyyyppk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyyykkyyyyyyk",
+    "kyyyybbbbbbyyyyk",
+    ".kyybbbbbbbbyyk.",
+    "..kkkkkkkkkkkk.."
+   ],
+   "palette": {
+    "k": "#1d1b2e",
+    "h": "#f3d98b",
+    "y": "#5cc8a0",
+    "p": "#ff7a90",
+    "b": "#e3f7ec"
+   }
+  },
+  "adult-face-sulky": {
+   "width": 16,
+   "height": 16,
+   "rows": [
+    "kkk..........kkk",
+    "khhk...kk...khhk",
+    "kkhhk.kyyk.khhkk",
+    "kkkhhkkyykkhhkkk",
+    "kyyyyyyyyyyyyyyk",
+    "kykkyyyyyyyykkyk",
+    "kyykkkyyyykkkyyk",
+    "kyykwkyyyykwkyyk",
+    "kyykkkyyyykkkyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyykkkkyyyyyk",
+    "kyyyybbbbbbyyyyk",
+    ".kyybbbbbbbbyyk.",
+    "..kkkkkkkkkkkk.."
+   ],
+   "palette": {
+    "k": "#1d1b2e",
+    "h": "#c9c2a0",
+    "y": "#a9b8a6",
+    "w": "#ffffff",
+    "b": "#c9d4c6"
+   }
+  },
+  "note-ran-away": {
+   "width": 16,
+   "height": 16,
+   "rows": [
+    "................",
+    "..kkkkkkkkkk....",
+    "..kwwwwwwwwkk...",
+    "..kwwwwwwwwkwk..",
+    "..kwwwwwwwwkkkk.",
+    "..kwwwwwwwwwwwk.",
+    "..kwgggggggwwwk.",
+    "..kwwwwwwwwwwwk.",
+    "..kwgggggggggwk.",
+    "..kwwwwwwwwwwwk.",
+    "..kwggggggwwwwk.",
+    "..kwwwwwwwwwwwk.",
+    "..kwwwwwwwwwwwk.",
+    "..kkkkkkkkkkkkk.",
+    "................",
+    "................"
+   ],
+   "palette": {
+    "k": "#1d1b2e",
+    "w": "#ffffff",
+    "g": "#8a90a0"
+   }
+  },
+  "baby-face-lost": {
+   "width": 16,
+   "height": 16,
+   "rows": [
+    ".....kkkkkk.....",
+    "....kwwwwwwk....",
+    "...kwwwwwwwwk...",
+    "..kwkwwkkwwkwk..",
+    ".kkykykyykykykk.",
+    "kyyyyyyyyyyyyyyk",
+    "kyykkkyyyykkkyyk",
+    "kyykwkyyyykwkyyk",
+    "kyykkkyyyykkkyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyyykkyyyyyyk",
+    "kyyyyyyyyyyyyyyk",
+    ".kyyyyyyyyyyyyk.",
+    "..kkkkkkkkkkkk.."
+   ],
+   "palette": {
+    "k": "#1d1b2e",
+    "w": "#ffffff",
+    "y": "#c2c4cf"
+   }
+  },
+  "child-face-lost": {
+   "width": 16,
+   "height": 16,
+   "rows": [
+    "..kk........kk..",
+    ".khhk......khhk.",
+    "kkhhkkkkkkkkhhkk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kyykkkyyyykkkyyk",
+    "kyykwkyyyykwkyyk",
+    "kyykkkyyyykkkyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyyykkyyyyyyk",
+    "kyyyyyyyyyyyyyyk",
+    ".kyyyyyyyyyyyyk.",
+    "..kkkkkkkkkkkk.."
+   ],
+   "palette": {
+    "k": "#1d1b2e",
+    "h": "#dcdde4",
+    "y": "#c2c4cf",
+    "w": "#ffffff"
+   }
+  },
+  "teen-face-lost": {
+   "width": 16,
+   "height": 16,
+   "rows": [
+    ".kk..........kk.",
+    "khhk...kk...khhk",
+    "khhk..kyyk..khhk",
+    "kkhhkkyyyykkhhkk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kyykkkyyyykkkyyk",
+    "kyykwkyyyykwkyyk",
+    "kyykkkyyyykkkyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyyykkyyyyyyk",
+    "kyyyyyyyyyyyyyyk",
+    ".kyyyyyyyyyyyyk.",
+    "..kkkkkkkkkkkk.."
+   ],
+   "palette": {
+    "k": "#1d1b2e",
+    "h": "#dcdde4",
+    "y": "#c2c4cf",
+    "w": "#ffffff"
+   }
+  },
+  "adult-face-lost": {
+   "width": 16,
+   "height": 16,
+   "rows": [
+    "kkk..........kkk",
+    "khhk...kk...khhk",
+    "kkhhk.kyyk.khhkk",
+    "kkkhhkkyykkhhkkk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kyykkkyyyykkkyyk",
+    "kyykwkyyyykwkyyk",
+    "kyykkkyyyykkkyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyyyyyyyyyyyk",
+    "kyyyyyykkyyyyyyk",
+    "kyyyybbbbbbyyyyk",
+    ".kyybbbbbbbbyyk.",
+    "..kkkkkkkkkkkk.."
+   ],
+   "palette": {
+    "k": "#1d1b2e",
+    "h": "#dcdde4",
+    "y": "#c2c4cf",
+    "w": "#ffffff",
+    "b": "#dcdde4"
+   }
+  }
+ }
+}

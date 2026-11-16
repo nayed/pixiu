@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Token Pet toolbar icon, egg stage</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600;700&family=VT323&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#8cc8ff}a:hover{color:#bfe0ff}
+</style>
+</helmet>
+<div style="width: 960px; height: 520px; box-sizing: border-box; padding: 40px; display: flex; flex-direction: column; gap: 24px; background: #1d1b2e; color: #f3f1ff; font-family: 'VT323', 'Courier New', monospace; font-size: 20px; line-height: 1.1">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<h1 style="margin: 0; font-family: 'Pixelify Sans', 'Courier New', monospace; font-size: 28px; font-weight: 700; line-height: 1">Toolbar icon: egg</h1>
+<p style="margin: 0; color: #b9b4d9">Before hatching, the icon is the egg. The cracks show how close it is.</p>
+</div>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); padding: 20px 0; background: #bfe8f2">
+<div style="display: flex; justify-content: center">
+<div role="img" aria-label="Egg icon with no cracks" style="position: relative; width: 96px; height: 96px">
+<div style="position: absolute; left: -6px; top: -6px; width: 6px; height: 6px; box-shadow: {{new6}}"></div>
+</div>
+</div>
+<div style="display: flex; justify-content: center">
+<div role="img" aria-label="Egg icon with one small crack" style="position: relative; width: 96px; height: 96px">
+<div style="position: absolute; left: -6px; top: -6px; width: 6px; height: 6px; box-shadow: {{warming6}}"></div>
+</div>
+</div>
+<div style="display: flex; justify-content: center">
+<div role="img" aria-label="Egg icon cracked all the way across" style="position: relative; width: 96px; height: 96px">
+<div style="position: absolute; left: -6px; top: -6px; width: 6px; height: 6px; box-shadow: {{hatching6}}"></div>
+</div>
+</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr))">
+<div style="display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 0 10px; text-align: center">
+<h2 style="margin: 0; font-family: 'Pixelify Sans', 'Courier New', monospace; font-size: 20px; font-weight: 600">New egg</h2>
+<p style="margin: 0; color: #b9b4d9">Nothing sent yet</p>
+</div>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 0 10px; text-align: center">
+<h2 style="margin: 0; font-family: 'Pixelify Sans', 'Courier New', monospace; font-size: 20px; font-weight: 600">Warming</h2>
+<p style="margin: 0; color: #b9b4d9">First crack appears</p>
+</div>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 0 10px; text-align: center">
+<h2 style="margin: 0; font-family: 'Pixelify Sans', 'Courier New', monospace; font-size: 20px; font-weight: 600">About to hatch</h2>
+<p style="margin: 0; color: #b9b4d9">Cracked all the way across</p>
+</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: auto">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 48px; box-sizing: border-box; padding: 0 16px; background: #e9ebf0; color: #4b4f59">
+<span>Light toolbar, actual size</span>
+<div aria-hidden="true" style="display: flex; align-items: center; gap: 16px">
+<div style="position: relative; width: 16px; height: 16px"><div style="position: absolute; left: -1px; top: -1px; width: 1px; height: 1px; box-shadow: {{new1}}"></div></div>
+<div style="position: relative; width: 16px; height: 16px"><div style="position: absolute; left: -1px; top: -1px; width: 1px; height: 1px; box-shadow: {{warming1}}"></div></div>
+<div style="position: relative; width: 16px; height: 16px"><div style="position: absolute; left: -1px; top: -1px; width: 1px; height: 1px; box-shadow: {{hatching1}}"></div></div>
+</div>
+</div>
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 48px; box-sizing: border-box; padding: 0 16px; background: #2b2d33; color: #c9ccd4">
+<span>Dark toolbar, actual size</span>
+<div aria-hidden="true" style="display: flex; align-items: center; gap: 16px">
+<div style="position: relative; width: 16px; height: 16px"><div style="position: absolute; left: -1px; top: -1px; width: 1px; height: 1px; box-shadow: {{new1}}"></div></div>
+<div style="position: relative; width: 16px; height: 16px"><div style="position: absolute; left: -1px; top: -1px; width: 1px; height: 1px; box-shadow: {{warming1}}"></div></div>
+<div style="position: relative; width: 16px; height: 16px"><div style="position: absolute; left: -1px; top: -1px; width: 1px; height: 1px; box-shadow: {{hatching1}}"></div></div>
+</div>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":960,"height":520}}'>
+class Component extends DCLogic {
+shadow(rows, pal, s) {
+var out = [];
+var sp = s >= 3 ? 0.25 : 0;
+for (var y = 0; y < rows.length; y++) {
+for (var x = 0; x < rows[y].length; x++) {
+var c = pal[rows[y][x]];
+if (c) out.push(((x + 1) * s) + 'px ' + ((y + 1) * s) + 'px 0 ' + sp + 'px ' + c);
+}
+}
+return out.join(',');
+}
+egg(stage) {
+var rows = [
+'................',
+'......kkkk......',
+'....kkwwwwkk....',
+'...kwwwwwwwwk...',
+'..kwwwwwwwwwwk..',
+'..kwwsswwwwwwk..',
+'.kwwwsswwwwwwwk.',
+'.kwwwwwwwwsswwk.',
+'.kwwwwwwwwsswwk.',
+'.kwwwwwwwwwwwwk.',
+'.kwwsswwwwwwwdk.',
+'.kwwsswwwwwwddk.',
+'..kwwwwwwwwddk..',
+'..kdwwwwwwdddk..',
+'...kkddddddkk...',
+'.....kkkkkk.....'
+];
+var pts = [];
+if (stage === 'warming') pts = [[5, 7], [6, 8], [7, 7], [8, 8]];
+if (stage === 'hatching') { for (var x = 2; x <= 13; x++) pts.push([x, x % 2 ? 7 : 8]); }
+var grid = rows.map(function (r) { return r.split(''); });
+pts.forEach(function (p) { grid[p[1]][p[0]] = 'k'; });
+return grid.map(function (r) { return r.join(''); });
+}
+renderVals() {
+var pal = { k: '#1d1b2e', w: '#fff6dc', s: '#5cc8a0', d: '#e6d3a3' };
+return {
+new6: this.shadow(this.egg('new'), pal, 6),
+new1: this.shadow(this.egg('new'), pal, 1),
+warming6: this.shadow(this.egg('warming'), pal, 6),
+warming1: this.shadow(this.egg('warming'), pal, 1),
+hatching6: this.shadow(this.egg('hatching'), pal, 6),
+hatching1: this.shadow(this.egg('hatching'), pal, 1)
+};
+}
+}
+</script>
+</body>
+</html>

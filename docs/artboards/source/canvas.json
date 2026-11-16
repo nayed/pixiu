@@ -1,0 +1,244 @@
+{
+  "v": 3,
+  "attachments": {},
+  "boards": {
+    "BabyIcon.dc.html": {
+      "h": 520,
+      "title": "Baby: toolbar icon",
+      "w": 960,
+      "x": 1720,
+      "y": 2280
+    },
+    "BabyOverlay.dc.html": {
+      "h": 720,
+      "title": "Baby: on-page overlay",
+      "w": 1200,
+      "x": 440,
+      "y": 2280
+    },
+    "BabyPopup.dc.html": {
+      "h": 520,
+      "title": "Baby: popup",
+      "w": 360,
+      "x": 0,
+      "y": 2280
+    },
+    "EggIcon.dc.html": {
+      "h": 520,
+      "title": "Egg: toolbar icon",
+      "w": 960,
+      "x": 1720,
+      "y": 0
+    },
+    "EggOverlay.dc.html": {
+      "h": 720,
+      "title": "Egg: on-page overlay",
+      "w": 1200,
+      "x": 440,
+      "y": 0
+    },
+    "HatchIcon.dc.html": {
+      "h": 520,
+      "title": "Hatching: toolbar icon",
+      "w": 960,
+      "x": 1720,
+      "y": 1140
+    },
+    "HatchOverlay.dc.html": {
+      "h": 720,
+      "title": "Hatching: on-page overlay",
+      "w": 1200,
+      "x": 440,
+      "y": 1140
+    },
+    "HatchPopup.dc.html": {
+      "h": 520,
+      "title": "Hatching: popup",
+      "w": 360,
+      "x": 0,
+      "y": 1140
+    },
+    "Main.dc.html": {
+      "h": 520,
+      "title": "Egg: popup",
+      "w": 360,
+      "x": 0,
+      "y": 0
+    },
+    "OverlayV2.dc.html": {
+      "h": 720,
+      "title": "Child: on-page overlay",
+      "w": 1200,
+      "x": 440,
+      "y": 3420
+    },
+    "PopupV2.dc.html": {
+      "h": 520,
+      "title": "Child: popup",
+      "w": 360,
+      "x": 0,
+      "y": 3420
+    },
+    "ToolbarIconV2.dc.html": {
+      "h": 520,
+      "title": "Child: toolbar icon",
+      "w": 960,
+      "x": 1720,
+      "y": 3420
+    },
+    "TeenPopup.dc.html": {
+      "h": 520,
+      "title": "Teen: popup",
+      "w": 360,
+      "x": 0,
+      "y": 4560
+    },
+    "TeenOverlay.dc.html": {
+      "h": 720,
+      "title": "Teen: on-page overlay",
+      "w": 1200,
+      "x": 440,
+      "y": 4560
+    },
+    "TeenIcon.dc.html": {
+      "h": 520,
+      "title": "Teen: toolbar icon",
+      "w": 960,
+      "x": 1720,
+      "y": 4560
+    },
+    "AdultPopup.dc.html": {
+      "h": 520,
+      "title": "Adult: popup",
+      "w": 360,
+      "x": 0,
+      "y": 5700
+    },
+    "AdultOverlay.dc.html": {
+      "h": 720,
+      "title": "Adult: on-page overlay",
+      "w": 1200,
+      "x": 440,
+      "y": 5700
+    },
+    "AdultIcon.dc.html": {
+      "h": 520,
+      "title": "Adult: toolbar icon",
+      "w": 960,
+      "x": 1720,
+      "y": 5700
+    },
+    "LostPopup.dc.html": {
+      "h": 520,
+      "title": "Can't reach Claude: popup",
+      "w": 360,
+      "x": 0,
+      "y": 6840
+    },
+    "LostIcon.dc.html": {
+      "h": 520,
+      "title": "Can't reach Claude: toolbar icon",
+      "w": 960,
+      "x": 1720,
+      "y": 6840
+    }
+  },
+  "createdOnFiles": {
+    "at": "2026-11-15T17:52:00Z",
+    "v": 1
+  },
+  "designSystems": [],
+  "launch": {
+    "view": "canvas"
+  },
+  "noteOrder": [
+    "t1",
+    "t4",
+    "t3",
+    "t2",
+    "t5",
+    "t6",
+    "t7"
+  ],
+  "notes": {
+    "t1": {
+      "kind": "title1",
+      "maxW": 2680,
+      "text": "Egg stage: before the pet hatches",
+      "w": 240,
+      "x": 0,
+      "y": -300
+    },
+    "t2": {
+      "kind": "title1",
+      "maxW": 2680,
+      "text": "Child stage",
+      "w": 240,
+      "x": 0,
+      "y": 3120
+    },
+    "t3": {
+      "kind": "title1",
+      "maxW": 2680,
+      "text": "Baby stage: age 0, the first week",
+      "w": 240,
+      "x": 0,
+      "y": 1980
+    },
+    "t4": {
+      "kind": "title1",
+      "maxW": 2680,
+      "text": "Hatching: the pet appears and gets its name",
+      "x": 0,
+      "y": 840,
+      "w": 240
+    },
+    "t5": {
+      "kind": "title1",
+      "maxW": 2680,
+      "text": "Teen stage",
+      "x": 0,
+      "y": 4260,
+      "w": 240
+    },
+    "t6": {
+      "kind": "title1",
+      "maxW": 2680,
+      "text": "Adult stage",
+      "x": 0,
+      "y": 5400,
+      "w": 240
+    },
+    "t7": {
+      "kind": "title1",
+      "maxW": 2680,
+      "text": "Can't reach Claude: signed out, offline, or the page changed",
+      "x": 0,
+      "y": 6540
+    }
+  },
+  "order": [
+    "Main.dc.html",
+    "EggOverlay.dc.html",
+    "EggIcon.dc.html",
+    "HatchPopup.dc.html",
+    "HatchOverlay.dc.html",
+    "HatchIcon.dc.html",
+    "BabyPopup.dc.html",
+    "BabyOverlay.dc.html",
+    "BabyIcon.dc.html",
+    "PopupV2.dc.html",
+    "OverlayV2.dc.html",
+    "ToolbarIconV2.dc.html",
+    "TeenPopup.dc.html",
+    "TeenOverlay.dc.html",
+    "TeenIcon.dc.html",
+    "AdultPopup.dc.html",
+    "AdultOverlay.dc.html",
+    "AdultIcon.dc.html",
+    "LostPopup.dc.html",
+    "LostIcon.dc.html"
+  ],
+  "pages": [],
+  "title": "Token Pet"
+}
