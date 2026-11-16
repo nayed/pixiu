@@ -8,6 +8,8 @@ Milestones 1 and 2 of [docs/PLAN.md](docs/PLAN.md): the extension reads usage in
 
 To see states that take weeks to reach, open the popup and choose "Debug". That page runs the engine against a pretend Claude and a pretend clock.
 
+Removing the extension deletes the pet, because Chrome deletes the extension's storage. Reloading it does not. Before removing it, export the pet from the debug page, then import the file afterward.
+
 ## Develop
 
 Needs Node and pnpm.
@@ -38,4 +40,5 @@ Then open `chrome://extensions`, turn on Developer mode, choose "Load unpacked",
 | `src/lib/usage/`                | The normalized usage snapshot and the Claude adapter that produces it.               |
 | `src/lib/pet/`                  | The pet: rule constants, state, the engine step, and the view every surface renders. |
 | `src/lib/sim/`                  | A fake Claude and clock, for the tests and the debug page.                           |
+| `src/lib/backup.ts`             | The backup file format: export, validation, and import.                              |
 | `src/lib/store.ts`              | The one place that reads and writes `chrome.storage.local`.                          |

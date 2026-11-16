@@ -57,3 +57,27 @@ details {
 pre {
   overflow: auto;
 }
+
+.confirm {
+  margin-top: 12px;
+}
+
+.confirm .row {
+  margin-top: 12px;
+}
+
+label.button:focus-within {
+  outline: 2px solid var(--text);
+  outline-offset: 2px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+}

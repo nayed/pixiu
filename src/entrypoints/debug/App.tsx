@@ -1,7 +1,9 @@
 // The debug page: a pretend Claude and a pretend clock driving the real pet engine, so states
-// that take weeks to reach can be seen in seconds. It never touches the real pet.
+// that take weeks to reach can be seen in seconds. The simulation never touches the real pet;
+// only the backup section at the top does.
 
 import { useState } from "preact/hooks";
+import { browser } from "wxt/browser";
 import { DEFAULT_SETTINGS, WEEK_MS } from "@/lib/pet/config";
 import { describeEvent, describeView } from "@/lib/pet/describe";
 import { namePet } from "@/lib/pet/engine";
@@ -16,6 +18,7 @@ import {
   wait,
 } from "@/lib/sim/simulation";
 import type { UsageFailureReason } from "@/lib/usage/snapshot";
+import { BackupSection } from "./Backup";
 
 const MINUTE = 60_000;
 const HOUR = 60 * MINUTE;
@@ -59,12 +62,16 @@ export function App() {
   return (
     <main>
       <h1>Pixiu debug</h1>
-      <p class="detail">
-        A pretend Claude and a pretend clock, polled every 5 minutes. Your real pet is not touched.
-      </p>
+
+      {/* Only inside the extension: the page can also be opened as a plain file to try it. */}
+      {browser?.runtime?.id && <BackupSection />}
 
       <section>
-        <h2>Pet</h2>
+        <h2>Pretend pet</h2>
+        <p class="detail">
+          A pretend Claude and a pretend clock, polled every 5 minutes. Nothing below touches your
+          real pet.
+        </p>
         <p class="headline">{describeView(viewPet(pet, now, settings))}</p>
         <dl>
           <dt>Clock</dt>
