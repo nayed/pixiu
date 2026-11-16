@@ -5,13 +5,15 @@
 import { browser } from "wxt/browser";
 import { defineBackground } from "wxt/utils/define-background";
 import { validateBackup } from "@/lib/backup";
+import { toolbarIcon } from "@/lib/icon";
 import { NAME_PET, POLL_NOW, RESTORE_BACKUP } from "@/lib/messages";
-import { DEFAULT_SETTINGS } from "@/lib/pet/config";
+import { DEFAULT_SETTINGS, type Settings } from "@/lib/pet/config";
 import { describeEvent, describeView } from "@/lib/pet/describe";
 import { namePet, step } from "@/lib/pet/engine";
-import { newPet } from "@/lib/pet/state";
+import { newPet, type PetState } from "@/lib/pet/state";
 import { viewPet } from "@/lib/pet/view";
 import { type LogEntry, load, savePet, savePoll, saveRestored } from "@/lib/store";
+import { playHatch, showIcon } from "@/lib/toolbar";
 import { readUsage } from "@/lib/usage/claude";
 
 const POLL_ALARM = "pixiu-poll";
@@ -35,7 +37,10 @@ export default defineBackground(() => {
   // Read right away when the content script first learns the organization ID, or when the
   // user switches to another organization.
   browser.storage.onChanged.addListener((changes, area) => {
-    if (area === "local" && changes.orgId?.newValue) void enqueue(poll);
+    if (area !== "local") return;
+    if (changes.orgId?.newValue) void enqueue(poll);
+    // New sleeping hours can change whether the pet is hungry right now.
+    if (changes.settings) void enqueue(redraw);
   });
 
   browser.runtime.onMessage.addListener((message, _sender, sendResponse) => {
@@ -90,11 +95,28 @@ async function poll(): Promise<void> {
   const entries: LogEntry[] = lines.reverse().map((text) => ({ at: snapshot.readAt, text }));
 
   await savePoll(snapshot, state, entries, stored.log);
+
+  const icon = iconFor(state, settings);
+  if (events.some((event) => event.type === "hatched")) await playHatch(icon);
+  else await showIcon(icon);
+}
+
+function iconFor(pet: PetState, settings: Settings) {
+  const now = new Date();
+  return toolbarIcon(viewPet(pet, now, settings), pet, now);
+}
+
+/** Draws the toolbar icon again from what is saved. */
+async function redraw(): Promise<void> {
+  const { pet, settings } = await load();
+  if (pet) await showIcon(iconFor(pet, settings ?? DEFAULT_SETTINGS));
 }
 
 async function rename(name: string): Promise<void> {
   const { pet } = await load();
-  if (pet) await savePet(namePet(pet, name));
+  if (!pet) return;
+  await savePet(namePet(pet, name));
+  await redraw();
 }
 
 async function restore(value: unknown): Promise<void> {
