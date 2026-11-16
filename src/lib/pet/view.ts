@@ -51,6 +51,16 @@ export function isUnderfed(state: PetState): boolean {
   return Math.max(average(completed), average(withCurrent)) < RULES.sulkyBelowPercent;
 }
 
+/** How many of the most recent completed weeks were thin, for "underfed for 2 weeks". */
+export function thinWeeks(state: PetState): number {
+  let count = 0;
+  for (const peak of [...state.weeks].reverse()) {
+    if (peak >= RULES.sulkyBelowPercent) break;
+    count++;
+  }
+  return count;
+}
+
 function moodFor(state: PetState, stage: Stage, now: Date, settings: Settings): Mood {
   const time = now.getTime();
 

@@ -47,6 +47,10 @@ export async function savePoll(
   await browser.storage.local.set(update);
 }
 
+export async function saveSettings(settings: Settings): Promise<void> {
+  await browser.storage.local.set({ settings });
+}
+
 export async function savePet(pet: PetState): Promise<void> {
   await browser.storage.local.set({ pet });
 }
