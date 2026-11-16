@@ -1,10 +1,13 @@
-// The milestone 1 popup: raw numbers only, to compare against Claude's own usage page.
-// The pet replaces this in milestone 3.
+// The bare popup: raw numbers to compare against Claude's own usage page, plus the pet's state
+// and recent history as text. The drawn pet replaces this in milestone 3.
 
 import { useEffect, useState } from "preact/hooks";
 import { browser } from "wxt/browser";
 import { agoText, untilText } from "@/lib/format";
 import { POLL_NOW } from "@/lib/messages";
+import { DEFAULT_SETTINGS } from "@/lib/pet/config";
+import { describeView } from "@/lib/pet/describe";
+import { viewPet } from "@/lib/pet/view";
 import { load, onStoreChanged, type Stored } from "@/lib/store";
 import type { UsageFailureReason, UsageWindow } from "@/lib/usage/snapshot";
 
@@ -64,7 +67,8 @@ export function App() {
   const [checking, setChecking] = useState(false);
 
   if (!stored) return null;
-  const { snapshot, lastReading } = stored;
+  const { snapshot, lastReading, pet, log = [] } = stored;
+  const settings = stored.settings ?? DEFAULT_SETTINGS;
   const failure = snapshot && !snapshot.ok ? snapshot.reason : null;
   const needsClaude = failure === "not-set-up" || failure === "signed-out";
 
@@ -96,6 +100,23 @@ export function App() {
       )}
       {lastReading && <p class="detail">Last seen {agoText(lastReading.readAt, now)}</p>}
 
+      {pet && (
+        <section class="pet">
+          <h2>Pet</h2>
+          <p>{describeView(viewPet(pet, now, settings))}</p>
+          {log.length > 0 && (
+            <ol class="log">
+              {log.slice(0, 6).map((entry) => (
+                <li key={`${entry.at} ${entry.text}`}>
+                  <time dateTime={entry.at}>{new Date(entry.at).toLocaleTimeString()}</time>{" "}
+                  {entry.text}
+                </li>
+              ))}
+            </ol>
+          )}
+        </section>
+      )}
+
       <div class="actions">
         {needsClaude && (
           <a class="button primary" href={CLAUDE_URL} target="_blank" rel="noreferrer">
@@ -105,6 +126,14 @@ export function App() {
         <button type="button" class="button" onClick={checkNow} disabled={checking}>
           {checking ? "Checking" : "Check now"}
         </button>
+        <a
+          class="button"
+          href={browser.runtime.getURL("/debug.html")}
+          target="_blank"
+          rel="noreferrer"
+        >
+          Debug
+        </a>
       </div>
     </main>
   );

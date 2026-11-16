@@ -4,7 +4,9 @@ A Chrome extension that shows your Claude plan usage as a Tamagotchi-style virtu
 
 ## Status
 
-Milestone 1 of [docs/PLAN.md](docs/PLAN.md): the extension reads usage in the background and the popup shows the raw numbers. There is no pet yet.
+Milestones 1 and 2 of [docs/PLAN.md](docs/PLAN.md): the extension reads usage in the background and runs the pet engine on every read. The popup still shows raw numbers and the pet's state as text. The drawn pet comes next.
+
+To see states that take weeks to reach, open the popup and choose "Debug". That page runs the engine against a pretend Claude and a pretend clock.
 
 ## Develop
 
@@ -27,10 +29,13 @@ Then open `chrome://extensions`, turn on Developer mode, choose "Load unpacked",
 
 ## Layout
 
-| Path                            | What it holds                                                          |
-| ------------------------------- | ---------------------------------------------------------------------- |
-| `src/entrypoints/background.ts` | The background worker. Polls usage and saves each snapshot.            |
-| `src/entrypoints/content.ts`    | Runs on claude.ai and learns the organization ID.                      |
-| `src/entrypoints/popup/`        | The popup.                                                             |
-| `src/lib/usage/`                | The normalized usage snapshot and the Claude adapter that produces it. |
-| `src/lib/store.ts`              | The one place that reads and writes `chrome.storage.local`.            |
+| Path                            | What it holds                                                                        |
+| ------------------------------- | ------------------------------------------------------------------------------------ |
+| `src/entrypoints/background.ts` | The background worker. Polls usage, runs the engine, and saves the pet.              |
+| `src/entrypoints/content.ts`    | Runs on claude.ai and learns the organization ID.                                    |
+| `src/entrypoints/popup/`        | The popup.                                                                           |
+| `src/entrypoints/debug/`        | The debug page.                                                                      |
+| `src/lib/usage/`                | The normalized usage snapshot and the Claude adapter that produces it.               |
+| `src/lib/pet/`                  | The pet: rule constants, state, the engine step, and the view every surface renders. |
+| `src/lib/sim/`                  | A fake Claude and clock, for the tests and the debug page.                           |
+| `src/lib/store.ts`              | The one place that reads and writes `chrome.storage.local`.                          |
