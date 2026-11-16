@@ -1,0 +1,117 @@
+/* Colors from docs/DESIGN.md. The fonts and the pet arrive with the real popup. */
+:root {
+  --ink: #1d1b2e;
+  --raised: #2a2744;
+  --border: #6a63a8;
+  --divider: #3a3660;
+  --text: #f3f1ff;
+  --text-secondary: #b9b4d9;
+  --food: #ff9a3c;
+  --food-text: #ffb366;
+  --growth-text: #8cc8ff;
+}
+
+body {
+  margin: 0;
+  width: 360px;
+  background: var(--ink);
+  color: var(--text);
+  font:
+    15px / 1.4 ui-monospace,
+    monospace;
+}
+
+main {
+  padding: 16px;
+}
+
+h1 {
+  margin: 0 0 12px;
+  font-size: 22px;
+}
+
+h2 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+p {
+  margin: 0;
+}
+
+.meters {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  padding: 12px 0;
+  border-top: 1px solid var(--divider);
+  border-bottom: 1px solid var(--divider);
+  margin-bottom: 8px;
+}
+
+.meters.stale {
+  opacity: 0.6;
+}
+
+.percent {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.meters section:first-child .percent {
+  color: var(--food-text);
+}
+
+.meters section:last-child .percent {
+  color: var(--growth-text);
+}
+
+.detail {
+  color: var(--text-secondary);
+}
+
+.notice {
+  margin-bottom: 12px;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  background: var(--raised);
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid var(--border);
+  background: var(--raised);
+  color: var(--text);
+  font: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.button.primary {
+  border-color: var(--food);
+  background: var(--food);
+  color: var(--ink);
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 2px;
+}

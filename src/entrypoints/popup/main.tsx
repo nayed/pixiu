@@ -1,4 +1,6 @@
 import { render } from "preact";
+import { App } from "./App";
+import "./style.css";
 
 const root = document.getElementById("app");
-if (root) render(<p>Pixiu</p>, root);
+if (root) render(<App />, root);
