@@ -4,6 +4,7 @@
 
 import { useEffect, useState } from "preact/hooks";
 import { browser } from "wxt/browser";
+import { toolbarIcon } from "@/lib/icon";
 import { DEFAULT_SETTINGS, WEEK_MS } from "@/lib/pet/config";
 import { describeEvent, describeView } from "@/lib/pet/describe";
 import { namePet } from "@/lib/pet/engine";
@@ -20,6 +21,7 @@ import {
 import type { UsageFailureReason } from "@/lib/usage/snapshot";
 import { PetPopup } from "@/ui/PetPopup";
 import { BackupSection } from "./Backup";
+import { IconPreview } from "./IconPreview";
 
 const MINUTE = 60_000;
 const HOUR = 60 * MINUTE;
@@ -82,7 +84,10 @@ export function App() {
           onName={(newName) => setSim({ ...sim, pet: namePet(pet, newName) })}
           onSaveSettings={setSleepHours}
         />
-        <p class="preview-note">The popup, as it would look for the pretend pet.</p>
+        <p class="preview-note">
+          The popup and the toolbar icon, as they would look for the pretend pet.
+        </p>
+        <IconPreview icon={toolbarIcon(viewPet(pet, shownNow, sleepHours), pet, shownNow)} />
       </aside>
 
       <div class="controls">

@@ -69,6 +69,53 @@ section {
   color: var(--text-secondary);
 }
 
+.icon-preview {
+  margin-top: 12px;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 12px;
+  font-size: 13px;
+}
+
+.toolbar span:first-child {
+  flex: 1;
+}
+
+.toolbar-light {
+  background: #e8eaf0;
+  color: #1d1b2e;
+}
+
+.toolbar-dark {
+  background: #2b2d31;
+  color: #f3f1ff;
+}
+
+.toolbar-icon {
+  position: relative;
+  display: inline-block;
+  line-height: 0;
+}
+
+.toolbar-icon canvas {
+  image-rendering: pixelated;
+}
+
+.toolbar-badge {
+  position: absolute;
+  right: calc(-3px * var(--scale));
+  bottom: calc(-2px * var(--scale));
+  padding: 0 calc(1.5px * var(--scale));
+  border-radius: calc(2px * var(--scale));
+  font:
+    700 calc(8px * var(--scale)) / 1.25 system-ui,
+    sans-serif;
+}
+
 .headline {
   font-size: 18px;
 }
