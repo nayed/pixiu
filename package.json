@@ -1,0 +1,27 @@
+{
+  "name": "pixiu",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A Chrome extension that shows your Claude plan usage as a virtual pet.",
+  "type": "module",
+  "scripts": {
+    "dev": "wxt",
+    "build": "wxt build",
+    "zip": "wxt zip",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "lint": "biome check .",
+    "format": "biome check --write .",
+    "postinstall": "wxt prepare"
+  },
+  "dependencies": {
+    "preact": "^11.2.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.6.8",
+    "@preact/preset-vite": "^2.10.6",
+    "typescript": "^7.0.2",
+    "vitest": "^5.1.0",
+    "wxt": "^0.21.5"
+  }
+}
