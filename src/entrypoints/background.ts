@@ -20,15 +20,14 @@ const POLL_ALARM = "pixiu-poll";
 const POLL_PERIOD_MINUTES = 5;
 
 export default defineBackground(() => {
-  browser.runtime.onInstalled.addListener(() => {
-    void schedule();
-    void enqueue(poll);
-  });
+  // Every wake-up, whatever caused it: make sure the alarm exists and the icon is drawn.
+  // Chrome can drop alarms when the browser restarts, and it forgets the icon when the
+  // browser restarts or the extension is turned off and on, which fires no event of its own.
+  void schedule();
+  void enqueue(redraw);
 
-  browser.runtime.onStartup.addListener(() => {
-    void schedule();
-    void enqueue(poll);
-  });
+  browser.runtime.onInstalled.addListener(() => void enqueue(poll));
+  browser.runtime.onStartup.addListener(() => void enqueue(poll));
 
   browser.alarms.onAlarm.addListener((alarm) => {
     if (alarm.name === POLL_ALARM) void enqueue(poll);
@@ -74,8 +73,10 @@ function enqueue(job: () => Promise<void>): Promise<void> {
 }
 
 async function schedule(): Promise<void> {
-  // Creating an alarm that already exists would restart its timer.
-  if (await browser.alarms.get(POLL_ALARM)) return;
+  // Creating an alarm that already exists would restart its timer, so only replace one
+  // left behind by a version with a different period.
+  const existing = await browser.alarms.get(POLL_ALARM);
+  if (existing?.periodInMinutes === POLL_PERIOD_MINUTES) return;
   await browser.alarms.create(POLL_ALARM, { periodInMinutes: POLL_PERIOD_MINUTES });
 }
 
