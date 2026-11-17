@@ -6,7 +6,7 @@ A Chrome extension that shows your Claude plan usage as a Tamagotchi-style virtu
 
 ## Status
 
-Milestones 1 to 6 of [docs/PLAN.md](docs/PLAN.md), which is all of version one: the extension reads usage in the background, runs the pet engine on every read, and shows the pet in the popup and on the toolbar icon, with a badge.
+Milestones 1 to 6 of [docs/PLAN.md](docs/PLAN.md), which is all of version one: the extension reads usage in the background, runs the pet engine on every read, and shows the pet in the popup and on the toolbar icon, with a badge. The pet also sits in a small window in the corner of claude.ai: hover it for its numbers, drag it to move it, and hide it from its card or from the switch in the popup.
 
 To see states that take weeks to reach, use the debug page. It runs the engine against a pretend Claude and a pretend clock, and shows the popup and the toolbar icon for the pretend pet. Release builds leave it out: run `pnpm build:debug`, load `.output/chrome-mv3-debug` as a second extension, open the popup's settings, and choose "Debug page". That second extension has its own storage, so it raises its own pet.
 
@@ -54,7 +54,9 @@ Then load `.output/chrome-mv3` as in steps 2 to 5 above.
 | Path                                    | What it holds                                                                        |
 | --------------------------------------- | ------------------------------------------------------------------------------------ |
 | `src/entrypoints/background.ts`         | The background worker. Polls usage, runs the engine, and saves the pet.              |
-| `src/entrypoints/content.ts`            | Runs on claude.ai and learns the organization ID.                                    |
+| `src/entrypoints/content.ts`            | Runs on claude.ai. Learns the organization ID and puts the overlay on the page.      |
+| `src/entrypoints/overlay/`              | The overlay page, shown in a frame on claude.ai.                                     |
+| `src/lib/overlay/`                      | The frame that holds the overlay: placing, sizing, and dragging it.                  |
 | `src/entrypoints/popup/`                | The popup.                                                                           |
 | `src/entrypoints/backup/`               | The backup page: export the pet to a file and import it again.                       |
 | `src/entrypoints/debug/`                | The debug page. Left out of release builds.                                          |
