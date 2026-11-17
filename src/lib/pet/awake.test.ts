@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { awakeMs } from "./awake";
 
 // The tests run in UTC (see vitest.config.ts), so local time is UTC here.
@@ -43,5 +43,35 @@ describe("awakeMs", () => {
 
   it("returns zero for an empty or backward span", () => {
     expect(awakeMs(at("2026-11-16T12:00Z"), at("2026-11-16T11:00Z"), night)).toBe(0);
+  });
+});
+
+describe("awakeMs in a zone with daylight saving time", () => {
+  afterEach(() => {
+    vi.unstubAllEnvs();
+  });
+
+  // New York, 2026: clocks go forward on March 8 and back on November 1, both at 02:00.
+  it("has a short night when the clocks go forward", () => {
+    vi.stubEnv("TZ", "America/New_York");
+    const from = at("2026-03-07T12:00-05:00");
+    const to = at("2026-03-08T12:00-04:00");
+    expect(to - from).toBe(23 * HOUR);
+    // Awake 12:00 to 23:00 and 08:00 to 12:00; the night is 8 hours, not 9.
+    expect(awakeMs(from, to, night)).toBe(15 * HOUR);
+  });
+
+  it("has a long night when the clocks go back", () => {
+    vi.stubEnv("TZ", "America/New_York");
+    const from = at("2026-10-31T12:00-04:00");
+    const to = at("2026-11-01T12:00-05:00");
+    expect(to - from).toBe(25 * HOUR);
+    expect(awakeMs(from, to, night)).toBe(15 * HOUR);
+  });
+
+  it("follows the zone the browser is in now", () => {
+    vi.stubEnv("TZ", "Asia/Tokyo");
+    // 03:00 to 09:00 in Tokyo: one waking hour. In UTC the same span is all daytime.
+    expect(awakeMs(at("2026-11-16T18:00Z"), at("2026-11-17T00:00Z"), night)).toBe(1 * HOUR);
   });
 });

@@ -41,7 +41,10 @@ export function App() {
   // Runs once, when storage has loaded. Later reads must not trigger another.
   useEffect(() => {
     if (!loaded) return;
-    const age = lastReadAt ? Date.now() - Date.parse(lastReadAt) : Number.POSITIVE_INFINITY;
+    // The distance either way: after the clock is set back, the last read looks like the future.
+    const age = lastReadAt
+      ? Math.abs(Date.now() - Date.parse(lastReadAt))
+      : Number.POSITIVE_INFINITY;
     if (age > FRESH_MS) void browser.runtime.sendMessage({ type: POLL_NOW });
   }, [loaded]);
 

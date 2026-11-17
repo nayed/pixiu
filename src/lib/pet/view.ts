@@ -73,8 +73,9 @@ export function thinWeeks(state: PetState): number {
 function moodFor(state: PetState, stage: Stage, now: Date, settings: Settings): Mood {
   const time = now.getTime();
 
-  const bite = state.lastBite;
-  if (bite && time - Date.parse(bite.at) < RULES.eatingMs) return "eating";
+  // A bite dated in the future means the clock was set back; it is not being eaten now.
+  const sinceBite = state.lastBite ? time - Date.parse(state.lastBite.at) : -1;
+  if (sinceBite >= 0 && sinceBite < RULES.eatingMs) return "eating";
 
   if (currentWindow(state.reading?.short, now).percent >= 100) return "stuffed";
 

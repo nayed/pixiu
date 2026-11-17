@@ -19,7 +19,7 @@ export type PetState = {
   blind: UsageFailureReason | null;
 
   lastMealAt: string | null;
-  /** Waking time without a meal, counted up to the last successful read. */
+  /** Waking time without a meal, counted up to the last successful read or the start of an outage. */
   hungerMs: number;
   /** The latest rise in usage, for the eating animation. */
   lastBite: { at: string; points: number } | null;

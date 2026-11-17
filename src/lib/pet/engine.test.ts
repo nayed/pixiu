@@ -150,6 +150,29 @@ describe("hunger", () => {
     sim = wait(sim, 1 * HOUR, S);
     expect(hungerMs(sim.pet, new Date(sim.fake.now), S)).toBe(2 * HOUR);
   });
+
+  it("counts the time before an outage when the first read after a long sleep fails", () => {
+    // The laptop was shut for seven waking hours and wakes up before its network does.
+    let sim = setFailure(sleep(hatched(), 7 * HOUR), "offline", S);
+    expect(view(sim)).toMatchObject({ mood: "hungry", unreachable: "offline" });
+    sim = wait(sim, 1 * HOUR, S);
+    sim = setFailure(sim, null, S);
+    expect(hungerMs(sim.pet, new Date(sim.fake.now), S)).toBe(7 * HOUR);
+  });
+
+  it("does not keep eating when the clock is set back", () => {
+    const sim = hatched();
+    const anHourEarlier = new Date(sim.fake.now - HOUR);
+    expect(viewPet(sim.pet, anHourEarlier, S)).toMatchObject({ mood: "happy" });
+  });
+
+  it("counts no hunger for a read dated before the previous one", () => {
+    const sim = wait(hatched(), 1 * HOUR, S);
+    const earlier = { ...sim.pet.reading, readAt: new Date(sim.fake.now - 3 * HOUR).toISOString() };
+    const { state, events } = step(sim.pet, earlier as UsageReading, S);
+    expect(state.hungerMs).toBe(sim.pet.hungerMs);
+    expect(events).toEqual([]);
+  });
 });
 
 describe("age and stages", () => {

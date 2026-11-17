@@ -47,7 +47,16 @@ function endsWithEmptyWeeks(weeks: number[]): boolean {
 
 export function step(previous: PetState, snapshot: UsageSnapshot, settings: Settings): StepResult {
   // While the pet can't see, nothing moves. Time for hunger and neglect is paused.
-  if (!snapshot.ok) return { state: { ...previous, blind: snapshot.reason }, events: [] };
+  if (!snapshot.ok) {
+    const state: PetState = { ...previous, blind: snapshot.reason };
+    // The pause starts at the first failed read. The waking time before it still counts:
+    // a laptop that wakes up before its network does must not erase the hours it was shut.
+    if (!previous.blind && previous.reading) {
+      const from = Date.parse(previous.reading.readAt);
+      state.hungerMs += awakeMs(from, Date.parse(snapshot.readAt), settings.sleep);
+    }
+    return { state, events: [] };
+  }
 
   const at = snapshot.readAt;
   const now = Date.parse(at);
