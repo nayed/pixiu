@@ -41,7 +41,9 @@ export type PetPopupProps = {
   settings: Settings;
   onName: (name: string) => void;
   onSaveSettings: (settings: Settings) => void;
-  /** Where the debug page lives, if there is one to link to. */
+  /** Where the backup page lives, if there is one to link to. */
+  backupUrl?: string;
+  /** Where the debug page lives. Release builds have none. */
   debugUrl?: string;
 };
 

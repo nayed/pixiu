@@ -5,7 +5,7 @@ import type { PetPopupProps } from "./PetPopup";
 
 /** Renaming and sleeping hours. Nothing else in settings is designed yet. */
 export function SettingsPanel(props: PetPopupProps & { onDone: () => void }) {
-  const { pet, settings, onName, onSaveSettings, onDone, debugUrl } = props;
+  const { pet, settings, onName, onSaveSettings, onDone, backupUrl, debugUrl } = props;
   const hatched = pet.hatchedAt !== null;
   const [name, setName] = useState(pet.name ?? "");
   const [start, setStart] = useState(minutesToClock(settings.sleep.startMinute));
@@ -72,11 +72,18 @@ export function SettingsPanel(props: PetPopupProps & { onDone: () => void }) {
           Save
         </button>
       </form>
-      {debugUrl && (
-        <p class="px-footer">
-          <a href={debugUrl} target="_blank" rel="noreferrer">
-            Debug page
-          </a>
+      {(backupUrl || debugUrl) && (
+        <p class="px-footer px-links">
+          {backupUrl && (
+            <a href={backupUrl} target="_blank" rel="noreferrer">
+              Back up or restore
+            </a>
+          )}
+          {debugUrl && (
+            <a href={debugUrl} target="_blank" rel="noreferrer">
+              Debug page
+            </a>
+          )}
         </p>
       )}
     </>

@@ -19,8 +19,8 @@ import {
   wait,
 } from "@/lib/sim/simulation";
 import type { UsageFailureReason } from "@/lib/usage/snapshot";
+import { BackupSection } from "@/ui/Backup";
 import { PetPopup } from "@/ui/PetPopup";
-import { BackupSection } from "./Backup";
 import { IconPreview } from "./IconPreview";
 
 const MINUTE = 60_000;

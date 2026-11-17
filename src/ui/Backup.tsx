@@ -53,7 +53,7 @@ export function BackupSection() {
 
   return (
     <section>
-      <h2>Your real pet</h2>
+      <h2>Your pet</h2>
       <p class="headline">{pet ? describe(pet) : "No pet yet."}</p>
       <p class="detail">
         Removing the extension deletes the pet. Export it first, then import the file afterward.

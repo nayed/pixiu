@@ -1,4 +1,4 @@
-/* The debug page: plain controls beside a live copy of the popup. */
+/* The debug and backup pages: plain controls, with a live copy of the popup on the debug page. */
 :root {
   --ink: #1d1b2e;
   --raised: #2a2744;

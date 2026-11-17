@@ -253,6 +253,12 @@
   border-top: 2px solid var(--divider);
 }
 
+.px-links {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
 .px-primary {
   display: flex;
   align-items: center;
