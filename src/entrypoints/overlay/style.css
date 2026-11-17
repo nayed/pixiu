@@ -1,0 +1,20 @@
+/* The page inside the frame on claude.ai. Nothing but the overlay is drawn, so the Claude page
+   shows through everywhere else. */
+:root {
+  color-scheme: light;
+}
+
+html,
+body {
+  margin: 0;
+  overflow: hidden;
+  background: transparent;
+}
+
+/* Pinned to the corner the frame is anchored by, so the window stays put when the card opens. */
+#app {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  width: max-content;
+}

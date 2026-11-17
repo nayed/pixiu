@@ -10,6 +10,11 @@ export type LogEntry = { at: string; text: string };
 
 const LOG_LIMIT = 100;
 
+/** Whether the pet shows on the Claude page, and where its window sits, from the bottom right. */
+export type OverlayPrefs = { show: boolean; right: number; bottom: number };
+
+export const DEFAULT_OVERLAY: OverlayPrefs = { show: true, right: 36, bottom: 36 };
+
 export type Stored = {
   /** The claude.ai organization ID, learned by the content script. */
   orgId?: string;
@@ -22,9 +27,18 @@ export type Stored = {
   settings?: Settings;
   /** What happened to the pet, newest first. */
   log?: LogEntry[];
+  overlay?: OverlayPrefs;
 };
 
-const KEYS: (keyof Stored)[] = ["orgId", "snapshot", "lastReading", "pet", "settings", "log"];
+const KEYS: (keyof Stored)[] = [
+  "orgId",
+  "snapshot",
+  "lastReading",
+  "pet",
+  "settings",
+  "log",
+  "overlay",
+];
 
 export async function load(): Promise<Stored> {
   return (await browser.storage.local.get(KEYS)) as Stored;
@@ -49,6 +63,10 @@ export async function savePoll(
 
 export async function saveSettings(settings: Settings): Promise<void> {
   await browser.storage.local.set({ settings });
+}
+
+export async function saveOverlay(overlay: OverlayPrefs): Promise<void> {
+  await browser.storage.local.set({ overlay });
 }
 
 export async function savePet(pet: PetState): Promise<void> {

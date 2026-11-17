@@ -1,0 +1,341 @@
+/* The on-page overlay, built from docs/artboards/*-on-page-overlay.png. The window's pixel is
+   5 px. The light-and-dark double border keeps it visible on both of Claude's themes. */
+
+.pixiu-overlay {
+  --ink: #1d1b2e;
+  --raised: #2a2744;
+  --border: #6a63a8;
+  --divider: #3a3660;
+  --text: #f3f1ff;
+  --text-secondary: #b9b4d9;
+  --food: #ff9a3c;
+  --growth: #4aa8ff;
+  --body: #5cc8a0;
+  --heading: "Jersey 15", "Courier New", monospace;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 20px;
+  width: max-content;
+  /* Room for the double border, which is drawn outside the boxes. */
+  padding: 8px;
+  color: var(--text);
+  font-family: "VT323", "Courier New", monospace;
+  font-size: 20px;
+  line-height: 1.1;
+}
+
+.pixiu-overlay *,
+.pixiu-overlay *::before {
+  box-sizing: border-box;
+}
+
+.pixiu-overlay h2,
+.pixiu-overlay p {
+  margin: 0;
+}
+
+.pixiu-overlay h2 {
+  font-family: var(--heading);
+  font-size: 26px;
+  font-weight: 400;
+  line-height: 1;
+  overflow-wrap: anywhere;
+}
+
+.pixiu-overlay canvas {
+  display: block;
+  image-rendering: pixelated;
+}
+
+.pixiu-overlay :focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 2px;
+}
+
+.ov-dim {
+  color: var(--text-secondary);
+}
+
+/* The window */
+
+.ov-window {
+  position: relative;
+  width: 128px;
+  height: 96px;
+  overflow: hidden;
+  background: #bfe8f2;
+  box-shadow:
+    0 0 0 4px var(--text),
+    0 0 0 8px var(--ink);
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+
+.ov-window:active {
+  cursor: grabbing;
+}
+
+.ov-window:focus-visible {
+  outline-offset: -4px;
+  outline-color: var(--ink);
+}
+
+.ov-window.ov-gray {
+  background: #d5d9e0;
+}
+
+.ov-grass {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 20px;
+  border-top: 4px solid #4fa354;
+  background: #7cc96b;
+}
+
+.ov-gray .ov-grass {
+  border-top-color: #8b9388;
+  background: #a9b0a6;
+}
+
+.ov-actor {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+}
+
+.ov-prop {
+  position: absolute;
+}
+
+.ov-blink {
+  position: absolute;
+  width: 10px;
+  height: 5px;
+  background: var(--body);
+  opacity: 0;
+}
+
+.ov-mark {
+  position: absolute;
+  top: 4px;
+  left: 6px;
+  color: var(--ink);
+  font-family: var(--heading);
+  font-size: 22px;
+  line-height: 1;
+}
+
+/* The card */
+
+.ov-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 220px;
+  padding: 12px;
+  background: var(--ink);
+  box-shadow:
+    0 0 0 4px var(--text),
+    0 0 0 8px var(--ink);
+}
+
+.ov-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.ov-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ov-food {
+  color: #ffb366;
+}
+
+.ov-growth {
+  color: #8cc8ff;
+}
+
+.ov-cookies,
+.ov-segments {
+  display: flex;
+  gap: 3px;
+}
+
+.ov-segments i {
+  flex-grow: 1;
+  height: 8px;
+  background: var(--divider);
+}
+
+.ov-segments i.ov-on {
+  background: var(--fill);
+}
+
+.ov-button {
+  min-height: 44px;
+  padding: 0 12px;
+  border: 2px solid var(--border);
+  background: var(--raised);
+  color: var(--text);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 20px;
+}
+
+.ov-button.ov-primary {
+  border: 0;
+  background: var(--food);
+  color: var(--ink);
+  font-family: var(--heading);
+  font-size: 22px;
+}
+
+.ov-input {
+  width: 100%;
+  height: 44px;
+  padding: 0 12px;
+  border: 2px solid var(--border);
+  background: var(--raised);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 22px;
+}
+
+.ov-input::placeholder {
+  color: var(--text-secondary);
+  opacity: 1;
+}
+
+/* Motion: the popup's animations at the window's smaller pixel. Whole grid units, hard steps,
+   and nothing at all for people who ask for reduced motion. */
+
+@media (prefers-reduced-motion: no-preference) {
+  .ov-bob {
+    animation: ov-bob 1s linear infinite;
+  }
+
+  .ov-bob.ov-napping {
+    animation-duration: 2.4s;
+  }
+
+  .ov-bob.ov-eating {
+    animation-duration: 0.4s;
+  }
+
+  .ov-wobble {
+    animation: ov-wobble 2.4s step-end infinite;
+  }
+
+  .ov-wobble.ov-fast {
+    animation-duration: 0.8s;
+  }
+
+  .ov-hop {
+    animation: ov-hop 1.6s step-end infinite;
+  }
+
+  .ov-twinkle {
+    animation: ov-twinkle var(--pace) linear infinite;
+  }
+
+  .ov-chomp {
+    animation: ov-chomp 1.2s linear infinite;
+  }
+
+  .ov-blink {
+    animation: ov-blink 4s linear infinite;
+  }
+}
+
+@keyframes ov-bob {
+  0%,
+  49.9% {
+    transform: translateY(0);
+  }
+  50%,
+  100% {
+    transform: translateY(5px);
+  }
+}
+
+@keyframes ov-blink {
+  0%,
+  92% {
+    opacity: 0;
+  }
+  93%,
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes ov-wobble {
+  0% {
+    transform: translateX(0);
+  }
+  60% {
+    transform: translateX(-5px);
+  }
+  70% {
+    transform: translateX(5px);
+  }
+  80% {
+    transform: translateX(-5px);
+  }
+  90%,
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes ov-hop {
+  0% {
+    transform: translateY(0);
+  }
+  70% {
+    transform: translateY(-10px);
+  }
+  80% {
+    transform: translateY(-5px);
+  }
+  90%,
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes ov-twinkle {
+  0%,
+  49.9% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0.15;
+  }
+}
+
+@keyframes ov-chomp {
+  0%,
+  33% {
+    clip-path: inset(0 0 0 0);
+  }
+  33.1%,
+  66% {
+    clip-path: inset(0 50% 0 0);
+  }
+  66.1%,
+  100% {
+    clip-path: inset(0 100% 0 0);
+  }
+}
