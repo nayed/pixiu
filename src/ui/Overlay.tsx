@@ -35,7 +35,7 @@ export type OverlayProps = {
   settings: Settings;
   onName: (name: string) => void;
   onHide: () => void;
-  /** While the window is dragged: how far the pointer is from where it took hold. */
+  /** While the window is dragged: how far the pointer moved since the last call. */
   onDrag?: (dx: number, dy: number) => void;
   onDrop?: () => void;
   /** Keeps the card open, for previews. */
@@ -54,6 +54,8 @@ export function Overlay(props: OverlayProps) {
   const [hovered, setHovered] = useState(false);
   const [pinned, setPinned] = useState(false);
   const closing = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  // Positions on the screen, not in the page: on claude.ai the page is a frame that moves
+  // with the drag, so a position measured inside it would chase itself and shake.
   const grab = useRef<{ x: number; y: number; moved: boolean } | null>(null);
   useEffect(() => () => clearTimeout(closing.current), []);
 
@@ -92,17 +94,17 @@ export function Overlay(props: OverlayProps) {
         }}
         onPointerDown={(event) => {
           if (event.button !== 0) return;
-          grab.current = { x: event.clientX, y: event.clientY, moved: false };
+          grab.current = { x: event.screenX, y: event.screenY, moved: false };
           event.currentTarget.setPointerCapture(event.pointerId);
         }}
         onPointerMove={(event) => {
           const held = grab.current;
           if (!held) return;
-          const dx = event.clientX - held.x;
-          const dy = event.clientY - held.y;
+          const dx = event.screenX - held.x;
+          const dy = event.screenY - held.y;
           if (!held.moved && Math.hypot(dx, dy) < DRAG_START_PX) return;
-          held.moved = true;
-          onDrag?.(dx, dy);
+          grab.current = { x: event.screenX, y: event.screenY, moved: true };
+          if (dx !== 0 || dy !== 0) onDrag?.(dx, dy);
         }}
         onPointerUp={() => {
           const held = grab.current;

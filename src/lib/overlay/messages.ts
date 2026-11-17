@@ -8,7 +8,7 @@ export const WINDOW_HEIGHT = 112;
 export type OverlayMessage =
   /** The space the overlay needs now. It grows when the card opens. */
   | { type: "pixiu-size"; width: number; height: number }
-  /** The window is being dragged: how far the pointer is from where it took hold. */
+  /** The window is being dragged: how far the pointer moved since the last message. */
   | { type: "pixiu-drag"; dx: number; dy: number }
   /** The drag ended. */
   | { type: "pixiu-drop" };
