@@ -9,6 +9,8 @@ export default defineConfig({
     permissions: ["storage", "alarms"],
     host_permissions: ["https://claude.ai/*"],
     action: { default_title: "Pixiu" },
+    // The on-page overlay is this extension's own page, shown in a frame on claude.ai.
+    web_accessible_resources: [{ resources: ["overlay.html"], matches: ["https://claude.ai/*"] }],
   },
   hooks: {
     // The debug page is a development tool. It is built by `pnpm dev` and `pnpm build:debug`
