@@ -48,3 +48,9 @@ Then open `chrome://extensions`, turn on Developer mode, choose "Load unpacked",
 | `src/lib/backup.ts`                     | The backup file format: export, validation, and import.                              |
 | `src/lib/icon.ts`, `src/lib/toolbar.ts` | Which icon and badge to show, and putting them on the toolbar.                       |
 | `src/lib/store.ts`                      | The one place that reads and writes `chrome.storage.local`.                          |
+
+## License
+
+[MIT](LICENSE). The bundled fonts, Jersey 15 and VT323, are under the SIL Open Font License; their license texts are in `public/licenses/`.
+
+Pixiu is a personal project. It is not made or endorsed by Anthropic, and it reads an undocumented claude.ai address that can change without notice.
