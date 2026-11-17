@@ -2,6 +2,8 @@
 
 A Chrome extension that shows your Claude plan usage as a Tamagotchi-style virtual pet. The design handoff is in [docs/](docs/README.md).
 
+![Adult Pixie](./docs/artboards/adult-popup.png "Adult Pixie")
+ 
 ## Status
 
 Milestones 1 to 6 of [docs/PLAN.md](docs/PLAN.md), which is all of version one: the extension reads usage in the background, runs the pet engine on every read, and shows the pet in the popup and on the toolbar icon, with a badge.
