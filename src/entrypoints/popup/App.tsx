@@ -9,6 +9,9 @@ import { newPet } from "@/lib/pet/state";
 import { load, onStoreChanged, type Stored, saveSettings } from "@/lib/store";
 import { PetPopup } from "@/ui/PetPopup";
 
+/** The debug page is left out of release builds; see wxt.config.ts. */
+const HAS_DEBUG_PAGE = import.meta.env.MODE !== "production";
+
 /** Opening the popup asks for a fresh read, unless the last one is this recent. */
 const FRESH_MS = 60_000;
 
@@ -57,7 +60,8 @@ export function App() {
       settings={stored.settings ?? DEFAULT_SETTINGS}
       onName={(name) => void browser.runtime.sendMessage({ type: NAME_PET, name })}
       onSaveSettings={(settings) => void saveSettings(settings)}
-      debugUrl={browser.runtime.getURL("/debug.html")}
+      backupUrl={browser.runtime.getURL("/backup.html")}
+      debugUrl={HAS_DEBUG_PAGE ? new URL("/debug.html", location.href).href : undefined}
     />
   );
 }
