@@ -3,7 +3,7 @@
 A Chrome extension that shows your Claude plan usage as a Tamagotchi-style virtual pet. The design handoff is in [docs/](docs/README.md).
 
 ![Adult Pixie](./docs/artboards/adult-popup.png "Adult Pixie")
- 
+
 ## Status
 
 Milestones 1 to 6 of [docs/PLAN.md](docs/PLAN.md), which is all of version one: the extension reads usage in the background, runs the pet engine on every read, and shows the pet in the popup and on the toolbar icon, with a badge.
@@ -11,6 +11,22 @@ Milestones 1 to 6 of [docs/PLAN.md](docs/PLAN.md), which is all of version one: 
 To see states that take weeks to reach, use the debug page. It runs the engine against a pretend Claude and a pretend clock, and shows the popup and the toolbar icon for the pretend pet. Release builds leave it out: run `pnpm build:debug`, load `.output/chrome-mv3-debug` as a second extension, open the popup's settings, and choose "Debug page". That second extension has its own storage, so it raises its own pet.
 
 Removing the extension deletes the pet, because Chrome deletes the extension's storage. Reloading it does not. Before removing it, open the popup's settings, choose "Back up or restore", and export the pet to a file. Import that file afterward.
+
+## Install
+
+Pixiu is not on the Chrome Web Store. You load it yourself, in Chrome or another Chromium browser.
+
+1. Download `pixiu-<version>-chrome.zip` from the [latest release](https://github.com/nayed/pixiu/releases/latest) and unzip it into a folder you will keep. Chrome loads the extension from that folder every time it starts. There is no release yet; until there is one, build the folder yourself as described under [Develop](#develop).
+2. Open `chrome://extensions` and turn on "Developer mode".
+3. Choose "Load unpacked" and select the unzipped folder.
+4. Pin Pixiu to the toolbar. It starts as an egg.
+5. Open [claude.ai](https://claude.ai) once while signed in, so Pixiu can find your account. After that it needs no Claude tab.
+
+Then use Claude as usual, from any app. The egg warms as you use it and hatches once you have used about 10% of a session.
+
+To update, export your pet first (popup settings, "Back up or restore"), replace the folder's contents with the new version, and press the reload button on Pixiu's card in `chrome://extensions`. Reloading keeps the pet. Removing the extension deletes it, which is what the export is for.
+
+Pixiu reads two numbers from your claude.ai account, the session and weekly usage percentages, and keeps everything in the browser. It sends nothing anywhere else.
 
 ## Develop
 
@@ -21,7 +37,7 @@ pnpm install
 pnpm build
 ```
 
-Then open `chrome://extensions`, turn on Developer mode, choose "Load unpacked", and select `.output/chrome-mv3`. Open claude.ai once so the extension can find your account.
+Then load `.output/chrome-mv3` as in steps 2 to 5 above.
 
 | Command            | What it does                                                           |
 | ------------------ | ---------------------------------------------------------------------- |
