@@ -20,6 +20,7 @@ import {
 } from "@/lib/sim/simulation";
 import type { UsageFailureReason } from "@/lib/usage/snapshot";
 import { BackupSection } from "@/ui/Backup";
+import { Overlay } from "@/ui/Overlay";
 import { PetPopup } from "@/ui/PetPopup";
 import { IconPreview } from "./IconPreview";
 
@@ -59,6 +60,7 @@ export function App() {
   const [sim, setSimulation] = useState(start);
   const [name, setName] = useState("");
   const [sleepHours, setSleepHours] = useState(settings);
+  const [overlayShown, setOverlayShown] = useState(true);
   const { fake, pet } = sim;
   // The pretend clock also ticks in real time, so countdowns and the end of a meal show up.
   const [ticked, setTicked] = useState(0);
@@ -83,11 +85,28 @@ export function App() {
           settings={sleepHours}
           onName={(newName) => setSim({ ...sim, pet: namePet(pet, newName) })}
           onSaveSettings={setSleepHours}
+          overlayShown={overlayShown}
+          onShowOverlay={setOverlayShown}
         />
         <p class="preview-note">
           The popup and the toolbar icon, as they would look for the pretend pet.
         </p>
         <IconPreview icon={toolbarIcon(viewPet(pet, shownNow, sleepHours), pet, shownNow)} />
+        <p class="preview-note">The overlay on the Claude page, with its card held open.</p>
+        <div class="overlay-preview">
+          {overlayShown ? (
+            <Overlay
+              pet={pet}
+              now={shownNow}
+              settings={sleepHours}
+              onName={(newName) => setSim({ ...sim, pet: namePet(pet, newName) })}
+              onHide={() => setOverlayShown(false)}
+              open
+            />
+          ) : (
+            <p class="detail">Hidden. The popup's switch brings it back.</p>
+          )}
+        </div>
       </aside>
 
       <div class="controls">

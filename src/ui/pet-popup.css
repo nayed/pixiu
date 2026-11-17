@@ -253,6 +253,24 @@
   border-top: 2px solid var(--divider);
 }
 
+.px-switch {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  margin-top: auto;
+  border-top: 2px solid var(--divider);
+  cursor: pointer;
+}
+
+.px-switch input {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  accent-color: var(--food);
+}
+
 .px-links {
   display: flex;
   justify-content: space-between;

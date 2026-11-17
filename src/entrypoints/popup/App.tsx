@@ -6,7 +6,14 @@ import { browser } from "wxt/browser";
 import { NAME_PET, POLL_NOW } from "@/lib/messages";
 import { DEFAULT_SETTINGS } from "@/lib/pet/config";
 import { newPet } from "@/lib/pet/state";
-import { load, onStoreChanged, type Stored, saveSettings } from "@/lib/store";
+import {
+  DEFAULT_OVERLAY,
+  load,
+  onStoreChanged,
+  type Stored,
+  saveOverlay,
+  saveSettings,
+} from "@/lib/store";
 import { PetPopup } from "@/ui/PetPopup";
 
 /** The debug page is left out of release builds; see wxt.config.ts. */
@@ -52,6 +59,7 @@ export function App() {
   }, [loaded]);
 
   if (!stored) return null;
+  const overlay = stored.overlay ?? DEFAULT_OVERLAY;
   return (
     <PetPopup
       // Before the first poll has saved a pet, show the egg it is about to be.
@@ -60,6 +68,8 @@ export function App() {
       settings={stored.settings ?? DEFAULT_SETTINGS}
       onName={(name) => void browser.runtime.sendMessage({ type: NAME_PET, name })}
       onSaveSettings={(settings) => void saveSettings(settings)}
+      overlayShown={overlay.show}
+      onShowOverlay={(show) => void saveOverlay({ ...overlay, show })}
       backupUrl={browser.runtime.getURL("/backup.html")}
       debugUrl={HAS_DEBUG_PAGE ? new URL("/debug.html", location.href).href : undefined}
     />

@@ -41,6 +41,9 @@ export type PetPopupProps = {
   settings: Settings;
   onName: (name: string) => void;
   onSaveSettings: (settings: Settings) => void;
+  /** Whether the pet shows on the Claude page. Leave both out to show no switch. */
+  overlayShown?: boolean;
+  onShowOverlay?: (show: boolean) => void;
   /** Where the backup page lives, if there is one to link to. */
   backupUrl?: string;
   /** Where the debug page lives. Release builds have none. */
@@ -115,7 +118,15 @@ function bodyFor(view: PetView, props: PetPopupProps, hatchFrame: HatchFrame): B
         content: <Lost {...props} reason={view.unreachable} scene={scene} />,
       };
     }
-    return { title, detail, content: <Egg warmth={view.warmth} crack={view.crack} /> };
+    return {
+      title,
+      detail,
+      content: (
+        <Egg warmth={view.warmth} crack={view.crack}>
+          <OverlaySwitch {...props} who="the egg" />
+        </Egg>
+      ),
+    };
   }
 
   const name = view.name ?? "Your pet";
@@ -150,7 +161,11 @@ function bodyFor(view: PetView, props: PetPopupProps, hatchFrame: HatchFrame): B
   return {
     title: view.name,
     detail: age,
-    content: <Pet pet={pet} now={now} name={view.name} stage={view.stage} mood={view.mood} />,
+    content: (
+      <Pet pet={pet} now={now} name={view.name} stage={view.stage} mood={view.mood}>
+        <OverlaySwitch {...props} who={view.name} />
+      </Pet>
+    ),
   };
 }
 
@@ -216,7 +231,23 @@ function Meter(props: { percent: number; color: string; label: string }) {
 
 // The egg
 
-function Egg(props: { warmth: number; crack: EggCrack }) {
+/** The switch at the foot of the popup that puts the pet on the Claude page or takes it off. */
+function OverlaySwitch(props: PetPopupProps & { who: string }) {
+  const { overlayShown, onShowOverlay, who } = props;
+  if (overlayShown === undefined || !onShowOverlay) return null;
+  return (
+    <label class="px-switch">
+      <input
+        type="checkbox"
+        checked={overlayShown}
+        onChange={(event) => onShowOverlay(event.currentTarget.checked)}
+      />
+      <span>Show {who} on the Claude page</span>
+    </label>
+  );
+}
+
+function Egg(props: { warmth: number; crack: EggCrack; children?: ComponentChildren }) {
   const { warmth, crack } = props;
   const percent = Math.round((warmth / RULES.hatchWarmth) * 100);
   const wobble = crack === "full" ? "px-wobble px-fast" : warmth > 0 ? "px-wobble" : "";
@@ -243,6 +274,7 @@ function Egg(props: { warmth: number; crack: EggCrack }) {
         <p class="px-dim">{note}</p>
       </div>
       <p>You name your pet when it hatches.</p>
+      {props.children}
     </>
   );
 }
@@ -436,7 +468,14 @@ function foodNote(mood: Mood, pet: PetState, session: UsageWindow, now: Date): s
   return "No session running";
 }
 
-function Pet(props: { pet: PetState; now: Date; name: string; stage: Stage; mood: Mood }) {
+function Pet(props: {
+  pet: PetState;
+  now: Date;
+  name: string;
+  stage: Stage;
+  mood: Mood;
+  children?: ComponentChildren;
+}) {
   const { pet, now, name, stage, mood } = props;
   const session = currentWindow(pet.reading?.short, now);
   const week = currentWindow(pet.reading?.long, now);
@@ -515,6 +554,7 @@ function Pet(props: { pet: PetState; now: Date; name: string; stage: Stage; mood
             : "Birthday any moment"}
         </p>
       </div>
+      {props.children}
     </>
   );
 }
