@@ -26,7 +26,7 @@ Then use Claude as usual, from any app. The egg warms as you use it and hatches 
 
 To update, export your pet first (popup settings, "Back up or restore"), replace the folder's contents with the new version, and press the reload button on Pixiu's card in `chrome://extensions`. Reloading keeps the pet. Removing the extension deletes it, which is what the export is for.
 
-Pixiu reads two numbers from your claude.ai account, the session and weekly usage percentages, and keeps everything in the browser. It sends nothing anywhere else. It reads them every five minutes, and every 20 seconds while a claude.ai tab is in front and you have used it in the last five minutes, so the pet on the page eats soon after you do. Reading usage does not use any of your plan.
+Pixiu reads two numbers from your claude.ai account, the session and weekly usage percentages, and keeps everything in the browser. It sends nothing anywhere else. It reads them every five minutes, and every 30 seconds while a claude.ai tab is in front and you have used it in the last five minutes, so the pet on the page eats soon after you do. Reading usage does not use any of your plan.
 
 ## Develop
 

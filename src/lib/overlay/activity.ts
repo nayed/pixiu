@@ -6,7 +6,7 @@
 /** How long after the last key, click, or scroll the page still counts as in use. */
 export const ACTIVE_FOR_MS = 5 * 60_000;
 /** How often to read while the page is in use. */
-export const READ_EVERY_MS = 20_000;
+export const READ_EVERY_MS = 30_000;
 
 export type Activity = {
   now: number;
