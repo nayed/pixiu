@@ -6,7 +6,9 @@ A Chrome extension that shows your Claude plan usage as a Tamagotchi-style virtu
 
 ## Status
 
-Milestones 1 to 6 of [docs/PLAN.md](docs/PLAN.md), which is all of version one: the extension reads usage in the background, runs the pet engine on every read, and shows the pet in the popup and on the toolbar icon, with a badge. The pet also sits in a small window in the corner of claude.ai: hover it for its numbers, drag it to move it, and hide it from its card or from the switch in the popup.
+Version 0.1.0: all of version one in [docs/PLAN.md](docs/PLAN.md), plus the on-page overlay. The extension reads usage in the background, runs the pet engine on every read, and shows the pet in the popup and on the toolbar icon, with a badge. The pet also sits in a small window in the corner of claude.ai: hover it for its numbers, drag it to move it, and hide it from its card or from the switch in the popup.
+
+Known limits: an account with no session limit never hatches its egg, and Claude's usage address is undocumented, so a change on Claude's side can stop Pixiu from reading it until an update.
 
 To see states that take weeks to reach, use the debug page. It runs the engine against a pretend Claude and a pretend clock, and shows the popup and the toolbar icon for the pretend pet. Release builds leave it out: run `pnpm build:debug`, load `.output/chrome-mv3-debug` as a second extension, open the popup's settings, and choose "Debug page". That second extension has its own storage, so it raises its own pet.
 
@@ -16,7 +18,7 @@ Removing the extension deletes the pet, because Chrome deletes the extension's s
 
 Pixiu is not on the Chrome Web Store. You load it yourself, in Chrome or another Chromium browser.
 
-1. Download `pixiu-<version>-chrome.zip` from the [latest release](https://github.com/nayed/pixiu/releases/latest) and unzip it into a folder you will keep. Chrome loads the extension from that folder every time it starts. There is no release yet; until there is one, build the folder yourself as described under [Develop](#develop).
+1. Download `pixiu-<version>-chrome.zip` from the [latest release](https://github.com/nayed/pixiu/releases/latest) and unzip it into a folder you will keep. Chrome loads the extension from that folder every time it starts.
 2. Open `chrome://extensions` and turn on "Developer mode".
 3. Choose "Load unpacked" and select the unzipped folder.
 4. Pin Pixiu to the toolbar. It starts as an egg.
