@@ -6,6 +6,7 @@ import { browser } from "wxt/browser";
 import { defineContentScript } from "wxt/utils/define-content-script";
 import { POLL_NOW } from "@/lib/messages";
 import { startOverlay } from "@/lib/overlay/frame";
+import { isReplyEnd, READ_AFTER_MS } from "@/lib/overlay/replies";
 import { load, saveOrgId } from "@/lib/store";
 import { ORG_ID_PATTERN } from "@/lib/usage/claude";
 
@@ -24,28 +25,33 @@ export default defineContentScript({
   },
 });
 
-/** Claude streams each reply from an address ending in "completion". */
-const REPLY_PATTERN = /\/(retry_)?completion(\?|$)/;
-/** Usage takes a moment to show the reply that just ended. */
-const READ_DELAY_MS = 2_000;
-const READ_AT_MOST_EVERY_MS = 15_000;
+/** Never ask for reads closer together than this, however many replies end. */
+const READ_AT_MOST_EVERY_MS = 2_000;
 
 /**
- * Asks the background worker for a usage read when a reply finishes, so the meal shows on the
- * page within seconds, not at the next five-minute poll. If Claude renames the address, this
- * quietly stops and the regular poll still feeds the pet.
+ * Asks the background worker for usage reads when a reply finishes, so the meal shows on the
+ * page within seconds or a minute, not at the next five-minute poll. If this misses a reply,
+ * the regular poll still feeds the pet.
  */
 function watchReplies(): void {
+  let timers: ReturnType<typeof setTimeout>[] = [];
   let lastAsked = 0;
-  new PerformanceObserver((list) => {
-    // A resource entry appears when its response has ended, which is when the reply is done.
-    if (!list.getEntries().some((entry) => REPLY_PATTERN.test(entry.name))) return;
+
+  const read = () => {
     if (Date.now() - lastAsked < READ_AT_MOST_EVERY_MS) return;
     lastAsked = Date.now();
-    setTimeout(() => {
-      // Fails only when the extension was reloaded under this tab; nothing to do then.
-      browser.runtime.sendMessage({ type: POLL_NOW }).catch(() => {});
-    }, READ_DELAY_MS);
+    // Fails only when the extension was reloaded under this tab; nothing to do then.
+    browser.runtime.sendMessage({ type: POLL_NOW }).catch(() => {});
+  };
+
+  new PerformanceObserver((list) => {
+    // A resource entry appears when its response has ended, which is when the reply is done.
+    const reply = list.getEntries().find((entry) => isReplyEnd(entry as PerformanceResourceTiming));
+    if (!reply) return;
+    // Says which request counted as a reply, in the page's console, in case this needs fixing.
+    console.info("Pixiu: a reply ended, reading usage soon.", new URL(reply.name).pathname);
+    for (const timer of timers) clearTimeout(timer);
+    timers = READ_AFTER_MS.map((delay) => setTimeout(read, delay));
   }).observe({ type: "resource", buffered: false });
 }
 
