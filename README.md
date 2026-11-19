@@ -26,7 +26,7 @@ Then use Claude as usual, from any app. The egg warms as you use it and hatches 
 
 To update, export your pet first (popup settings, "Back up or restore"), replace the folder's contents with the new version, and press the reload button on Pixiu's card in `chrome://extensions`. Reloading keeps the pet. Removing the extension deletes it, which is what the export is for.
 
-Pixiu reads two numbers from your claude.ai account, the session and weekly usage percentages, and keeps everything in the browser. It sends nothing anywhere else.
+Pixiu reads two numbers from your claude.ai account, the session and weekly usage percentages, and keeps everything in the browser. It sends nothing anywhere else. It reads them every five minutes, and every 20 seconds while a claude.ai tab is in front and you have used it in the last five minutes, so the pet on the page eats soon after you do. Reading usage does not use any of your plan.
 
 ## Develop
 
@@ -56,7 +56,7 @@ Then load `.output/chrome-mv3` as in steps 2 to 5 above.
 | `src/entrypoints/background.ts`         | The background worker. Polls usage, runs the engine, and saves the pet.              |
 | `src/entrypoints/content.ts`            | Runs on claude.ai. Learns the organization ID and puts the overlay on the page.      |
 | `src/entrypoints/overlay/`              | The overlay page, shown in a frame on claude.ai.                                     |
-| `src/lib/overlay/`                      | The frame that holds the overlay: placing, sizing, and dragging it.                  |
+| `src/lib/overlay/`                      | The frame that holds the overlay, and when to read usage while claude.ai is in use.  |
 | `src/entrypoints/popup/`                | The popup.                                                                           |
 | `src/entrypoints/backup/`               | The backup page: export the pet to a file and import it again.                       |
 | `src/entrypoints/debug/`                | The debug page. Left out of release builds.                                          |
