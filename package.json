@@ -5,6 +5,7 @@
   "description": "A Chrome extension that shows your Claude plan usage as a virtual pet.",
   "license": "MIT",
   "type": "module",
+  "packageManager": "pnpm@12.21.0",
   "scripts": {
     "dev": "wxt",
     "build": "wxt build",
