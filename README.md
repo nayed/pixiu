@@ -1,5 +1,7 @@
 # Pixiu
 
+[![Checks](https://github.com/nayed/pixiu/actions/workflows/checks.yml/badge.svg)](https://github.com/nayed/pixiu/actions/workflows/checks.yml)
+
 A Chrome extension that shows your Claude plan usage as a Tamagotchi-style virtual pet. The design handoff is in [docs/](docs/README.md).
 
 ![Adult Pixie](./docs/artboards/adult-popup.png "Adult Pixie")
