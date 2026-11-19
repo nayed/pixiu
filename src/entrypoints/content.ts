@@ -1,12 +1,12 @@
 // Runs in every claude.ai tab. It learns the organization ID by watching which URLs the page
-// itself requests, so the user is never asked for it. It also puts the pet on the page and
-// asks for a fresh usage read when a reply finishes, so the pet eats while you watch.
+// itself requests, so the user is never asked for it. It also puts the pet on the page and,
+// while the page is in use, asks for usage reads often enough that the pet eats as you watch.
 
 import { browser } from "wxt/browser";
 import { defineContentScript } from "wxt/utils/define-content-script";
 import { POLL_NOW } from "@/lib/messages";
+import { wantsRead } from "@/lib/overlay/activity";
 import { startOverlay } from "@/lib/overlay/frame";
-import { isReplyEnd, READ_AFTER_MS } from "@/lib/overlay/replies";
 import { load, saveOrgId } from "@/lib/store";
 import { ORG_ID_PATTERN } from "@/lib/usage/claude";
 
@@ -17,7 +17,7 @@ export default defineContentScript({
   runAt: "document_idle",
   async main() {
     startOverlay();
-    watchReplies();
+    watchActivity();
     const orgId = await findOrgId(SEARCH_TIMEOUT_MS);
     if (!orgId) return;
     const { orgId: known } = await load();
@@ -25,34 +25,35 @@ export default defineContentScript({
   },
 });
 
-/** Never ask for reads closer together than this, however many replies end. */
-const READ_AT_MOST_EVERY_MS = 2_000;
+/** How often to check whether a read is due. */
+const CHECK_EVERY_MS = 5_000;
 
 /**
- * Asks the background worker for usage reads when a reply finishes, so the meal shows on the
- * page within seconds or a minute, not at the next five-minute poll. If this misses a reply,
- * the regular poll still feeds the pet.
+ * Asks the background worker for usage reads every few seconds while this tab is in front and
+ * in use, so a meal shows on the page soon after the reply that caused it. Otherwise the
+ * regular five-minute poll feeds the pet.
  */
-function watchReplies(): void {
-  let timers: ReturnType<typeof setTimeout>[] = [];
-  let lastAsked = 0;
+function watchActivity(): void {
+  let lastActiveAt = Date.now();
+  let lastReadAt = 0;
 
-  const read = () => {
-    if (Date.now() - lastAsked < READ_AT_MOST_EVERY_MS) return;
-    lastAsked = Date.now();
-    // Fails only when the extension was reloaded under this tab; nothing to do then.
-    browser.runtime.sendMessage({ type: POLL_NOW }).catch(() => {});
+  const active = () => {
+    lastActiveAt = Date.now();
   };
+  for (const type of ["keydown", "pointerdown", "wheel", "touchstart"]) {
+    window.addEventListener(type, active, { capture: true, passive: true });
+  }
 
-  new PerformanceObserver((list) => {
-    // A resource entry appears when its response has ended, which is when the reply is done.
-    const reply = list.getEntries().find((entry) => isReplyEnd(entry as PerformanceResourceTiming));
-    if (!reply) return;
-    // Says which request counted as a reply, in the page's console, in case this needs fixing.
-    console.info("Pixiu: a reply ended, reading usage soon.", new URL(reply.name).pathname);
-    for (const timer of timers) clearTimeout(timer);
-    timers = READ_AFTER_MS.map((delay) => setTimeout(read, delay));
-  }).observe({ type: "resource", buffered: false });
+  const timer = setInterval(() => {
+    const now = Date.now();
+    const visible = document.visibilityState === "visible";
+    if (!wantsRead({ now, visible, lastActiveAt, lastReadAt })) return;
+    lastReadAt = now;
+    browser.runtime.sendMessage({ type: POLL_NOW }).catch(() => {
+      // The extension was reloaded or removed under this tab. Stop asking.
+      clearInterval(timer);
+    });
+  }, CHECK_EVERY_MS);
 }
 
 function findOrgId(timeoutMs: number): Promise<string | null> {
