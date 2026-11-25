@@ -24,8 +24,8 @@ The pet logic sees only this, refreshed on each poll:
 ## Hunger
 
 - **Decided:** hunger comes from time since the last meal, where a meal is any rise in the session or weekly percent. It does not come from the session bar being low, and it does not come from whether a session exists. A session can be open at 0%.
-- **Proposed:** the pet has sleeping hours, like the original toy, so it does not go hungry overnight.
-- **Open:** how many hours without a meal make the pet hungry, and what the sleeping hours are (fixed, configurable, or learned from the user's habits). The mockup shows "last meal was 9 hours ago" as a sample only.
+- **Decided (Nayed, during the build):** the pet has sleeping hours, like the original toy, so it does not go hungry overnight. They are set in the popup's settings, 23:00 to 08:00 local time by default.
+- **Decided (Nayed, during the build):** the pet is hungry after 6 waking hours without a meal. Time inside the sleeping hours does not count.
 
 ## Growth and age
 
@@ -48,7 +48,7 @@ The pet logic sees only this, refreshed on each poll:
 | Teen | 7 to 11 | Proposed |
 | Adult | 12 and up | Proposed |
 
-The age boundaries for child, teen, and adult were Claude's suggestion to match "adulthood at about three months." Nayed approved the rows that show them but was told the exact boundaries are his to set.
+The age boundaries for child, teen, and adult were Claude's suggestion to match "adulthood at about three months." Nayed approved the rows that show them but was told the exact boundaries are his to set. **Built:** the extension uses these boundaries.
 
 ## The egg
 
@@ -56,7 +56,7 @@ The age boundaries for child, teen, and adult were Claude's suggestion to match 
 - **Decided:** warmth is usage since install. The egg hatches after one cookie's worth of usage, which is 10% of a session.
 - **Decided:** warmth never drops. If the user stops for a day, the egg waits.
 - **Proposed:** the egg shows three states: no cracks (nothing used yet), one small crack (warming), cracked all the way across (about to hatch). It sits still when new, wobbles occasionally while warming, and wobbles fast when about to hatch.
-- **Open:** the warmth values at which the first crack and the full crack appear. The mockups use 40% and 90% as samples.
+- **Built:** the first crack appears at 40% warmth and the full crack at 90%, the samples the mockups used.
 - **Note:** because meals arrive in jumps, the 10% threshold can be crossed between two polls. The egg may go straight from no cracks to hatching. That is acceptable.
 
 ## Hatching
@@ -71,12 +71,12 @@ The age boundaries for child, teen, and adult were Claude's suggestion to match 
 
 | Mood | When | Stages |
 |---|---|---|
-| Happy | Fed in the last few hours | All |
+| Happy | Fed within the last 6 waking hours | All |
 | Eating | The percent just rose | All |
-| Hungry | No meal for a while (threshold open) | All |
+| Hungry | No meal for 6 waking hours | All |
 | Stuffed | Session at 100%. Naps until reset. | All |
-| Sulky | Underfed for weeks (threshold open) | Child, teen, adult |
-| Ran away | About two empty weeks | Child, teen, adult |
+| Sulky | Underfed for weeks (see Condition) | Child, teen, adult |
+| Ran away | Two empty weeks in a row (see Neglect) | Child, teen, adult |
 
 - **Proposed:** the baby has only happy, hungry, stuffed, and eating. Sulky and ran away both need weeks of neglect.
 - **Decided (2026-11-25):** babies neither sulk nor run away, even though with XP the baby stage can last more than a week.
@@ -86,12 +86,13 @@ The age boundaries for child, teen, and adult were Claude's suggestion to match 
 
 - **Decided:** the pet's look drifts with recent habits. It does not lock in one form forever.
 - **Proposed:** condition is computed from a rolling window of about the last four weeks of weekly fullness. Well-fed weeks keep it sleek. Thin weeks turn it sulky: a grayed, duller color and a scowl. It recovers as the user feeds it again.
-- **Open:** the exact window and the thresholds.
+- **Decided (Nayed, during the build):** the pet is sulky when the average weekly peak of the last four completed weeks is under 25%. It needs two completed weeks of history before it can sulk. A good current week counts right away, so feeding the pet helps before the week ends.
 
 ## Neglect
 
 - **Decided:** the pet never dies.
 - **Decided:** it sulks first, then runs away after about two empty weeks. It leaves a note.
+- **Decided (Nayed, during the build):** a week is empty when its peak stays under 5%. After two empty weeks in a row, the pet runs away at the second weekly reset. Weeks the extension never saw, for example with the browser closed, are not held against it.
 - **Decided:** it comes back the next time the user uses Claude, a little worse for wear, with its age and history intact.
 - **Reasoning:** the extension cannot tell neglect from a vacation or an illness, the loss would grow with the pet's age, and "more food is better" already applies pressure.
 
@@ -101,13 +102,14 @@ The age boundaries for child, teen, and adult were Claude's suggestion to match 
 - **Proposed:** three causes are shown differently in the popup: signed out of Claude in this browser, offline, and "Claude changed its usage page and the extension cannot read it yet."
 - **Proposed:** the pet does not get hungry while it can't see. Time is paused for hunger and neglect during an outage.
 - **Proposed:** the popup shows how long ago the pet last saw usage ("last seen 12 min ago" in the mockup).
+- **Built:** all three, as proposed. The pause starts at the first failed read, so the waking hours before it still count: a laptop that wakes up before its network does not lose the hours it was shut.
 
 ## Not defined yet
 
 - **Usage credits.** With usage credits turned on, usage continues past 100% of a limit. What a stuffed pet does then is open. The test account had credits off.
-- **The Fable weekly limit.** Some plans have a separate weekly limit scoped to one model. **Proposed:** ignore it.
-- **Plans with no session limit.** Some accounts have no five-hour limit. Behavior is open.
-- **Reset credits.** Claude lets a user reset a limit early. The pet would see the percent drop to zero before the scheduled time. Behavior is open; treating it like a normal reset is the obvious choice.
+- **The Fable weekly limit.** Some plans have a separate weekly limit scoped to one model. **Proposed:** ignore it. **Built:** ignored; the pet reads only the weekly limit for all models.
+- **Plans with no session limit.** Some accounts have no five-hour limit. Behavior is open. **Built, for now:** a missing session reads as no session running, so warmth never rises and the egg never hatches.
+- **Reset credits.** Claude lets a user reset a limit early. The pet would see the percent drop to zero before the scheduled time. **Built:** treated like a normal reset. Usage after an early session reset counts as food. For the week, a drop counts as a new week when Claude reports a later reset time; see Growth and age.
 
 ## Later, not version one
 

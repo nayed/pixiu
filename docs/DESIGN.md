@@ -118,7 +118,7 @@ See `artboards/*-popup.png`. Top to bottom:
 5. "This week" with the time until the weekly reset, for example "resets in 5 h 21 min".
 6. A switch to show or hide the pet on the Claude page.
 
-Variants: the egg (warmth thermometer in place of the ruler, no cookies), hatching (name field and a "Say hello" button), and can't reach Claude (gray scene, a reason, and an "Open Claude" button when signed out).
+Variants: the first run (the egg and an "Open Claude" button, before the account is found), the egg (warmth thermometer in place of the ruler, no cookies), hatching (name field and a "Say hello" button), ran away (the note left on the grass), and can't reach Claude (gray scene, a reason, and an "Open Claude" button when signed out).
 
 Keep the text short. An earlier version had a status sentence that repeated what the face already showed, and it was removed.
 
@@ -135,16 +135,17 @@ See `artboards/*-toolbar-icon.png`. The icon is the face sprite for the pet's st
 | Can't reach Claude | `?` |
 | Ran away, egg | None |
 
-The badge text is **Proposed**. The dark outline disappears on dark toolbars, but the body color carries the shape. Check the icons on both light and dark themes.
+The badge text is **Proposed**, and built as proposed. The dark outline disappears on dark toolbars, but the body color carries the shape. Check the icons on both light and dark themes.
 
-### On-page overlay (later than version one)
+### On-page overlay
 
-See `artboards/*-on-page-overlay.png`. The gray page in those images is a placeholder, not Claude's real layout.
+See `artboards/*-on-page-overlay.png`. The gray page in those images is a placeholder, not Claude's real layout. Built after version one, and part of 0.1.0.
 
 - The pet lives in a small sky-and-grass window (128 x 96) in the bottom-right corner of claude.ai, with a light-and-dark double border so it shows on both themes.
-- It reacts live: it eats when the percent rises and naps at the limit.
-- It shows no numbers by default. Hovering opens a card with cookies, a growth bar with the XP toward the next age, and a "Hide on this page" button.
-- It must be draggable and hideable, because it sits over a page people work in.
+- It reacts live: it eats when the percent rises and naps at the limit. While the page is in use, usage is read every 30 seconds, so a meal shows soon after the reply that caused it.
+- It shows no numbers by default. Hovering, focusing, or clicking it opens a card with cookies, a growth bar with the XP toward the next age, and a "Hide on this page" button. A pet with no name shows the name field without waiting.
+- It is draggable, because it sits over a page people work in, and it stays where it is dropped. It hides from its card or from the switch in the popup.
+- It is the extension's own page in a frame, so Claude's styles and the pet's styles cannot affect each other.
 
 ## One state, three faces
 

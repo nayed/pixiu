@@ -4,7 +4,7 @@
 
 The extension reads the same JSON address that Claude's own usage settings page reads. A throwaway test extension confirmed on 2026-11-16 that this works from a Claude tab and from the background with no Claude tab open.
 
-The address is undocumented. It can change without notice, and nobody has checked whether Anthropic's terms allow automated reads of it. Check that before publishing the extension.
+The address is undocumented. It can change without notice, and nobody has checked whether Anthropic's terms allow automated reads of it. Nayed chose to publish on GitHub without a formal check (MVP.md, question 16).
 
 ## The request
 
@@ -35,7 +35,7 @@ This means the user must open claude.ai once after installing. Until then the pe
 
 The run made 30 reads over about an hour, one every 2 minutes, with no failures and no sign of throttling. That is a short run. It does not establish a safe polling rate.
 
-**Proposed:** poll every 5 minutes from the background using `chrome.alarms`.
+**Decided (Nayed, during the build):** poll every 5 minutes from the background using `chrome.alarms`. While a claude.ai tab is in front and has seen a key, click, or scroll in the last five minutes, its content script asks for a read every 30 seconds, so the pet on the page eats soon after a reply. Reading usage does not count against the plan: an hour of reads with Claude idle left both percents unchanged.
 
 Because the background read works without a tab, usage from Claude Code and the desktop app reaches the pet without the user visiting claude.ai.
 
@@ -72,7 +72,7 @@ How to read it:
 - **Fall back to `five_hour` and `seven_day`**, which carry the same numbers as `utilization` and `resets_at`.
 - **No session running** shows as the session entry at 0% with `resets_at` set to null. A filled `resets_at` means a session is open, even at 0%.
 - **Percentages were whole numbers** in every sample. Do not rely on finer steps.
-- **`weekly_scoped`** is a separate weekly limit for one model. Proposed: ignore it.
+- **`weekly_scoped`** is a separate weekly limit for one model. Proposed: ignore it. Built: ignored.
 - **`seven_day_breakdown`** splits the week's usage by product. The rows are shares that add up to 100. Not needed for version one.
 - **`extra_usage`** describes usage credits. The test account had them off.
 - **What `is_active` means is unknown.** Do not build on it.
@@ -86,9 +86,9 @@ The full response also contains more than twenty fields with placeholder-style n
 | Response is not JSON, or 401/403 | Signed out of claude.ai, or a bot check | Can't reach Claude: signed out |
 | Network error | Offline | Can't reach Claude: offline |
 | JSON without the expected fields | Claude changed the response | Can't reach Claude: changed |
-| No organization ID stored yet | The user has not opened claude.ai since install | Open: needs its own first-run message |
+| No organization ID stored yet | The user has not opened claude.ai since install | The egg with a first-run message: open Claude once |
 
-Only the first row's cause is inferred, not observed. The test never ran signed out.
+The test never ran signed out. During the build, a real signed-out read showed as signed out, as the first row expects.
 
 ## Observations worth keeping
 
@@ -96,10 +96,11 @@ Only the first row's cause is inferred, not observed. The test never ran signed 
 - That same 22% of a session moved the week from 22% to 26%. On this Pro account a full session is worth roughly 18% of the week. This is one sample.
 - A session that had been open at 0% for hours took that usage and still reset at its original time.
 - The weekly reset for this account is Thursday 05:00 Paris time. It is fixed per account.
+- While Claude writes a reply, no request shows up in the page's resource timing entries as staying open (checked during the build, 2026-11). The reply probably arrives over a connection the page opened earlier. The content script therefore cannot tell from the network when a reply ends, which is why the faster reads follow activity on the page instead.
 
 ## Normalized shape for the pet logic
 
-**Proposed.** The pet logic should not know about Claude's response. A provider adapter returns this:
+**Built** as proposed, in `src/lib/usage/snapshot.ts`. The pet logic does not know about Claude's response. A provider adapter returns this:
 
 ```ts
 type UsageSnapshot = {

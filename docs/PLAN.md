@@ -2,6 +2,8 @@
 
 A suggested order. Everything here is a proposal from the design conversation; adjust it once the tech stack is agreed.
 
+**Status:** all six milestones are done, and the on-page overlay from "After version one" shipped in the first release, 0.1.0.
+
 ## Shape of the extension
 
 Chrome extension, Manifest V3.

@@ -2,7 +2,7 @@
 
 Pixiu is a Chrome extension that shows your Claude plan usage as a Tamagotchi-style virtual pet. Using Claude feeds the pet. The more you feed it, the better it does.
 
-This folder is the handoff from the design conversation to implementation. Nothing has been built yet except a throwaway test extension that proved the data source.
+This folder started as the handoff from the design conversation to implementation. The extension is now built, and the docs are kept up to date with it: each rule says whether it was decided, proposed, or settled during the build, and what is still open.
 
 ## Read in this order
 
@@ -17,8 +17,8 @@ This folder is the handoff from the design conversation to implementation. Nothi
 
 | Path | What it holds |
 |---|---|
-| `artboards/*.png` | Exported images of every design artboard (20 images), at 2x. |
-| `artboards/source/` | The design canvas sources (`.dc.html`) and its layout file. Reference only; the sprite data inside them is already extracted into `assets/`. |
+| `artboards/*.png` | Every surface of the built extension (23 images), at 2x. `pnpm artboards` takes them again from the real components, so they match the code. |
+| `artboards/source/` | The original design canvas sources (`.dc.html`) and its layout file, from before the build. They show the first design, which differs in places: the Pixelify Sans font and birthdays on the weekly reset. Reference only; the sprite data inside them is already extracted into `assets/`. |
 | `assets/sprites/*.png` | Every sprite as a pixel-exact PNG at 1x (16 x 16, transparent), ready to use. |
 | `assets/sprites.json` | The same sprites as character grids plus palettes. This is the source of truth for the drawings. |
 | `assets/icons/` | Extension icons at 16, 32, 48, and 128 px (the happy child face). |
@@ -32,6 +32,7 @@ The docs mark each rule with one of these, because not everything was decided wi
 - **Decided**: Nayed chose it or explicitly agreed to it.
 - **Proposed**: Claude suggested it during design and it was not objected to, but it was never explicitly confirmed. Safe to build, cheap to change.
 - **Open**: nobody has decided. Ask before building.
+- **Built**: settled while building the extension, without a separate decision. It is what the extension does now, and cheap to change.
 
 ## First prompt for Claude Code
 

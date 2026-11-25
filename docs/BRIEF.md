@@ -12,7 +12,7 @@ A pixiu is a creature from Chinese legend that eats gold and silver and never le
 
 Names considered and rejected: Taotie (a gluttony monster, but a warning figure, which fights the "feeding is good" message) and Tantalus (food forever out of reach, the opposite of the idea).
 
-To check before publishing: there may be an existing open-source finance AI project called PIXIU. Search the name on the Chrome Web Store and GitHub first.
+There may be an existing open-source finance AI project called PIXIU. **Decided (Nayed, during the build):** keep the name without searching further.
 
 ## The core choices
 
@@ -22,7 +22,7 @@ These were decided by Nayed during the design conversation.
 - **Claude plan limits first.** Other providers (OpenAI, Cursor) are a hypothetical later addition. If that happens, those providers' own models would write their adapters. See "Other providers" below.
 - **A long-lived pet.** A pet that lives one week was rejected as too quick. One pet lives for months.
 - **No death.** At worst the pet runs away, and it comes back. See RULES.md.
-- **Three surfaces.** A popup, a toolbar icon whose face changes, and a small companion drawn on the Claude page. All three are designed. Version one ships the first two (see MVP.md).
+- **Three surfaces.** A popup, a toolbar icon whose face changes, and a small companion drawn on the Claude page. All three are designed and built. Version one was the first two; the companion on the Claude page followed before the first release (see MVP.md).
 - **Color pixel art.** Not the monochrome look of the original toy.
 - **Jade green with gold horns.** The first drawings were yellow with pointed ears and read too close to Pikachu, especially next to the name. The pet was recolored jade (a pixiu is often carved in jade) and the ears became horns.
 
@@ -61,4 +61,4 @@ A sample showed that 22% of a session moved the week by 4 points. On a Pro plan,
 
 ## Things nobody has decided
 
-See the "Open questions" section of MVP.md. The largest ones are the tech stack, the thresholds for hunger and sulking, and whether the extension will be published.
+See the "Open questions" section of MVP.md, which also records how each was settled. Most were answered during the build: the tech stack, the thresholds for hunger and sulking, and publishing (on GitHub, under the MIT license). Still open: what a stuffed pet does when usage credits let usage go past 100%, and what accounts with no session limit get.
