@@ -11,7 +11,7 @@ Agreed with Nayed after the data test.
 - The toolbar icon with its changing face and badge.
 - The "can't reach Claude" state.
 - Reading Claude plan usage from the background, with no Claude tab needed.
-- Aging on the weekly reset.
+- Aging on the weekly reset. Replaced after version one by aging with XP from weekly usage; see RULES.md.
 - Sulking and running away.
 
 ## Deliberately later
@@ -62,6 +62,6 @@ Ask Nayed before building anything that depends on these.
 - After the user has opened claude.ai once, using Claude from any surface (including Claude Code) warms the egg within one polling interval.
 - The egg hatches, the user names the pet, and the name persists.
 - The pet's mood follows the rules in RULES.md, and the popup and the toolbar icon always agree.
-- The pet ages by one at the weekly reset.
+- The pet ages by one at the weekly reset. (Version one. Since then it ages with XP; see RULES.md.)
 - Signing out of Claude turns the pet gray with a `?` badge, and signing back in restores it with no lost history.
 - Closing and reopening the browser loses nothing.

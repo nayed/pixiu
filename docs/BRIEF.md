@@ -40,10 +40,10 @@ Claude paid plans have a five-hour session limit and a weekly limit. Each maps t
 | Claude | Pet | Shown as |
 |---|---|---|
 | Session percent used | The current meal: how full the pet is right now | Ten cookies that fill in |
-| Weekly percent used | Growth this week | A height ruler beside the pet |
-| Weekly reset | The pet's birthday. It ages one year. | Age in the header |
+| Weekly percent used | Growth: each point is 1 XP toward the next age | A height ruler beside the pet |
+| Weekly reset | The end of a week, for condition and neglect | Nothing on screen |
 
-One week of real time is one year of the pet's life.
+The pet's age follows usage, not the calendar: each age costs a little more XP than the one before. Until 0.1.0, each weekly reset was a birthday and one week was one year; see RULES.md.
 
 ## What the data test changed
 

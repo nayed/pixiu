@@ -29,9 +29,13 @@ The pet logic sees only this, refreshed on each poll:
 
 ## Growth and age
 
-- **Decided:** the weekly percent is growth this week, shown as a ruler beside the pet.
-- **Decided:** each weekly reset is a birthday. The pet's age goes up by one.
-- **Decided:** the pet is long-lived and reaches adulthood after two to three months.
+- **Decided (Nayed, 2026-11-25):** growth is XP. Each point the weekly percent rises is 1 XP, counted from hatching. The weekly reset sends Claude's percent back to 0, but the pet keeps the XP it earned.
+- **Decided (Nayed, 2026-11-25):** the pet ages up when its XP pays for the next age. Age 1 costs 50 XP and each later age costs 10 more, so age *n* costs 40 + 10 × *n*. In all, the teen years start at 560 XP and adulthood at 1,260. One big rise can pay for more than one age.
+- **Decided (Nayed, 2026-11-25):** the weekly reset is no longer a birthday. It still closes the week for condition and neglect.
+- **Decided:** the ruler beside the pet shows growth: the progress toward the next age.
+- **Decided:** the pet is long-lived. Using the whole weekly limit every week, it reaches adulthood in about 13 weeks, the "about three months" first designed. Lighter use takes longer.
+- **Replaced (2026-11-25):** until 0.1.0, each weekly reset was a birthday and the weekly percent was "growth this week." Pets from 0.1.0 keep their age and are credited the usage of the week they were in as XP.
+- **Decided:** a drop in the weekly percent is a new week only when the week has ended or Claude reports a later reset time, as after an early reset. Any other drop is a correction and earns no XP.
 
 ## Life stages
 
@@ -39,7 +43,7 @@ The pet logic sees only this, refreshed on each poll:
 |---|---|---|
 | Egg | Before hatching | Decided |
 | Hatching | The moment between egg and baby | Decided |
-| Baby | 0 (hatching to the first weekly reset) | Proposed, then approved with the baby row |
+| Baby | 0 (hatching until it has earned 50 XP) | Proposed, then approved with the baby row |
 | Child | 1 to 6 | Proposed |
 | Teen | 7 to 11 | Proposed |
 | Adult | 12 and up | Proposed |
@@ -74,7 +78,8 @@ The age boundaries for child, teen, and adult were Claude's suggestion to match 
 | Sulky | Underfed for weeks (threshold open) | Child, teen, adult |
 | Ran away | About two empty weeks | Child, teen, adult |
 
-- **Proposed:** the baby has only happy, hungry, stuffed, and eating. Sulky and ran away both need weeks of neglect, and the baby stage lasts one week.
+- **Proposed:** the baby has only happy, hungry, stuffed, and eating. Sulky and ran away both need weeks of neglect.
+- **Decided (2026-11-25):** babies neither sulk nor run away, even though with XP the baby stage can last more than a week.
 - **Proposed:** a hungry baby cries (blue tears, open mouth). Older stages slump and thin out.
 
 ## Condition

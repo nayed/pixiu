@@ -17,7 +17,7 @@ Color pixel art on dark navy panels. Hard edges, no rounded corners, no gradient
 | Main text | `#f3f1ff` |
 | Secondary text | `#b9b4d9` |
 | Food (cookies, session number, primary button) | `#ff9a3c`, number text `#ffb366` |
-| Growth (weekly) | `#4aa8ff` on dark, `#2b6fd0` on the sky, number text `#8cc8ff` |
+| Growth (XP) | `#4aa8ff` on dark, `#2b6fd0` on the sky, number text `#8cc8ff` |
 | Egg warmth fill on the sky | `#e8590c` |
 | Scene sky | `#bfe8f2` |
 | Scene grass, grass edge | `#7cc96b`, `#4fa354` |
@@ -111,9 +111,9 @@ The cookie sits directly in front of the mouth, overlapping the cheek. An earlie
 See `artboards/*-popup.png`. Top to bottom:
 
 1. The pet's name and age, with a settings button.
-2. The scene: sky, grass, the pet at 8x, and the growth ruler with its percentage.
+2. The scene: sky, grass, the pet at 8x, and the growth ruler with the percent of the way to the next age.
 3. "Food this session" with the percent, ten cookies, and one line saying what is happening or what to do.
-4. "Growth this week" with the time until the next birthday.
+4. "Growth to age 2" with the XP earned toward it and what it costs, for example "34 / 60 XP". It replaced "Growth this week" with the time until the next birthday when aging moved to XP.
 5. A switch to show or hide the pet on the Claude page.
 
 Variants: the egg (warmth thermometer in place of the ruler, no cookies), hatching (name field and a "Say hello" button), and can't reach Claude (gray scene, a reason, and an "Open Claude" button when signed out).
@@ -141,7 +141,7 @@ See `artboards/*-on-page-overlay.png`. The gray page in those images is a placeh
 
 - The pet lives in a small sky-and-grass window (128 x 96) in the bottom-right corner of claude.ai, with a light-and-dark double border so it shows on both themes.
 - It reacts live: it eats when the percent rises and naps at the limit.
-- It shows no numbers by default. Hovering opens a card with cookies, a growth bar, and a "Hide on this page" button.
+- It shows no numbers by default. Hovering opens a card with cookies, a growth bar with the XP toward the next age, and a "Hide on this page" button.
 - It must be draggable and hideable, because it sits over a page people work in.
 
 ## One state, three faces
