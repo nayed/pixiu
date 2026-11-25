@@ -216,12 +216,11 @@ function Blink({ row }: { row: number }) {
   );
 }
 
-/** The ruler in the sky: ten segments filled to `percent`, with `text` above them. */
-function Meter(props: { percent: number; text: string; color: string; label: string }) {
+function Meter(props: { percent: number; color: string; label: string }) {
   const filled = Math.max(0, Math.min(10, Math.round(props.percent / 10)));
   return (
     <div class="px-meter" role="img" aria-label={props.label}>
-      <span>{props.text}</span>
+      <span>{Math.round(props.percent)}%</span>
       <div class="px-meter-bar" style={{ "--fill": props.color }}>
         {Array.from({ length: 10 }, (_, index) => (
           <i key={index} class={index < filled ? "px-on" : undefined} />
@@ -266,12 +265,7 @@ function Egg(props: { warmth: number; crack: EggCrack; children?: ComponentChild
         <div class={`px-actor ${wobble}`} style={stand(76, 56)}>
           <Sprite sprite={eggSprite(crack)} scale={UNIT} label="A speckled pixel-art egg" />
         </div>
-        <Meter
-          percent={percent}
-          text={`${percent}%`}
-          color="var(--warmth)"
-          label={`Egg warmth: ${percent} percent`}
-        />
+        <Meter percent={percent} color="var(--warmth)" label={`Egg warmth: ${percent} percent`} />
       </Scene>
       <div class="px-section">
         <div class="px-row">
@@ -498,7 +492,8 @@ function Pet(props: {
   const fresh = mood === "eating" ? Math.max(1, Math.round((pet.lastBite?.points ?? 0) / 10)) : 0;
   const firstFresh = cookies - Math.min(fresh, cookies);
   const growth = growthOf(pet);
-  const week = currentWindow(pet.reading?.long, now);
+  const weekPercent = Math.round(currentWindow(pet.reading?.long, now).percent);
+  const weekResetsAt = pet.reading?.long.resetsAt ?? null;
 
   return (
     <>
@@ -531,11 +526,9 @@ function Pet(props: {
           </div>
         )}
         <Meter
-          percent={(growth.xp / growth.needed) * 100}
-          // XP, not a percent: in the popup a percent always means Claude usage.
-          text={`${growth.xp} XP`}
+          percent={weekPercent}
           color="var(--growth)"
-          label={`Growth: ${growth.xp} of ${growth.needed} XP to age ${growth.nextAge}`}
+          label={`This week: ${weekPercent} percent of your weekly limit used`}
         />
       </Scene>
 
@@ -564,13 +557,16 @@ function Pet(props: {
           {growth.xp} / {growth.needed} XP
         </p>
       </div>
-      <div class="px-row">
-        <p>This week</p>
-        <p class="px-dim">
-          {Math.round(week.percent)}%
-          {week.resetsAt && `, resets in ${timeLeftText(week.resetsAt, now)}`}
-        </p>
-      </div>
+      {weekResetsAt && (
+        <div class="px-row">
+          <p>This week</p>
+          <p class="px-dim">
+            {Date.parse(weekResetsAt) > now.getTime()
+              ? `resets in ${timeLeftText(weekResetsAt, now)}`
+              : "just reset"}
+          </p>
+        </div>
+      )}
       {props.children}
     </>
   );
