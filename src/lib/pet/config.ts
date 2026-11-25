@@ -30,6 +30,11 @@ export const RULES = {
   /** This many empty weeks in a row and the pet runs away. */
   emptyWeeksToRunAway: 2,
 
+  /** XP a newly hatched pet needs to reach age 1. Each point the weekly percent rises is 1 XP. */
+  firstAgeXp: 50,
+  /** How much more XP each later age costs than the one before. */
+  extraXpPerAge: 10,
+
   /** The age at which each stage starts. The baby is age 0. */
   childAge: 1,
   teenAge: 7,
