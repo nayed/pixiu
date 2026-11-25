@@ -111,10 +111,11 @@ The cookie sits directly in front of the mouth, overlapping the cheek. An earlie
 See `artboards/*-popup.png`. Top to bottom:
 
 1. The pet's name and age, with a settings button.
-2. The scene: sky, grass, the pet at 8x, and the growth ruler with the percent of the way to the next age.
+2. The scene: sky, grass, the pet at 8x, and the growth ruler, which fills toward the next age and is labeled with the XP earned toward it, for example "34 XP". It is labeled in XP, not percent, so that a percent in the popup always means Claude usage.
 3. "Food this session" with the percent, ten cookies, and one line saying what is happening or what to do.
 4. "Growth to age 2" with the XP earned toward it and what it costs, for example "34 / 60 XP". It replaced "Growth this week" with the time until the next birthday when aging moved to XP.
-5. A switch to show or hide the pet on the Claude page.
+5. "This week" with the weekly percent and the time until it resets, for example "66%, resets in 5 h 21 min".
+6. A switch to show or hide the pet on the Claude page.
 
 Variants: the egg (warmth thermometer in place of the ruler, no cookies), hatching (name field and a "Say hello" button), and can't reach Claude (gray scene, a reason, and an "Open Claude" button when signed out).
 

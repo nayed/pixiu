@@ -32,7 +32,7 @@ The pet logic sees only this, refreshed on each poll:
 - **Decided (Nayed, 2026-11-25):** growth is XP. Each point the weekly percent rises is 1 XP, counted from hatching. The weekly reset sends Claude's percent back to 0, but the pet keeps the XP it earned.
 - **Decided (Nayed, 2026-11-25):** the pet ages up when its XP pays for the next age. Age 1 costs 50 XP and each later age costs 10 more, so age *n* costs 40 + 10 × *n*. In all, the teen years start at 560 XP and adulthood at 1,260. One big rise can pay for more than one age.
 - **Decided (Nayed, 2026-11-25):** the weekly reset is no longer a birthday. It still closes the week for condition and neglect.
-- **Decided:** the ruler beside the pet shows growth: the progress toward the next age.
+- **Decided:** the ruler beside the pet shows growth: the progress toward the next age, labeled with the XP earned toward it. The popup shows the weekly percent separately, as "This week," with its reset time.
 - **Decided:** the pet is long-lived. Using the whole weekly limit every week, it reaches adulthood in about 13 weeks, the "about three months" first designed. Lighter use takes longer.
 - **Replaced (2026-11-25):** until 0.1.0, each weekly reset was a birthday and the weekly percent was "growth this week." Pets from 0.1.0 keep their age and are credited the usage of the week they were in as XP.
 - **Decided:** a drop in the weekly percent is a new week only when the week has ended or Claude reports a later reset time, as after an early reset. Any other drop is a correction and earns no XP.

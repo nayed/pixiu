@@ -194,6 +194,7 @@
 
 .px-meter span {
   color: var(--ink);
+  white-space: nowrap;
   font-family: var(--heading);
   font-size: 22px;
   line-height: 1;

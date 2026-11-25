@@ -216,11 +216,12 @@ function Blink({ row }: { row: number }) {
   );
 }
 
-function Meter(props: { percent: number; color: string; label: string }) {
+/** The ruler in the sky: ten segments filled to `percent`, with `text` above them. */
+function Meter(props: { percent: number; text: string; color: string; label: string }) {
   const filled = Math.max(0, Math.min(10, Math.round(props.percent / 10)));
   return (
     <div class="px-meter" role="img" aria-label={props.label}>
-      <span>{Math.round(props.percent)}%</span>
+      <span>{props.text}</span>
       <div class="px-meter-bar" style={{ "--fill": props.color }}>
         {Array.from({ length: 10 }, (_, index) => (
           <i key={index} class={index < filled ? "px-on" : undefined} />
@@ -265,7 +266,12 @@ function Egg(props: { warmth: number; crack: EggCrack; children?: ComponentChild
         <div class={`px-actor ${wobble}`} style={stand(76, 56)}>
           <Sprite sprite={eggSprite(crack)} scale={UNIT} label="A speckled pixel-art egg" />
         </div>
-        <Meter percent={percent} color="var(--warmth)" label={`Egg warmth: ${percent} percent`} />
+        <Meter
+          percent={percent}
+          text={`${percent}%`}
+          color="var(--warmth)"
+          label={`Egg warmth: ${percent} percent`}
+        />
       </Scene>
       <div class="px-section">
         <div class="px-row">
@@ -492,6 +498,7 @@ function Pet(props: {
   const fresh = mood === "eating" ? Math.max(1, Math.round((pet.lastBite?.points ?? 0) / 10)) : 0;
   const firstFresh = cookies - Math.min(fresh, cookies);
   const growth = growthOf(pet);
+  const week = currentWindow(pet.reading?.long, now);
 
   return (
     <>
@@ -525,6 +532,8 @@ function Pet(props: {
         )}
         <Meter
           percent={(growth.xp / growth.needed) * 100}
+          // XP, not a percent: in the popup a percent always means Claude usage.
+          text={`${growth.xp} XP`}
           color="var(--growth)"
           label={`Growth: ${growth.xp} of ${growth.needed} XP to age ${growth.nextAge}`}
         />
@@ -553,6 +562,13 @@ function Pet(props: {
         <p>Growth to age {growth.nextAge}</p>
         <p class="px-dim">
           {growth.xp} / {growth.needed} XP
+        </p>
+      </div>
+      <div class="px-row">
+        <p>This week</p>
+        <p class="px-dim">
+          {Math.round(week.percent)}%
+          {week.resetsAt && `, resets in ${timeLeftText(week.resetsAt, now)}`}
         </p>
       </div>
       {props.children}
