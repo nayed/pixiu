@@ -16,3 +16,19 @@ export function grow(age: number, xp: number): { age: number; xp: number } {
   }
   return next;
 }
+
+export type Growth = {
+  /** Whole XP earned toward the next age, never more than it costs. */
+  xp: number;
+  /** What the next age costs. */
+  needed: number;
+  nextAge: number;
+};
+
+/** How far a pet is toward its next age, for the popup and the overlay. */
+export function growthOf(pet: { age: number; xp: number }): Growth {
+  const needed = xpToGrow(pet.age);
+  // A pet brought from an older version can hold more XP than its next age costs until its
+  // next read pays for the birthday. Show it as full, not as "64 / 60".
+  return { xp: Math.min(Math.floor(pet.xp), needed), needed, nextAge: pet.age + 1 };
+}

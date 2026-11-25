@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { grow, xpToGrow } from "./growth";
+import { grow, growthOf, xpToGrow } from "./growth";
 
 describe("xpToGrow", () => {
   it("costs 50 for age 1 and 10 more for each age after", () => {
@@ -29,5 +29,15 @@ describe("grow", () => {
     expect(grow(0, 560)).toEqual({ age: 7, xp: 0 });
     expect(grow(0, 1_259)).toEqual({ age: 11, xp: 159 });
     expect(grow(0, 1_260)).toEqual({ age: 12, xp: 0 });
+  });
+});
+
+describe("growthOf", () => {
+  it("shows whole XP toward the next age", () => {
+    expect(growthOf({ age: 2, xp: 4.6 })).toEqual({ xp: 4, needed: 70, nextAge: 3 });
+  });
+
+  it("shows a pet that has earned its birthday as full until it has it", () => {
+    expect(growthOf({ age: 1, xp: 64 })).toEqual({ xp: 60, needed: 60, nextAge: 2 });
   });
 });

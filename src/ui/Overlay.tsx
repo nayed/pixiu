@@ -9,6 +9,7 @@ import "./overlay.css";
 import type { ComponentChildren } from "preact";
 import { useEffect, useRef, useState } from "preact/hooks";
 import { RULES, type Settings } from "@/lib/pet/config";
+import { growthOf } from "@/lib/pet/growth";
 import type { PetState } from "@/lib/pet/state";
 import { currentWindow, type PetView, type Stage, viewPet } from "@/lib/pet/view";
 import {
@@ -339,7 +340,7 @@ function Card(props: OverlayProps & { view: PetView }) {
   if (view.name === null) return <NameCard baby={view.stage === "baby"} onName={onName} />;
 
   const session = currentWindow(pet.reading?.short, now);
-  const week = currentWindow(pet.reading?.long, now);
+  const growth = growthOf(pet);
   const cookies = Math.max(0, Math.min(10, Math.round(session.percent / 10)));
   return (
     <section class="ov-card" aria-label={name}>
@@ -362,9 +363,11 @@ function Card(props: OverlayProps & { view: PetView }) {
       <div class="ov-stat">
         <div class="ov-row">
           <span>Growth</span>
-          <span class="ov-growth">{Math.round(week.percent)}%</span>
+          <span class="ov-growth">
+            {growth.xp} / {growth.needed} XP
+          </span>
         </div>
-        <Segments percent={week.percent} color="var(--growth)" />
+        <Segments percent={(growth.xp / growth.needed) * 100} color="var(--growth)" />
       </div>
       {hide}
     </section>
