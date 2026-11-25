@@ -105,7 +105,7 @@ function IconSheet(props: { title: string; subtitle: string; gray?: boolean; ite
 }
 
 /** The five faces of a stage that can sulk and run away. */
-function moodItems(stage: { age: number; xp: number }): SheetItem[] {
+function moodItems(stage: { age: number; xp: number; week: number }): SheetItem[] {
   return [
     { name: "Happy", note: "Fed in the last 6 waking hours", icon: iconOf(pet(stage)) },
     {
@@ -121,7 +121,8 @@ function moodItems(stage: { age: number; xp: number }): SheetItem[] {
     {
       name: "Sulky",
       note: "Underfed for weeks",
-      icon: iconOf(pet({ ...stage, mood: "sulky", session: 20 })),
+      // A thin current week too, or a good one would lift the pet out of its sulk.
+      icon: iconOf(pet({ ...stage, mood: "sulky", session: 20, week: 15 })),
     },
     {
       name: "Ran away",

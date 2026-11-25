@@ -15,7 +15,7 @@ const at = (fromNow: number) => new Date(NOW.getTime() + fromNow).toISOString();
 /** No sleeping hours, so hunger does not depend on the time zone the pictures are taken in. */
 export const SETTINGS: Settings = { sleep: { startMinute: 0, endMinute: 0 } };
 
-/** What the mockups showed: 62% of the session, 41% of the week, and these countdowns. */
+/** A read with these percents, and the countdowns the mockups showed. */
 const reading = (session: number, week: number, minutesAgo: number) => ({
   ok: true as const,
   readAt: at(-minutesAgo * MINUTE),
@@ -43,15 +43,17 @@ type Look = {
   name?: string | null;
   mood?: "happy" | "eating" | "hungry" | "stuffed" | "sulky";
   session?: number;
+  /** The weekly percent, which sets the ruler's color. */
+  week?: number;
   ranAway?: boolean;
   blind?: UsageFailureReason | null;
   /** How long ago the last read that worked was. */
   seenMinutesAgo?: number;
 };
 
-/** A hatched pet, named Mochi as in the mockups, in the mood asked for. */
+/** A hatched pet, named Pixiu, in the mood asked for. */
 export function pet(look: Look = {}): PetState {
-  const { age = 6, xp = 0, name = "Mochi", mood = "happy", session = 62 } = look;
+  const { age = 6, xp = 0, name = "Pixiu", mood = "happy", session = 62, week = 41 } = look;
   const ateAt =
     mood === "eating" ? at(-MINUTE) : mood === "hungry" ? at(-7 * HOUR) : at(-40 * MINUTE);
   return {
@@ -61,23 +63,26 @@ export function pet(look: Look = {}): PetState {
     hatchedAt: at(-50 * DAY),
     age,
     xp,
-    reading: reading(mood === "stuffed" ? 100 : session, 41, look.seenMinutesAgo ?? 1),
+    reading: reading(mood === "stuffed" ? 100 : session, week, look.seenMinutesAgo ?? 1),
     blind: look.blind ?? null,
     lastMealAt: ateAt,
     hungerMs: Date.parse(at(-(look.seenMinutesAgo ?? 1) * MINUTE)) - Date.parse(ateAt),
     lastBite: { at: ateAt, points: 12 },
     weekEndsAt: at(3 * DAY + 4 * HOUR),
-    weekPeak: 41,
+    weekPeak: week,
     // Thin weeks for the sulky pet, good ones for everyone else.
     weeks: mood === "sulky" ? [12, 9, 14] : [64, 71, 58],
     ranAway: look.ranAway ?? false,
   };
 }
 
-/** The XP each stage's pictures show: partway to the next age. */
+/**
+ * What each stage's pictures show: partway to the next age, and a weekly percent in each of
+ * the ruler's four colors, from green for the baby to red for the adult.
+ */
 export const STAGES = {
-  baby: { age: 0, xp: 21 },
-  child: { age: 6, xp: 48 },
-  teen: { age: 9, xp: 77 },
-  adult: { age: 14, xp: 120 },
+  baby: { age: 0, xp: 21, week: 18 },
+  child: { age: 6, xp: 48, week: 41 },
+  teen: { age: 9, xp: 77, week: 82 },
+  adult: { age: 14, xp: 120, week: 94 },
 } as const;

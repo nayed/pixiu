@@ -41,5 +41,5 @@ The docs mark each rule with one of these, because not everything was decided wi
 ## Conventions
 
 - American English spelling in code, comments, and docs.
-- "Mochi" is a sample pet name used in the mockups. The user names their own pet.
+- "Pixiu" is the sample pet name in the artboards, and "Mochi" in the original mockups and the tests. The user names their own pet.
 - "Token Pet" was the working title. The project is named Pixiu.
