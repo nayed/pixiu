@@ -1,0 +1,22 @@
+/* The toolbar icon at a given scale, with an imitation of the browser's badge. */
+
+.toolbar-icon {
+  position: relative;
+  display: inline-block;
+  line-height: 0;
+}
+
+.toolbar-icon canvas {
+  image-rendering: pixelated;
+}
+
+.toolbar-badge {
+  position: absolute;
+  right: calc(-3px * var(--scale));
+  bottom: calc(-2px * var(--scale));
+  padding: 0 calc(1.5px * var(--scale));
+  border-radius: calc(2px * var(--scale));
+  font:
+    700 calc(8px * var(--scale)) / 1.25 system-ui,
+    sans-serif;
+}
