@@ -49,6 +49,7 @@ Then load `.output/chrome-mv3` as in steps 2 to 5 above.
 | `pnpm build`       | Release build into `.output/chrome-mv3`, without the debug page.       |
 | `pnpm build:debug` | The same build with the debug page, into `.output/chrome-mv3-debug`.   |
 | `pnpm zip`         | Release build, zipped for the Chrome Web Store.                        |
+| `pnpm artboards`   | Builds the debug extension and captures `docs/artboards` from it.      |
 | `pnpm test`        | Unit tests.                                                            |
 | `pnpm typecheck`   | Type check.                                                            |
 | `pnpm lint`        | Lint and format check. `pnpm format` fixes what it can.                |
@@ -64,6 +65,8 @@ Then load `.output/chrome-mv3` as in steps 2 to 5 above.
 | `src/entrypoints/popup/`                | The popup.                                                                           |
 | `src/entrypoints/backup/`               | The backup page: export the pet to a file and import it again.                       |
 | `src/entrypoints/debug/`                | The debug page. Left out of release builds.                                          |
+| `src/entrypoints/artboards/`            | Every surface in a fixed state, for `docs/artboards`. Left out of release builds.    |
+| `scripts/artboards.mjs`                 | Captures the artboards with headless Chrome at 2x.                                   |
 | `src/lib/usage/`                        | The normalized usage snapshot and the Claude adapter that produces it.               |
 | `src/lib/pet/`                          | The pet: rule constants, state, the engine step, and the view every surface renders. |
 | `src/lib/sprites/`                      | The drawings as character grids, and the code that picks and paints them.            |

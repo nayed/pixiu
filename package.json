@@ -10,6 +10,7 @@
     "dev": "wxt",
     "build": "wxt build",
     "build:debug": "wxt build --mode debug",
+    "artboards": "wxt build --mode debug && node scripts/artboards.mjs",
     "zip": "wxt zip",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
