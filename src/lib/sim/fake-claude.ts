@@ -56,6 +56,15 @@ export function use(fake: FakeClaude, sessionPoints: number): FakeClaude {
   };
 }
 
+/**
+ * Adds weekly points directly, up to the weekly limit, without touching the session. Real use
+ * always moves both; this is a shortcut for the debug page and tests, to earn XP quickly.
+ */
+export function useWeek(fake: FakeClaude, weekPoints: number): FakeClaude {
+  const percent = Math.min(100, fake.week.percent + Math.max(0, weekPoints));
+  return { ...fake, week: { ...fake.week, percent } };
+}
+
 /** One usage read, in the same shape the Claude adapter produces. */
 export function read(fake: FakeClaude): UsageSnapshot {
   const readAt = new Date(fake.now).toISOString();

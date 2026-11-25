@@ -4,7 +4,7 @@
 import type { Settings } from "../pet/config";
 import { type PetEvent, step } from "../pet/engine";
 import { newPet, type PetState } from "../pet/state";
-import { advance, createFakeClaude, type FakeClaude, read, use } from "./fake-claude";
+import { advance, createFakeClaude, type FakeClaude, read, use, useWeek } from "./fake-claude";
 
 export const POLL_MS = 5 * 60_000;
 
@@ -45,6 +45,11 @@ export function sleep(sim: Simulation, ms: number): Simulation {
 /** Uses Claude, then polls. */
 export function feed(sim: Simulation, sessionPoints: number, settings: Settings): Simulation {
   return poll({ ...sim, fake: use(sim.fake, sessionPoints) }, settings);
+}
+
+/** Adds weekly points without touching the session, then polls. A quick way to earn XP. */
+export function feedWeek(sim: Simulation, weekPoints: number, settings: Settings): Simulation {
+  return poll({ ...sim, fake: useWeek(sim.fake, weekPoints) }, settings);
 }
 
 /** Starts or ends an outage, then polls. */

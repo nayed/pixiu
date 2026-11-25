@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { createBackup, parseBackup, validateBackup } from "./backup";
 import { DEFAULT_SETTINGS } from "./pet/config";
 import { namePet } from "./pet/engine";
-import { createSimulation, feed, poll, wait } from "./sim/simulation";
+import { createSimulation, feed, feedWeek, poll, wait } from "./sim/simulation";
 
 const START = new Date("2026-11-16T12:00:00Z");
 const NOW = new Date("2026-11-20T09:00:00Z");
@@ -11,6 +11,7 @@ const NOW = new Date("2026-11-20T09:00:00Z");
 function grownPet() {
   let sim = poll(createSimulation(START, new Date("2026-11-19T04:00:00Z")), DEFAULT_SETTINGS);
   sim = feed(sim, 22, DEFAULT_SETTINGS);
+  sim = feedWeek(sim, 50, DEFAULT_SETTINGS);
   sim = wait(sim, 3 * 24 * 3_600_000, DEFAULT_SETTINGS);
   return namePet(sim.pet, "Mochi");
 }
@@ -25,6 +26,14 @@ describe("backup", () => {
     expect(restored).toEqual(backup);
     expect(restored?.pet).toEqual(pet);
     expect(restored?.pet.age).toBe(1);
+  });
+
+  it("brings a pet saved by 0.1.0 up to date, crediting this week's usage as XP", () => {
+    const { xp: _xp, ...rest } = grownPet();
+    const old = { ...rest, version: 1 };
+    const backup = createBackup(old as never, undefined, undefined, NOW);
+    const restored = validateBackup(JSON.parse(JSON.stringify(backup)));
+    expect(restored?.pet).toEqual({ ...rest, version: 2, xp: rest.weekPeak });
   });
 
   it("keeps the pet when the settings and the log are missing or broken", () => {
@@ -55,6 +64,8 @@ describe("backup", () => {
   it.each([
     ["a negative age", { age: -1 }],
     ["a text age", { age: "3" }],
+    ["negative XP", { xp: -1 }],
+    ["no XP", { xp: undefined }],
     ["an unreadable time", { hatchedAt: "yesterday" }],
     ["weeks that are not numbers", { weeks: ["a lot"] }],
     ["a broken reading", { reading: { ok: true, readAt: "2026-11-20T09:00:00Z" } }],

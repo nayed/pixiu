@@ -4,6 +4,7 @@
 import type { UsageReading, UsageSnapshot, UsageWindow } from "../usage/snapshot";
 import { awakeMs } from "./awake";
 import { RULES, type Settings, WEEK_MS } from "./config";
+import { grow } from "./growth";
 import type { PetState } from "./state";
 
 export type PetEvent =
@@ -15,10 +16,26 @@ export type PetEvent =
 
 export type StepResult = { state: PetState; events: PetEvent[] };
 
-/** How far a window's percent rose since the previous read. A drop means it was reset. */
+/** How far the session's percent rose since the previous read. A drop means it was reset. */
 function rise(previous: UsageWindow, current: UsageWindow, wasReset: boolean): number {
   if (wasReset || current.percent < previous.percent) return current.percent;
   return current.percent - previous.percent;
+}
+
+/**
+ * How far the weekly percent rose since the previous read, which is the XP earned. A drop is a
+ * new week only when the week has ended or Claude reports a later reset time, as after an early
+ * reset of everyone's limits. Any other drop is a correction, and a correction earns nothing:
+ * XP is kept for good, so counting it as fresh usage would hand out XP that was never earned.
+ */
+function weekRise(previous: UsageWindow, current: UsageWindow, weekEnded: boolean): number {
+  if (weekEnded) return current.percent;
+  if (current.percent >= previous.percent) return current.percent - previous.percent;
+  const resetMovedLater =
+    previous.resetsAt !== null &&
+    current.resetsAt !== null &&
+    Date.parse(current.resetsAt) > Date.parse(previous.resetsAt);
+  return resetMovedLater ? current.percent : 0;
 }
 
 /** True when the window the previous read saw has ended and the new read shows a different one. */
@@ -69,19 +86,19 @@ export function step(previous: PetState, snapshot: UsageSnapshot, settings: Sett
     state.hungerMs += awakeMs(Date.parse(before.readAt), now, settings.sleep);
   }
 
-  // The weekly reset is a birthday.
+  // The weekly reset closes the week for the care rules. It is not a birthday: ages are
+  // bought with XP, below.
   const weekEnded = weekHasEnded(state, snapshot, now);
   if (weekEnded && state.weekEndsAt !== null) {
     const ended = Date.parse(state.weekEndsAt);
     // More than one week can pass between reads, for example while the browser is closed.
     const weeksPassed = 1 + Math.floor((now - ended) / WEEK_MS);
     if (state.hatchedAt !== null) {
-      state.age += weeksPassed;
-      events.push({ type: "birthday", at, age: state.age });
       // Only the week the pet watched goes into its history. Weeks it never saw are not
       // held against it, because usage from other devices may have happened unseen.
       state.weeks = [...state.weeks, state.weekPeak].slice(-RULES.conditionWeeks);
-      if (!state.ranAway && endsWithEmptyWeeks(state.weeks)) {
+      // Babies don't run away. In the design that is for children and older.
+      if (!state.ranAway && state.age >= RULES.childAge && endsWithEmptyWeeks(state.weeks)) {
         state.ranAway = true;
         events.push({ type: "ran-away", at });
       }
@@ -101,9 +118,9 @@ export function step(previous: PetState, snapshot: UsageSnapshot, settings: Sett
       snapshot.short,
       sessionWasReset(before.short, snapshot.short, now),
     );
-    const weekRise = rise(before.long, snapshot.long, weekEnded);
+    const weekly = weekRise(before.long, snapshot.long, weekEnded);
 
-    if (sessionRise > 0 || weekRise > 0) {
+    if (sessionRise > 0 || weekly > 0) {
       state.lastMealAt = at;
       state.hungerMs = 0;
       state.lastBite = { at, points: sessionRise };
@@ -120,7 +137,20 @@ export function step(previous: PetState, snapshot: UsageSnapshot, settings: Sett
           state.hatchedAt = at;
           events.push({ type: "hatched", at });
         }
+      } else {
+        // XP starts once the egg has hatched. The meal that hatches it only warms it.
+        state.xp += weekly;
       }
+    }
+  }
+
+  // Growing up. Runs on every read, so XP a pet brought from an older version counts too.
+  if (state.hatchedAt !== null) {
+    const grown = grow(state.age, state.xp);
+    if (grown.age > state.age) {
+      state.age = grown.age;
+      state.xp = grown.xp;
+      events.push({ type: "birthday", at, age: state.age });
     }
   }
 

@@ -14,6 +14,8 @@ const START = new Date("2026-11-16T12:00:00Z");
 
 const install = () => poll(createSimulation(START, new Date("2026-11-19T04:00:00Z")), S);
 const named = (sim: Simulation): Simulation => ({ ...sim, pet: namePet(sim.pet, "Mochi") });
+/** The same pet, aged to 1. These tests are about the icon, not about earning the XP. */
+const asChild = (sim: Simulation): Simulation => ({ ...sim, pet: { ...sim.pet, age: 1 } });
 
 function iconOf(sim: Simulation) {
   const now = new Date(sim.fake.now);
@@ -64,19 +66,19 @@ describe("toolbarIcon", () => {
   });
 
   it("shows the sulky face with the session percent", () => {
-    let sim = wait(named(feed(install(), 40, S)), WEEK, S);
+    let sim = wait(asChild(named(feed(install(), 40, S))), WEEK, S);
     sim = wait(feed(sim, 40, S), WEEK, S);
     sim = wait(feed(sim, 20, S), 10 * MINUTE, S);
     expect(iconOf(sim)).toMatchObject({ sprite: sprite("child-face-sulky"), badge: "20" });
   });
 
   it("is the note with no badge when the pet ran away", () => {
-    const sim = wait(named(feed(install(), 22, S)), 3 * WEEK, S);
+    const sim = wait(asChild(named(feed(install(), 22, S))), 3 * WEEK, S);
     expect(iconOf(sim)).toMatchObject({ sprite: sprite("note-ran-away"), badge: "" });
   });
 
   it("turns gray with a ? badge when Claude can't be reached", () => {
-    const pet = setFailure(wait(named(feed(install(), 22, S)), WEEK, S), "signed-out", S);
+    const pet = setFailure(wait(asChild(named(feed(install(), 22, S))), WEEK, S), "signed-out", S);
     expect(iconOf(pet)).toMatchObject({
       sprite: sprite("child-face-lost"),
       badge: "?",
