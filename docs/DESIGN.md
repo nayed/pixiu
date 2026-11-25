@@ -19,6 +19,7 @@ Color pixel art on dark navy panels. Hard edges, no rounded corners, no gradient
 | Food (cookies, session number, primary button) | `#ff9a3c`, number text `#ffb366` |
 | Growth (XP) | `#4aa8ff` on dark, `#2b6fd0` on the sky, number text `#8cc8ff` |
 | Egg warmth fill on the sky | `#e8590c` |
+| Weekly ruler fill on the sky | Green `#4fa354` under 25%, blue `#2b6fd0` from 25%, yellow `#f0b429` from 75%, red `#d93b3b` from 90% |
 | Scene sky | `#bfe8f2` |
 | Scene grass, grass edge | `#7cc96b`, `#4fa354` |
 | Pet body, body shade | `#5cc8a0`, `#3a9e7c` |
@@ -30,7 +31,7 @@ Color pixel art on dark navy panels. Hard edges, no rounded corners, no gradient
 | Can't-reach sky, ground, ground edge | `#d5d9e0`, `#a9b0a6`, `#8b9388` |
 | Eggshell, shell shade | `#fff6dc`, `#e6d3a3` |
 
-Food is orange and growth is blue everywhere. The two also differ in lightness, so they stay distinguishable without color.
+Food is orange and growth is blue everywhere. The two also differ in lightness, so they stay distinguishable without color. The weekly ruler is the exception: it turns from green to blue, yellow, and red as the week fills, and its percent is always written above it, so the color is never the only signal.
 
 ### Type
 
@@ -111,7 +112,7 @@ The cookie sits directly in front of the mouth, overlapping the cheek. An earlie
 See `artboards/*-popup.png`. Top to bottom:
 
 1. The pet's name and age, with a settings button.
-2. The scene: sky, grass, the pet at 8x, and the ruler with the weekly percent.
+2. The scene: sky, grass, the pet at 8x, and the ruler with the weekly percent, colored by how full the week is.
 3. "Food this session" with the percent, ten cookies, and one line saying what is happening or what to do.
 4. "Growth to age 2" with the XP earned toward it and what it costs, for example "34 / 60 XP". It replaced "Growth this week" with the time until the next birthday when aging moved to XP.
 5. "This week" with the time until the weekly reset, for example "resets in 5 h 21 min".

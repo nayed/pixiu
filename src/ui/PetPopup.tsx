@@ -216,6 +216,18 @@ function Blink({ row }: { row: number }) {
   );
 }
 
+/** The weekly ruler's color: green with plenty of the week left, red near the limit. */
+const RULER_COLORS: [from: number, color: string][] = [
+  [90, "var(--ruler-red)"],
+  [75, "var(--ruler-yellow)"],
+  [25, "var(--ruler-blue)"],
+  [0, "var(--ruler-green)"],
+];
+
+function rulerColor(percent: number): string {
+  return RULER_COLORS.find(([from]) => percent >= from)?.[1] ?? "var(--ruler-green)";
+}
+
 function Meter(props: { percent: number; color: string; label: string }) {
   const filled = Math.max(0, Math.min(10, Math.round(props.percent / 10)));
   return (
@@ -527,7 +539,7 @@ function Pet(props: {
         )}
         <Meter
           percent={weekPercent}
-          color="var(--growth)"
+          color={rulerColor(weekPercent)}
           label={`This week: ${weekPercent} percent of your weekly limit used`}
         />
       </Scene>

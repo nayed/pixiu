@@ -13,6 +13,11 @@
   --growth: #2b6fd0;
   --warmth: #e8590c;
   --body: #5cc8a0;
+  /* The weekly ruler, by how much of the week is used. */
+  --ruler-green: #4fa354;
+  --ruler-blue: var(--growth);
+  --ruler-yellow: #f0b429;
+  --ruler-red: #d93b3b;
   --heading: "Jersey 15", "Courier New", monospace;
 
   box-sizing: border-box;
