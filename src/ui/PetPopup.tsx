@@ -12,6 +12,7 @@ import { RULES, type Settings } from "@/lib/pet/config";
 import { growthOf, xpToGrow } from "@/lib/pet/growth";
 import type { PetState } from "@/lib/pet/state";
 import {
+  type Celebration,
   currentWindow,
   type EggCrack,
   type Mood,
@@ -163,7 +164,14 @@ function bodyFor(view: PetView, props: PetPopupProps, hatchFrame: HatchFrame): B
     title: view.name,
     detail: age,
     content: (
-      <Pet pet={pet} now={now} name={view.name} stage={view.stage} mood={view.mood}>
+      <Pet
+        pet={pet}
+        now={now}
+        name={view.name}
+        stage={view.stage}
+        mood={view.mood}
+        celebrating={view.celebrating}
+      >
         <OverlaySwitch {...props} who={view.name} />
       </Pet>
     ),
@@ -331,17 +339,45 @@ function useHatchFrame(playing: boolean): HatchFrame {
   return playing ? frame : "hatched";
 }
 
-const SPARKLES: {
+type SparkleSpot = {
   name: "sparkle-white" | "sparkle-gold";
   left: number;
   top: number;
   pace: string;
-}[] = [
+};
+
+/** Around the pet in its shell. */
+const HATCH_SPARKLES: SparkleSpot[] = [
   { name: "sparkle-white", left: 44, top: 36, pace: "0.9s" },
   { name: "sparkle-gold", left: 252, top: 28, pace: "1.3s" },
   { name: "sparkle-white", left: 264, top: 108, pace: "0.7s" },
   { name: "sparkle-gold", left: 28, top: 116, pace: "1.1s" },
 ];
+
+/** Around a grown pet, clear of the cloud, the "z Z" of a nap, and the ruler. */
+const BIRTHDAY_SPARKLES: SparkleSpot[] = [
+  { name: "sparkle-white", left: 28, top: 70, pace: "0.9s" },
+  { name: "sparkle-gold", left: 214, top: 92, pace: "1.3s" },
+  { name: "sparkle-gold", left: 40, top: 120, pace: "1.1s" },
+  { name: "sparkle-white", left: 224, top: 126, pace: "0.7s" },
+];
+
+function Sparkles({ spots }: { spots: SparkleSpot[] }) {
+  return (
+    <>
+      {spots.map((sparkle) => (
+        <div
+          key={`${sparkle.left} ${sparkle.top}`}
+          class="px-prop px-twinkle"
+          aria-hidden="true"
+          style={{ ...place(sparkle.left, sparkle.top), "--pace": sparkle.pace }}
+        >
+          <Sprite sprite={sprite(sparkle.name)} scale={4} />
+        </div>
+      ))}
+    </>
+  );
+}
 
 function Hatching(props: PetPopupProps & { stage: Stage; frame: HatchFrame }) {
   const { pet, stage, frame, onName } = props;
@@ -397,17 +433,7 @@ function Hatching(props: PetPopupProps & { stage: Stage; frame: HatchFrame }) {
   return (
     <>
       <Scene>
-        {frame === "hatched" &&
-          SPARKLES.map((sparkle) => (
-            <div
-              key={`${sparkle.left} ${sparkle.top}`}
-              class="px-prop px-twinkle"
-              aria-hidden="true"
-              style={{ ...place(sparkle.left, sparkle.top), "--pace": sparkle.pace }}
-            >
-              <Sprite sprite={sprite(sparkle.name)} scale={4} />
-            </div>
-          ))}
+        {frame === "hatched" && <Sparkles spots={HATCH_SPARKLES} />}
         {actor}
       </Scene>
       <form
@@ -484,20 +510,36 @@ function foodNote(mood: Mood, pet: PetState, session: UsageWindow, now: Date): s
   return "No session running";
 }
 
+/** The banner in the sky on a birthday. Growing into a new stage gets its own. */
+const BANNERS: Record<Stage, string> = {
+  baby: "Happy birthday!",
+  child: "Now a child!",
+  teen: "Now a teen!",
+  adult: "Now an adult!",
+};
+
 function Pet(props: {
   pet: PetState;
   now: Date;
   name: string;
   stage: Stage;
   mood: Mood;
+  celebrating: Celebration | null;
   children?: ComponentChildren;
 }) {
-  const { pet, now, name, stage, mood } = props;
+  const { pet, now, name, stage, mood, celebrating } = props;
   const session = currentWindow(pet.reading?.short, now);
   const top = actorTop(stage);
 
   const motion = mood === "stuffed" ? "px-napping" : mood === "eating" ? "px-eating" : "";
   const blinks = mood === "happy" || mood === "hungry" || mood === "eating";
+  // On its birthday a happy pet hops instead of bobbing. Other moods keep their own motion, but
+  // bob up rather than down, so their feet stay clear of the banner on the grass.
+  const movement = !celebrating
+    ? `px-bob ${motion}`
+    : mood === "happy"
+      ? "px-hop"
+      : `px-bob px-up ${motion}`;
 
   const cookies = Math.max(0, Math.min(10, Math.round(session.percent / 10)));
   // A meal can arrive as several cookies at once. The new ones drop in one after another.
@@ -510,11 +552,19 @@ function Pet(props: {
   return (
     <>
       <Scene clouds>
-        <div class={`px-actor px-bob ${motion}`} style={stand(76, top)}>
+        {celebrating && (
+          <>
+            <p class="px-banner">
+              {celebrating.newStage ? BANNERS[celebrating.newStage] : "Happy birthday!"}
+            </p>
+            <Sparkles spots={BIRTHDAY_SPARKLES} />
+          </>
+        )}
+        <div class={`px-actor ${movement}`} style={stand(76, top)}>
           <Sprite
             sprite={bodySprite(stage, mood)}
             scale={UNIT}
-            label={`${STAGE_LABEL[stage](name)}, ${mood}`}
+            label={`${STAGE_LABEL[stage](name)}, ${mood}${celebrating ? ", celebrating its birthday" : ""}`}
           />
           {blinks && <Blink row={BLINK_ROW[stage]} />}
         </div>

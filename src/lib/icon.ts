@@ -63,6 +63,7 @@ function describeTitle(view: PetView): string {
   if (view.unreachable) return "can't reach Claude";
   if (view.kind === "egg") return "an egg, not hatched yet";
   if (view.kind === "pet" && view.name === null) return "it hatched and needs a name";
+  if (view.kind === "pet" && view.celebrating) return `${describeView(view)}. Birthday today!`;
   return describeView(view);
 }
 

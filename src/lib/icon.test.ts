@@ -4,7 +4,15 @@ import { DEFAULT_SETTINGS as S } from "./pet/config";
 import { namePet } from "./pet/engine";
 import type { PetState } from "./pet/state";
 import { viewPet } from "./pet/view";
-import { createSimulation, feed, poll, type Simulation, setFailure, wait } from "./sim/simulation";
+import {
+  createSimulation,
+  feed,
+  feedWeek,
+  poll,
+  type Simulation,
+  setFailure,
+  wait,
+} from "./sim/simulation";
 import { sprite } from "./sprites/sprites";
 
 const MINUTE = 60_000;
@@ -86,6 +94,15 @@ describe("toolbarIcon", () => {
     });
     const egg = setFailure(install(), "offline", S);
     expect(iconOf(egg)).toMatchObject({ sprite: sprite("egg-new"), badge: "?", tone: "lost" });
+  });
+
+  it("says it is a birthday in the tooltip for a day, and keeps the food badge", () => {
+    const sim = named(feedWeek(feed(install(), 22, S), 50, S));
+    expect(iconOf(sim)).toMatchObject({
+      badge: "22",
+      title: expect.stringMatching(/Birthday today!$/),
+    });
+    expect(iconOf(wait(sim, 25 * HOUR, S)).title).not.toMatch(/Birthday/);
   });
 
   it("never has a badge longer than three characters, and always has a tooltip", () => {
