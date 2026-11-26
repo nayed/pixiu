@@ -37,6 +37,15 @@ The pet logic sees only this, refreshed on each poll:
 - **Replaced (2026-11-25):** until 0.1.0, each weekly reset was a birthday and the weekly percent was "growth this week." Pets from 0.1.0 keep their age and are credited the usage of the week they were in as XP.
 - **Decided:** a drop in the weekly percent is a new week only when the week has ended or Claude reports a later reset time, as after an early reset. Any other drop is a correction and earns no XP.
 
+## Birthdays
+
+- **Decided (Nayed, 2026-11-26):** the pet celebrates each birthday for 24 hours, so a birthday that happens while nobody is looking is still seen.
+- **Decided (Nayed, 2026-11-26):** the pet remembers its last birthday: when it was, the age it reached, and the age before. Pets from 0.2.0 and older start with none, so nothing celebrates by surprise after an update.
+- **Decided (Nayed, 2026-11-26):** several ages paid for at once make one celebration, for the age reached.
+- **Decided (Nayed, 2026-11-26):** a pet with no name waits to celebrate until it has one, and the party pauses while it can't reach Claude.
+- **Decided (Nayed, 2026-11-26):** a birthday that brings a new stage says so: "Now a child!", "Now a teen!", "Now an adult!". Any other says "Happy birthday!".
+- **Decided (Nayed, 2026-11-26):** the toolbar badge stays the food badge on a birthday. Only the tooltip mentions it, because a number there would read as a percent.
+
 ## Life stages
 
 | Stage | Age | Status |
