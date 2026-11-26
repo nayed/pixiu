@@ -1,6 +1,6 @@
 {
   "name": "pixiu",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "description": "A Chrome extension that shows your Claude plan usage as a virtual pet.",
   "license": "MIT",
