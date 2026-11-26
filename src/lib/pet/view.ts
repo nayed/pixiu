@@ -10,9 +10,19 @@ export type Stage = "baby" | "child" | "teen" | "adult";
 export type Mood = "happy" | "eating" | "hungry" | "stuffed" | "sulky";
 export type EggCrack = "none" | "small" | "full";
 
+/** A birthday the pet is celebrating: the age it reached, and the stage it grew into, if new. */
+export type Celebration = { age: number; newStage: Stage | null };
+
 export type PetView = (
   | { kind: "egg"; crack: EggCrack; warmth: number }
-  | { kind: "pet"; stage: Stage; mood: Mood; age: number; name: string | null }
+  | {
+      kind: "pet";
+      stage: Stage;
+      mood: Mood;
+      age: number;
+      name: string | null;
+      celebrating: Celebration | null;
+    }
   | { kind: "ran-away"; stage: Stage; age: number; name: string | null }
 ) & {
   /** Set while usage can't be read. The surfaces show the gray "can't reach Claude" pet. */
@@ -85,6 +95,20 @@ function moodFor(state: PetState, stage: Stage, now: Date, settings: Settings): 
   return "happy";
 }
 
+/**
+ * The birthday the pet is celebrating right now, if any. The party lasts a day, waits for the
+ * pet to have a name, and pauses while it can't see.
+ */
+export function celebrationOf(state: PetState, now: Date): Celebration | null {
+  const birthday = state.lastBirthday;
+  if (!birthday || state.name === null || state.blind) return null;
+  const since = now.getTime() - Date.parse(birthday.at);
+  // A birthday dated in the future means the clock was set back: nothing to celebrate yet.
+  if (since < 0 || since >= RULES.celebrationMs) return null;
+  const stage = stageFor(birthday.age);
+  return { age: birthday.age, newStage: stage === stageFor(birthday.fromAge) ? null : stage };
+}
+
 export function viewPet(state: PetState, now: Date, settings: Settings): PetView {
   const unreachable = state.blind;
   if (state.hatchedAt === null) {
@@ -94,5 +118,6 @@ export function viewPet(state: PetState, now: Date, settings: Settings): PetView
   const stage = stageFor(age);
   if (state.ranAway) return { kind: "ran-away", stage, age, name, unreachable };
   const mood = moodFor(state, stage, now, settings);
-  return { kind: "pet", stage, mood, age, name, unreachable };
+  const celebrating = celebrationOf(state, now);
+  return { kind: "pet", stage, mood, age, name, unreachable, celebrating };
 }

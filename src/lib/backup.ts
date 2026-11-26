@@ -3,7 +3,7 @@
 // usage response, which are account details and are learned again on their own.
 
 import type { Settings } from "./pet/config";
-import { type PetState, type PetStateV1, upgradePet } from "./pet/state";
+import { type PetState, type PetStateV1, type PetStateV2, upgradePet } from "./pet/state";
 import type { LogEntry } from "./store";
 import type { UsageWindow } from "./usage/snapshot";
 
@@ -51,12 +51,26 @@ function isReading(value: unknown): boolean {
   );
 }
 
-/** A pet as this version saves it, or as 0.1.0 saved it, before pets had XP. */
-function isPet(value: unknown): value is PetState | PetStateV1 {
+function isBirthday(value: unknown): boolean {
+  return (
+    value === null ||
+    (isRecord(value) && isTime(value.at) && isCount(value.age) && isCount(value.fromAge))
+  );
+}
+
+/** Each version's own fields: 0.1.0 had no XP, and 0.2.0 no birthday on record. */
+function hasVersionFields(value: Fields): boolean {
+  if (value.version === 1) return true;
+  if (value.version === 2) return isAmount(value.xp);
+  return value.version === 3 && isAmount(value.xp) && isBirthday(value.lastBirthday);
+}
+
+/** A pet as this version saves it, or as an older version saved it. */
+function isPet(value: unknown): value is PetState | PetStateV2 | PetStateV1 {
   if (!isRecord(value)) return false;
   const bite = value.lastBite;
   return (
-    (value.version === 1 || (value.version === 2 && isAmount(value.xp))) &&
+    hasVersionFields(value) &&
     isTime(value.bornAt) &&
     (value.name === null || typeof value.name === "string") &&
     isAmount(value.warmth) &&

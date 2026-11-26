@@ -34,6 +34,8 @@ export const RULES = {
   firstAgeXp: 50,
   /** How much more XP each later age costs than the one before. */
   extraXpPerAge: 10,
+  /** How long the pet celebrates after a birthday. */
+  celebrationMs: 24 * HOUR_MS,
 
   /** The age at which each stage starts. The baby is age 0. */
   childAge: 1,

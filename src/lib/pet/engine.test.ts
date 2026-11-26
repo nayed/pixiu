@@ -14,7 +14,7 @@ import type { UsageReading } from "../usage/snapshot";
 import { DEFAULT_SETTINGS as S, WEEK_MS } from "./config";
 import { namePet, step } from "./engine";
 import { newPet, upgradePet } from "./state";
-import { hungerMs, isUnderfed, viewPet } from "./view";
+import { celebrationOf, hungerMs, isUnderfed, viewPet } from "./view";
 
 const MINUTE = 60_000;
 const HOUR = 60 * MINUTE;
@@ -309,9 +309,9 @@ describe("a pet from 0.1.0", () => {
   it("keeps its age, gets this week's usage as XP, and has a birthday at its next read", () => {
     // A child at 64% of its week, like Crixus when the XP rules arrived.
     const sim = feedWeek(child(), 10, S);
-    const { xp: _xp, ...rest } = sim.pet;
+    const { xp: _xp, lastBirthday: _birthday, ...rest } = sim.pet;
     const upgraded = upgradePet({ ...rest, version: 1 });
-    expect(upgraded).toMatchObject({ version: 2, age: 1, xp: 64 });
+    expect(upgraded).toMatchObject({ version: 3, age: 1, xp: 64, lastBirthday: null });
 
     // Age 2 costs 60 XP, so the first read after the update pays for it.
     const next = poll({ ...sim, pet: upgraded }, S);
@@ -320,13 +320,68 @@ describe("a pet from 0.1.0", () => {
   });
 
   it("gives an egg no XP", () => {
-    const { xp: _xp, ...rest } = feed(install(), 5, S).pet;
+    const { xp: _xp, lastBirthday: _birthday, ...rest } = feed(install(), 5, S).pet;
     expect(upgradePet({ ...rest, version: 1 }).xp).toBe(0);
   });
 
   it("leaves a pet that is already up to date alone", () => {
     const pet = child().pet;
     expect(upgradePet(pet)).toBe(pet);
+  });
+});
+
+describe("a pet from 0.2.0", () => {
+  it("has no birthday on record, so nothing celebrates after the update", () => {
+    const sim = named(child());
+    const { lastBirthday: _birthday, ...rest } = sim.pet;
+    const upgraded = upgradePet({ ...rest, version: 2 });
+    expect(upgraded).toEqual({ ...sim.pet, version: 3, lastBirthday: null });
+    expect(viewPet(upgraded, new Date(sim.fake.now), S)).toMatchObject({ celebrating: null });
+  });
+});
+
+describe("birthdays", () => {
+  const later = (sim: Simulation, ms: number) => new Date(sim.fake.now + ms);
+
+  it("remembers its last birthday: when, the age it reached, and the age before", () => {
+    expect(child().pet.lastBirthday).toEqual({ at: START.toISOString(), age: 1, fromAge: 0 });
+  });
+
+  it("celebrates for a day", () => {
+    const sim = named(child());
+    expect(view(sim)).toMatchObject({ celebrating: { age: 1, newStage: "child" } });
+    expect(viewPet(sim.pet, later(sim, 23 * HOUR), S)).toMatchObject({ celebrating: { age: 1 } });
+    expect(viewPet(sim.pet, later(sim, 24 * HOUR), S)).toMatchObject({ celebrating: null });
+  });
+
+  it("waits for a name before it celebrates", () => {
+    expect(view(child())).toMatchObject({ kind: "pet", name: null, celebrating: null });
+  });
+
+  it("names the new stage only when a birthday crosses into one", () => {
+    const pet = named(child()).pet;
+    const party = (age: number, fromAge: number) =>
+      celebrationOf(
+        { ...pet, age, lastBirthday: { at: START.toISOString(), age, fromAge } },
+        new Date(START.getTime() + HOUR),
+      );
+    expect(party(3, 2)).toEqual({ age: 3, newStage: null });
+    expect(party(7, 6)).toEqual({ age: 7, newStage: "teen" });
+    expect(party(12, 10)).toEqual({ age: 12, newStage: "adult" });
+  });
+
+  it("has one celebration for several ages crossed at once", () => {
+    const before = named(hatched());
+    const sim = feedWeek({ ...before, pet: { ...before.pet, xp: 100 } }, 10, S);
+    expect(sim.pet.lastBirthday).toMatchObject({ age: 2, fromAge: 0 });
+    expect(view(sim)).toMatchObject({ celebrating: { age: 2, newStage: "child" } });
+  });
+
+  it("pauses while it can't see, and waits on a clock set back before the birthday", () => {
+    const sim = named(child());
+    const blind = { ...sim.pet, blind: "offline" as const };
+    expect(viewPet(blind, later(sim, HOUR), S)).toMatchObject({ celebrating: null });
+    expect(viewPet(sim.pet, later(sim, -HOUR), S)).toMatchObject({ celebrating: null });
   });
 });
 
