@@ -24,6 +24,7 @@ import type { UsageFailureReason } from "@/lib/usage/snapshot";
 import { BackupSection } from "@/ui/Backup";
 import { Overlay } from "@/ui/Overlay";
 import { PetPopup } from "@/ui/PetPopup";
+import { version } from "../../../package.json";
 import { IconPreview } from "./IconPreview";
 
 const MINUTE = 60_000;
@@ -87,6 +88,7 @@ export function App() {
           settings={sleepHours}
           onName={(newName) => setSim({ ...sim, pet: namePet(pet, newName) })}
           onSaveSettings={setSleepHours}
+          version={version}
           overlayShown={overlayShown}
           onShowOverlay={setOverlayShown}
         />

@@ -278,8 +278,21 @@
 
 .px-links {
   display: flex;
+  align-items: baseline;
   justify-content: space-between;
   gap: 12px;
+}
+
+.px-link-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+}
+
+/* Bottom right, even when there are no links beside it. */
+.px-version {
+  margin-left: auto;
+  white-space: nowrap;
 }
 
 .px-primary {

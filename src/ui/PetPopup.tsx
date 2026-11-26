@@ -49,6 +49,8 @@ export type PetPopupProps = {
   backupUrl?: string;
   /** Where the debug page lives. Release builds have none. */
   debugUrl?: string;
+  /** The extension's version, shown at the bottom of the settings. */
+  version?: string;
 };
 
 /** The scene's height inside its border when nothing squeezes it. */

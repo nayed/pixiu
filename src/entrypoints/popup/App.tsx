@@ -72,6 +72,7 @@ export function App() {
       onShowOverlay={(show) => void saveOverlay({ ...overlay, show })}
       backupUrl={browser.runtime.getURL("/backup.html")}
       debugUrl={HAS_DEBUG_PAGE ? new URL("/debug.html", location.href).href : undefined}
+      version={browser.runtime.getManifest().version}
     />
   );
 }
