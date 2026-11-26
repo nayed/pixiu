@@ -220,6 +220,17 @@ const BOARDS: Record<string, () => ComponentChildren> = {
   ),
   "adult-on-page-overlay": () => <ClaudePage pet={pet({ ...STAGES.adult, mood: "eating" })} />,
 
+  // A day of celebration: a plain birthday, and one that brings a new stage.
+  "birthday-popup": () => (
+    <Popup pet={pet({ age: 4, xp: 6, week: 41, birthday: { hoursAgo: 2, fromAge: 3 } })} />
+  ),
+  "grew-up-popup": () => (
+    <Popup pet={pet({ age: 7, xp: 12, week: 82, birthday: { hoursAgo: 2, fromAge: 6 } })} />
+  ),
+  "birthday-on-page-overlay": () => (
+    <ClaudePage pet={pet({ age: 4, xp: 6, week: 41, birthday: { hoursAgo: 2, fromAge: 3 } })} />
+  ),
+
   "ran-away-popup": () => <Popup pet={pet({ ...STAGES.child, ranAway: true })} />,
 
   "cant-reach-claude-popup": () => (

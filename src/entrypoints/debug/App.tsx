@@ -141,6 +141,12 @@ export function App() {
                 ? "none before hatching"
                 : `${growthOf(pet).xp} of ${growthOf(pet).needed} toward age ${pet.age + 1}`}
             </dd>
+            <dt>Last birthday</dt>
+            <dd>
+              {pet.lastBirthday
+                ? `${pet.lastBirthday.fromAge} to ${pet.lastBirthday.age}, ${when(pet.lastBirthday.at)}`
+                : "none"}
+            </dd>
             <dt>Waking time since last meal</dt>
             <dd>{pet.hatchedAt === null ? "not hatched" : `${hungryHours} h`}</dd>
             <dt>Peak this week</dt>
