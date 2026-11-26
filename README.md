@@ -8,7 +8,7 @@ A Chrome extension that shows your Claude plan usage as a Tamagotchi-style virtu
 
 ## Status
 
-Version 0.1.0: all of version one in [docs/PLAN.md](docs/PLAN.md), plus the on-page overlay. The extension reads usage in the background, runs the pet engine on every read, and shows the pet in the popup and on the toolbar icon, with a badge. The pet also sits in a small window in the corner of claude.ai: hover it for its numbers, drag it to move it, and hide it from its card or from the switch in the popup.
+Version 0.1.0: all of version one in [docs/PLAN.md](docs/PLAN.md), plus the on-page overlay. The extension reads usage in the background, runs the pet engine on every read, and shows the pet in the popup and on the toolbar icon, with a badge. The pet grows up with XP: every 1% of your weekly usage is 1 XP, and each age costs a little more than the one before. The pet also sits in a small window in the corner of claude.ai: hover it for its numbers, drag it to move it, and hide it from its card or from the switch in the popup.
 
 Known limits: an account with no session limit never hatches its egg, and Claude's usage address is undocumented, so a change on Claude's side can stop Pixiu from reading it until an update.
 
@@ -49,6 +49,7 @@ Then load `.output/chrome-mv3` as in steps 2 to 5 above.
 | `pnpm build`       | Release build into `.output/chrome-mv3`, without the debug page.       |
 | `pnpm build:debug` | The same build with the debug page, into `.output/chrome-mv3-debug`.   |
 | `pnpm zip`         | Release build, zipped for the Chrome Web Store.                        |
+| `pnpm artboards`   | Builds the debug extension and captures `docs/artboards` from it.      |
 | `pnpm test`        | Unit tests.                                                            |
 | `pnpm typecheck`   | Type check.                                                            |
 | `pnpm lint`        | Lint and format check. `pnpm format` fixes what it can.                |
@@ -64,6 +65,8 @@ Then load `.output/chrome-mv3` as in steps 2 to 5 above.
 | `src/entrypoints/popup/`                | The popup.                                                                           |
 | `src/entrypoints/backup/`               | The backup page: export the pet to a file and import it again.                       |
 | `src/entrypoints/debug/`                | The debug page. Left out of release builds.                                          |
+| `src/entrypoints/artboards/`            | Every surface in a fixed state, for `docs/artboards`. Left out of release builds.    |
+| `scripts/artboards.mjs`                 | Captures the artboards with headless Chrome at 2x.                                   |
 | `src/lib/usage/`                        | The normalized usage snapshot and the Claude adapter that produces it.               |
 | `src/lib/pet/`                          | The pet: rule constants, state, the engine step, and the view every surface renders. |
 | `src/lib/sprites/`                      | The drawings as character grids, and the code that picks and paints them.            |

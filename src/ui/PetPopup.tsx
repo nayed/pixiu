@@ -9,6 +9,7 @@ import type { ComponentChildren } from "preact";
 import { useEffect, useState } from "preact/hooks";
 import { agoText, timeLeftText } from "@/lib/format";
 import { RULES, type Settings } from "@/lib/pet/config";
+import { growthOf, xpToGrow } from "@/lib/pet/growth";
 import type { PetState } from "@/lib/pet/state";
 import {
   currentWindow,
@@ -213,6 +214,18 @@ function Blink({ row }: { row: number }) {
       ))}
     </>
   );
+}
+
+/** The weekly ruler's color: green with plenty of the week left, red near the limit. */
+const RULER_COLORS: [from: number, color: string][] = [
+  [90, "var(--ruler-red)"],
+  [75, "var(--ruler-yellow)"],
+  [25, "var(--ruler-blue)"],
+  [0, "var(--ruler-green)"],
+];
+
+function rulerColor(percent: number): string {
+  return RULER_COLORS.find(([from]) => percent >= from)?.[1] ?? "var(--ruler-green)";
 }
 
 function Meter(props: { percent: number; color: string; label: string }) {
@@ -424,7 +437,10 @@ function Hatching(props: PetPopupProps & { stage: Stage; frame: HatchFrame }) {
       </form>
       <p class="px-dim">You can rename it later in settings.</p>
       <p class="px-footer">
-        {baby ? "Age 0. Its first birthday is your next weekly reset." : `Age ${pet.age}.`}
+        {baby
+          ? // No-break spaces keep each number with its unit.
+            `Age 0. Every 1% of your weekly usage is 1\u00a0XP. It turns 1 at ${xpToGrow(0)}\u00a0XP.`
+          : `Age ${pet.age}.`}
       </p>
     </>
   );
@@ -478,7 +494,6 @@ function Pet(props: {
 }) {
   const { pet, now, name, stage, mood } = props;
   const session = currentWindow(pet.reading?.short, now);
-  const week = currentWindow(pet.reading?.long, now);
   const top = actorTop(stage);
 
   const motion = mood === "stuffed" ? "px-napping" : mood === "eating" ? "px-eating" : "";
@@ -488,7 +503,9 @@ function Pet(props: {
   // A meal can arrive as several cookies at once. The new ones drop in one after another.
   const fresh = mood === "eating" ? Math.max(1, Math.round((pet.lastBite?.points ?? 0) / 10)) : 0;
   const firstFresh = cookies - Math.min(fresh, cookies);
-  const weekPercent = Math.round(week.percent);
+  const growth = growthOf(pet);
+  const weekPercent = Math.round(currentWindow(pet.reading?.long, now).percent);
+  const weekResetsAt = pet.reading?.long.resetsAt ?? null;
 
   return (
     <>
@@ -522,8 +539,8 @@ function Pet(props: {
         )}
         <Meter
           percent={weekPercent}
-          color="var(--growth)"
-          label={`Growth this week: ${weekPercent} percent of the way to the next birthday`}
+          color={rulerColor(weekPercent)}
+          label={`This week: ${weekPercent} percent of your weekly limit used`}
         />
       </Scene>
 
@@ -547,13 +564,21 @@ function Pet(props: {
       </div>
 
       <div class="px-row">
-        <p>Growth this week</p>
+        <p>Growth to age {growth.nextAge}</p>
         <p class="px-dim">
-          {pet.weekEndsAt && Date.parse(pet.weekEndsAt) > now.getTime()
-            ? `Birthday in ${timeLeftText(pet.weekEndsAt, now)}`
-            : "Birthday any moment"}
+          {growth.xp} / {growth.needed} XP
         </p>
       </div>
+      {weekResetsAt && (
+        <div class="px-row">
+          <p>This week</p>
+          <p class="px-dim">
+            {Date.parse(weekResetsAt) > now.getTime()
+              ? `resets in ${timeLeftText(weekResetsAt, now)}`
+              : "just reset"}
+          </p>
+        </div>
+      )}
       {props.children}
     </>
   );

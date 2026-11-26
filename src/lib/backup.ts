@@ -3,7 +3,7 @@
 // usage response, which are account details and are learned again on their own.
 
 import type { Settings } from "./pet/config";
-import type { PetState } from "./pet/state";
+import { type PetState, type PetStateV1, upgradePet } from "./pet/state";
 import type { LogEntry } from "./store";
 import type { UsageWindow } from "./usage/snapshot";
 
@@ -51,11 +51,12 @@ function isReading(value: unknown): boolean {
   );
 }
 
-function isPet(value: unknown): value is PetState {
+/** A pet as this version saves it, or as 0.1.0 saved it, before pets had XP. */
+function isPet(value: unknown): value is PetState | PetStateV1 {
   if (!isRecord(value)) return false;
   const bite = value.lastBite;
   return (
-    value.version === 1 &&
+    (value.version === 1 || (value.version === 2 && isAmount(value.xp))) &&
     isTime(value.bornAt) &&
     (value.name === null || typeof value.name === "string") &&
     isAmount(value.warmth) &&
@@ -87,7 +88,10 @@ function isLog(value: unknown): value is LogEntry[] {
   );
 }
 
-/** Checks a parsed backup. Returns it cleaned of anything unexpected, or null if it is not one. */
+/**
+ * Checks a parsed backup. Returns it cleaned of anything unexpected, with the pet brought up to
+ * date, or null if it is not one.
+ */
 export function validateBackup(value: unknown): Backup | null {
   if (!isRecord(value) || value.format !== FORMAT || value.version !== 1) return null;
   if (!isTime(value.exportedAt) || !isPet(value.pet)) return null;
@@ -95,7 +99,7 @@ export function validateBackup(value: unknown): Backup | null {
     format: FORMAT,
     version: 1,
     exportedAt: value.exportedAt,
-    pet: value.pet,
+    pet: upgradePet(value.pet),
     settings: isSettings(value.settings) ? value.settings : undefined,
     log: isLog(value.log) ? value.log : undefined,
   };

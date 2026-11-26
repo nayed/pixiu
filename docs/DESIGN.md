@@ -17,8 +17,9 @@ Color pixel art on dark navy panels. Hard edges, no rounded corners, no gradient
 | Main text | `#f3f1ff` |
 | Secondary text | `#b9b4d9` |
 | Food (cookies, session number, primary button) | `#ff9a3c`, number text `#ffb366` |
-| Growth (weekly) | `#4aa8ff` on dark, `#2b6fd0` on the sky, number text `#8cc8ff` |
+| Growth (XP) | `#4aa8ff` on dark, `#2b6fd0` on the sky, number text `#8cc8ff` |
 | Egg warmth fill on the sky | `#e8590c` |
+| Weekly ruler fill on the sky | Green `#4fa354` under 25%, blue `#2b6fd0` from 25%, yellow `#f0b429` from 75%, red `#d93b3b` from 90% |
 | Scene sky | `#bfe8f2` |
 | Scene grass, grass edge | `#7cc96b`, `#4fa354` |
 | Pet body, body shade | `#5cc8a0`, `#3a9e7c` |
@@ -30,7 +31,7 @@ Color pixel art on dark navy panels. Hard edges, no rounded corners, no gradient
 | Can't-reach sky, ground, ground edge | `#d5d9e0`, `#a9b0a6`, `#8b9388` |
 | Eggshell, shell shade | `#fff6dc`, `#e6d3a3` |
 
-Food is orange and growth is blue everywhere. The two also differ in lightness, so they stay distinguishable without color.
+Food is orange and growth is blue everywhere. The two also differ in lightness, so they stay distinguishable without color. The weekly ruler is the exception: it turns from green to blue, yellow, and red as the week fills, and its percent is always written above it, so the color is never the only signal.
 
 ### Type
 
@@ -111,12 +112,13 @@ The cookie sits directly in front of the mouth, overlapping the cheek. An earlie
 See `artboards/*-popup.png`. Top to bottom:
 
 1. The pet's name and age, with a settings button.
-2. The scene: sky, grass, the pet at 8x, and the growth ruler with its percentage.
+2. The scene: sky, grass, the pet at 8x, and the ruler with the weekly percent, colored by how full the week is.
 3. "Food this session" with the percent, ten cookies, and one line saying what is happening or what to do.
-4. "Growth this week" with the time until the next birthday.
-5. A switch to show or hide the pet on the Claude page.
+4. "Growth to age 2" with the XP earned toward it and what it costs, for example "34 / 60 XP". It replaced "Growth this week" with the time until the next birthday when aging moved to XP.
+5. "This week" with the time until the weekly reset, for example "resets in 5 h 21 min".
+6. A switch to show or hide the pet on the Claude page.
 
-Variants: the egg (warmth thermometer in place of the ruler, no cookies), hatching (name field and a "Say hello" button), and can't reach Claude (gray scene, a reason, and an "Open Claude" button when signed out).
+Variants: the first run (the egg and an "Open Claude" button, before the account is found), the egg (warmth thermometer in place of the ruler, no cookies), hatching (name field and a "Say hello" button), ran away (the note left on the grass), and can't reach Claude (gray scene, a reason, and an "Open Claude" button when signed out).
 
 Keep the text short. An earlier version had a status sentence that repeated what the face already showed, and it was removed.
 
@@ -133,16 +135,17 @@ See `artboards/*-toolbar-icon.png`. The icon is the face sprite for the pet's st
 | Can't reach Claude | `?` |
 | Ran away, egg | None |
 
-The badge text is **Proposed**. The dark outline disappears on dark toolbars, but the body color carries the shape. Check the icons on both light and dark themes.
+The badge text is **Proposed**, and built as proposed. The dark outline disappears on dark toolbars, but the body color carries the shape. Check the icons on both light and dark themes.
 
-### On-page overlay (later than version one)
+### On-page overlay
 
-See `artboards/*-on-page-overlay.png`. The gray page in those images is a placeholder, not Claude's real layout.
+See `artboards/*-on-page-overlay.png`. The gray page in those images is a placeholder, not Claude's real layout. Built after version one, and part of 0.1.0.
 
 - The pet lives in a small sky-and-grass window (128 x 96) in the bottom-right corner of claude.ai, with a light-and-dark double border so it shows on both themes.
-- It reacts live: it eats when the percent rises and naps at the limit.
-- It shows no numbers by default. Hovering opens a card with cookies, a growth bar, and a "Hide on this page" button.
-- It must be draggable and hideable, because it sits over a page people work in.
+- It reacts live: it eats when the percent rises and naps at the limit. While the page is in use, usage is read every 30 seconds, so a meal shows soon after the reply that caused it.
+- It shows no numbers by default. Hovering, focusing, or clicking it opens a card with cookies, a growth bar with the XP toward the next age, and a "Hide on this page" button. A pet with no name shows the name field without waiting.
+- It is draggable, because it sits over a page people work in, and it stays where it is dropped. It hides from its card or from the switch in the popup.
+- It is the extension's own page in a frame, so Claude's styles and the pet's styles cannot affect each other.
 
 ## One state, three faces
 

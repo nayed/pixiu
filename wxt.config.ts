@@ -13,12 +13,14 @@ export default defineConfig({
     web_accessible_resources: [{ resources: ["overlay.html"], matches: ["https://claude.ai/*"] }],
   },
   hooks: {
-    // The debug page is a development tool. It is built by `pnpm dev` and `pnpm build:debug`
-    // and left out of `pnpm build` and `pnpm zip`.
+    // The debug and artboards pages are development tools. They are built by `pnpm dev` and
+    // `pnpm build:debug` and left out of `pnpm build` and `pnpm zip`.
     "entrypoints:found": (wxt, infos) => {
       if (wxt.config.mode !== "production") return;
-      const index = infos.findIndex((info) => info.name === "debug");
-      if (index >= 0) infos.splice(index, 1);
+      const tools = new Set(["debug", "artboards"]);
+      for (let index = infos.length - 1; index >= 0; index--) {
+        if (tools.has(infos[index]?.name ?? "")) infos.splice(index, 1);
+      }
     },
   },
   vite: () => ({ plugins: [preact()] }),

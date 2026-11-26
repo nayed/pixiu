@@ -8,10 +8,12 @@ import { toolbarIcon } from "@/lib/icon";
 import { DEFAULT_SETTINGS, WEEK_MS } from "@/lib/pet/config";
 import { describeEvent, describeView } from "@/lib/pet/describe";
 import { namePet } from "@/lib/pet/engine";
+import { growthOf } from "@/lib/pet/growth";
 import { hungerMs, viewPet } from "@/lib/pet/view";
 import {
   createSimulation,
   feed,
+  feedWeek,
   poll,
   type Simulation,
   setFailure,
@@ -133,6 +135,12 @@ export function App() {
             <dd>
               {Math.round(fake.week.percent)}%, resets {when(fake.week.resetsAt)}
             </dd>
+            <dt>XP</dt>
+            <dd>
+              {pet.hatchedAt === null
+                ? "none before hatching"
+                : `${growthOf(pet).xp} of ${growthOf(pet).needed} toward age ${pet.age + 1}`}
+            </dd>
             <dt>Waking time since last meal</dt>
             <dd>{pet.hatchedAt === null ? "not hatched" : `${hungryHours} h`}</dd>
             <dt>Peak this week</dt>
@@ -157,7 +165,17 @@ export function App() {
                 {points === 100 ? "Fill the session" : `+${points}%`}
               </button>
             ))}
+            <button
+              type="button"
+              class="button"
+              onClick={() => setSim(feedWeek(sim, 50, settings))}
+            >
+              +50 XP
+            </button>
           </div>
+          <p class="detail">
+            "+50 XP" adds 50 points to the week without touching the session, up to 100%.
+          </p>
         </section>
 
         <section>
