@@ -289,6 +289,16 @@
   gap: 4px 12px;
 }
 
+/* Read by screen readers, not shown. */
+.px-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 /* Bottom right, even when there are no links beside it. */
 .px-version {
   margin-left: auto;

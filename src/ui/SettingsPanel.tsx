@@ -88,7 +88,14 @@ export function SettingsPanel(props: PetPopupProps & { onDone: () => void }) {
               </a>
             )}
           </span>
-          {version && <span class="px-dim px-version">v{version}</span>}
+          {version && (
+            <span class="px-dim px-version">
+              {/* Read as "Version 0.2.0", shown as "v0.2.0". */}
+              <span class="px-visually-hidden">Version </span>
+              <span aria-hidden="true">v</span>
+              {version}
+            </span>
+          )}
         </div>
       )}
     </>
