@@ -10,7 +10,7 @@ const NOW = new Date("2026-11-20T09:00:00Z");
 /** A named child with a reading, a meal, and a completed week behind it. */
 function grownPet() {
   let sim = poll(createSimulation(START, new Date("2026-11-19T04:00:00Z")), DEFAULT_SETTINGS);
-  sim = feed(sim, 22, DEFAULT_SETTINGS);
+  sim = feed(sim, 30, DEFAULT_SETTINGS);
   sim = feedWeek(sim, 50, DEFAULT_SETTINGS);
   sim = wait(sim, 3 * 24 * 3_600_000, DEFAULT_SETTINGS);
   return namePet(sim.pet, "Mochi");
@@ -33,14 +33,14 @@ describe("backup", () => {
     const old = { ...rest, version: 1 };
     const backup = createBackup(old as never, undefined, undefined, NOW);
     const restored = validateBackup(JSON.parse(JSON.stringify(backup)));
-    expect(restored?.pet).toEqual({ ...rest, version: 3, xp: rest.weekPeak, lastBirthday: null });
+    expect(restored?.pet).toEqual({ ...rest, version: 4, xp: rest.weekPeak, lastBirthday: null });
   });
 
   it("brings a pet saved by 0.2.0 up to date, with no birthday on record", () => {
     const { lastBirthday: _birthday, ...rest } = grownPet();
     const backup = createBackup({ ...rest, version: 2 } as never, undefined, undefined, NOW);
     const restored = validateBackup(JSON.parse(JSON.stringify(backup)));
-    expect(restored?.pet).toEqual({ ...rest, version: 3, lastBirthday: null });
+    expect(restored?.pet).toEqual({ ...rest, version: 4, lastBirthday: null });
   });
 
   it("keeps the pet when the settings and the log are missing or broken", () => {

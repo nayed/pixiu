@@ -3,7 +3,13 @@
 
 import { browser } from "wxt/browser";
 import type { Settings } from "./pet/config";
-import { type PetState, type PetStateV1, type PetStateV2, upgradePet } from "./pet/state";
+import {
+  type PetState,
+  type PetStateV1,
+  type PetStateV2,
+  type PetStateV3,
+  upgradePet,
+} from "./pet/state";
 import type { UsageReading, UsageSnapshot } from "./usage/snapshot";
 
 export type LogEntry = { at: string; text: string };
@@ -43,7 +49,7 @@ const KEYS: (keyof Stored)[] = [
 /** Reads everything. A pet saved by an older version comes back in today's shape. */
 export async function load(): Promise<Stored> {
   const raw = (await browser.storage.local.get(KEYS)) as Omit<Stored, "pet"> & {
-    pet?: PetState | PetStateV2 | PetStateV1;
+    pet?: PetState | PetStateV3 | PetStateV2 | PetStateV1;
   };
   const { pet, ...rest } = raw;
   return pet ? { ...rest, pet: upgradePet(pet) } : rest;

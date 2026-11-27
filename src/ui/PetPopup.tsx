@@ -31,6 +31,7 @@ import {
   sprite,
 } from "@/lib/sprites/sprites";
 import type { UsageFailureReason, UsageWindow } from "@/lib/usage/snapshot";
+import { SegmentBar } from "./SegmentBar";
 import { SettingsPanel } from "./SettingsPanel";
 import { Sprite } from "./Sprite";
 
@@ -126,7 +127,7 @@ function bodyFor(view: PetView, props: PetPopupProps, hatchFrame: HatchFrame): B
       title,
       detail,
       content: (
-        <Egg warmth={view.warmth} crack={view.crack}>
+        <Egg warmth={view.warmth} crack={view.crack} pet={pet} now={now}>
           <OverlaySwitch {...props} who="the egg" />
         </Egg>
       ),
@@ -270,16 +271,42 @@ function OverlaySwitch(props: PetPopupProps & { who: string }) {
   );
 }
 
-function Egg(props: { warmth: number; crack: EggCrack; children?: ComponentChildren }) {
-  const { warmth, crack } = props;
+/** A Claude limit as the egg's popup shows it: the percent used and when it resets. */
+function UsageRow(props: { label: string; window: UsageWindow; now: Date; color: string }) {
+  const { label, window, now, color } = props;
+  const percent = Math.round(window.percent);
+  return (
+    <div class="px-usage">
+      <div class="px-row">
+        <p>{label}</p>
+        <p class="px-dim">
+          {percent}%{window.resetsAt && `, resets in ${timeLeftText(window.resetsAt, now)}`}
+        </p>
+      </div>
+      <SegmentBar percent={percent} color={color} />
+    </div>
+  );
+}
+
+function Egg(props: {
+  warmth: number;
+  crack: EggCrack;
+  pet: PetState;
+  now: Date;
+  children?: ComponentChildren;
+}) {
+  const { warmth, crack, pet, now } = props;
   const percent = Math.round((warmth / RULES.hatchWarmth) * 100);
   const wobble = crack === "full" ? "px-wobble px-fast" : warmth > 0 ? "px-wobble" : "";
+  // The thermometer shows the percent; this line says what it measures.
   const note =
     crack === "full"
       ? "Almost there. A few more messages."
       : warmth > 0
-        ? "Using Claude warms the egg. It hatches at 100%."
-        : "Send a message to start warming the egg.";
+        ? "Using Claude warms the egg. It hatches at 100%, and you name it then."
+        : "Send a message to start warming the egg. It hatches at 100%.";
+  const session = currentWindow(pet.reading?.short, now);
+  const week = currentWindow(pet.reading?.long, now);
 
   return (
     <>
@@ -289,14 +316,19 @@ function Egg(props: { warmth: number; crack: EggCrack; children?: ComponentChild
         </div>
         <Meter percent={percent} color="var(--warmth)" label={`Egg warmth: ${percent} percent`} />
       </Scene>
-      <div class="px-section">
-        <div class="px-row">
-          <h2>Warmth</h2>
-          <span class="px-food-number">{percent}%</span>
+      <p class="px-dim">{note}</p>
+      {/* Before the first read there are no numbers yet, and 0% would say nothing was used. */}
+      {pet.reading && (
+        <div class="px-section">
+          <UsageRow label="Session" window={session} now={now} color="var(--food)" />
+          <UsageRow
+            label="This week"
+            window={week}
+            now={now}
+            color={rulerColor(Math.round(week.percent))}
+          />
         </div>
-        <p class="px-dim">{note}</p>
-      </div>
-      <p>You name your pet when it hatches.</p>
+      )}
       {props.children}
     </>
   );

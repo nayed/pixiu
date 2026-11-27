@@ -258,6 +258,17 @@
   font-weight: 400;
 }
 
+.px-usage {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* The usage bars sit on the dark panel, not the sky, so blue takes its lighter shade there. */
+.pixiu .segment-bar {
+  --ruler-blue: #4aa8ff;
+}
+
 .px-cookies {
   display: flex;
   gap: 6px;

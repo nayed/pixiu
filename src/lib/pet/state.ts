@@ -2,7 +2,7 @@ import type { UsageFailureReason, UsageReading } from "../usage/snapshot";
 
 /** Everything the pet remembers. Plain JSON, so it can be saved to storage as it is. */
 export type PetState = {
-  version: 3;
+  version: 4;
   /** When the egg appeared: the first run after install. */
   bornAt: string;
   /** Null until the user names the pet, which can only happen after it hatches. */
@@ -39,7 +39,7 @@ export type PetState = {
 
 export function newPet(now: Date): PetState {
   return {
-    version: 3,
+    version: 4,
     bornAt: now.toISOString(),
     name: null,
     warmth: 0,
@@ -59,11 +59,17 @@ export function newPet(now: Date): PetState {
   };
 }
 
+/** The pet as the birthday update saved it, when an egg hatched at 10 warmth instead of 30. */
+export type PetStateV3 = Omit<PetState, "version"> & { version: 3 };
+
 /** The pet as version 0.2.0 saved it, before it remembered its last birthday. */
 export type PetStateV2 = Omit<PetState, "version" | "lastBirthday"> & { version: 2 };
 
 /** The pet as version 0.1.0 saved it, when the weekly reset was a birthday and there was no XP. */
 export type PetStateV1 = Omit<PetStateV2, "version" | "xp"> & { version: 1 };
+
+/** How much longer an egg takes to hatch since version 4: 30 warmth instead of 10. */
+const WARMTH_SCALE = 3;
 
 /**
  * Brings a pet saved by an older version up to date.
@@ -75,16 +81,17 @@ export type PetStateV1 = Omit<PetStateV2, "version" | "xp"> & { version: 1 };
  *
  * Older pets have no birthday on record, so a pet from 0.2.0 does not celebrate after an update.
  * A pet from 0.1.0 does celebrate if its credited XP pays for a catch-up birthday at its next read.
+ *
+ * An egg from before version 4 keeps the same fraction of the way to hatching, so its cracks
+ * stay as they were: its warmth is scaled to the longer incubation.
  */
-export function upgradePet(pet: PetState | PetStateV2 | PetStateV1): PetState {
+export function upgradePet(pet: PetState | PetStateV3 | PetStateV2 | PetStateV1): PetState {
+  if (pet.version === 4) return pet;
+  const warmth = pet.hatchedAt === null ? pet.warmth * WARMTH_SCALE : pet.warmth;
   if (pet.version === 1) {
-    return {
-      ...pet,
-      version: 3,
-      xp: pet.hatchedAt === null ? 0 : pet.weekPeak,
-      lastBirthday: null,
-    };
+    const xp = pet.hatchedAt === null ? 0 : pet.weekPeak;
+    return { ...pet, version: 4, warmth, xp, lastBirthday: null };
   }
-  if (pet.version === 2) return { ...pet, version: 3, lastBirthday: null };
-  return pet;
+  if (pet.version === 2) return { ...pet, version: 4, warmth, lastBirthday: null };
+  return { ...pet, version: 4, warmth };
 }

@@ -62,7 +62,8 @@ The age boundaries for child, teen, and adult were Claude's suggestion to match 
 ## The egg
 
 - **Decided:** a new install starts with an egg.
-- **Decided:** warmth is usage since install. The egg hatches after one cookie's worth of usage, which is 10% of a session.
+- **Decided:** warmth is usage since install, counted in session points.
+- **Decided (Nayed, 2026-11-27):** the egg hatches after three cookies' worth of usage, 30% of a session. It was one cookie, 10%, until 0.2.0; an egg already warming keeps its warmth and needs the rest.
 - **Decided:** warmth never drops. If the user stops for a day, the egg waits.
 - **Proposed:** the egg shows three states: no cracks (nothing used yet), one small crack (warming), cracked all the way across (about to hatch). It sits still when new, wobbles occasionally while warming, and wobbles fast when about to hatch.
 - **Built:** the first crack appears at 40% warmth and the full crack at 90%, the samples the mockups used.

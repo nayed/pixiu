@@ -1,0 +1,16 @@
+/* Empty segments take the surrounding panel's divider color. */
+
+.segment-bar {
+  display: flex;
+  gap: 3px;
+}
+
+.segment-bar i {
+  flex-grow: 1;
+  height: 8px;
+  background: var(--divider);
+}
+
+.segment-bar i.segment-on {
+  background: var(--fill);
+}

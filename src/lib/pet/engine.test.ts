@@ -26,8 +26,8 @@ const TO_FIRST_RESET = WEEK_RESET.getTime() - START.getTime();
 
 /** A new install that has made its first read. */
 const install = () => poll(createSimulation(START, WEEK_RESET), S);
-/** A pet that hatched by eating 22% of a session in one step. Its week is at 4%. */
-const hatched = () => feed(install(), 22, S);
+/** A pet that hatched by eating 30% of a session in one step. Its week is at 5%. */
+const hatched = () => feed(install(), 30, S);
 /** A child: hatched, then fed 50 points of the week, the 50 XP that age 1 costs. */
 const child = () => feedWeek(hatched(), 50, S);
 const named = (sim: Simulation): Simulation => ({ ...sim, pet: namePet(sim.pet, "Mochi") });
@@ -63,7 +63,7 @@ describe("the egg", () => {
   it("hatches straight from no cracks when a meal arrives in one jump", () => {
     const sim = hatched();
     expect(sim.events).toEqual([
-      { type: "ate", at: START.toISOString(), points: 22 },
+      { type: "ate", at: START.toISOString(), points: 30 },
       { type: "hatched", at: START.toISOString() },
     ]);
     expect(view(sim)).toMatchObject({ kind: "pet", stage: "baby", age: 0, name: null });
@@ -72,15 +72,15 @@ describe("the egg", () => {
   it("warms over small meals, cracks, and never cools", () => {
     let sim = feed(install(), 3, S);
     expect(view(sim)).toMatchObject({ kind: "egg", crack: "none", warmth: 3 });
-    sim = feed(sim, 2, S);
-    expect(view(sim)).toMatchObject({ crack: "small", warmth: 5 });
+    sim = feed(sim, 9, S);
+    expect(view(sim)).toMatchObject({ crack: "small", warmth: 12 });
 
     sim = wait(sim, 30 * HOUR, S); // The session resets; the egg waits.
-    expect(view(sim)).toMatchObject({ crack: "small", warmth: 5 });
+    expect(view(sim)).toMatchObject({ crack: "small", warmth: 12 });
 
-    sim = feed(sim, 4, S);
-    expect(view(sim)).toMatchObject({ kind: "egg", crack: "full", warmth: 9 });
-    sim = feed(sim, 1, S);
+    sim = feed(sim, 15, S);
+    expect(view(sim)).toMatchObject({ kind: "egg", crack: "full", warmth: 27 });
+    sim = feed(sim, 3, S);
     expect(view(sim).kind).toBe("pet");
   });
 
@@ -229,7 +229,7 @@ describe("XP and age", () => {
     let sim = feedWeek(hatched(), 30, S);
     sim = wait(sim, TO_FIRST_RESET + HOUR, S);
     expect(count(sim, "birthday")).toBe(0);
-    expect(sim.pet).toMatchObject({ age: 0, xp: 30, weeks: [34], weekPeak: 0 });
+    expect(sim.pet).toMatchObject({ age: 0, xp: 30, weeks: [35], weekPeak: 0 });
 
     // The new week starts from 0%, and every point of it counts.
     sim = feedWeek(sim, 20, S);
@@ -240,16 +240,16 @@ describe("XP and age", () => {
     const seen: string[] = [];
     let sim = hatched();
     for (let week = 1; week <= 13; week++) {
-      // The whole week: 96 XP the first week, which started at 4%, then 100 a week.
+      // The whole week: 95 XP the first week, which started at 5%, then 100 a week.
       sim = feedWeek(sim, 100, S);
       const now = view(sim);
       seen.push(now.kind === "pet" ? `${now.age} ${now.stage}` : now.kind);
       sim = wait(sim, WEEK_MS, S);
     }
-    expect(seen[4]).toBe("6 child"); // 496 XP
-    expect(seen[5]).toBe("7 teen"); // 596 XP
-    expect(seen[11]).toBe("11 teen"); // 1,196 XP
-    expect(seen[12]).toBe("12 adult"); // 1,296 XP
+    expect(seen[4]).toBe("6 child"); // 495 XP
+    expect(seen[5]).toBe("7 teen"); // 595 XP
+    expect(seen[11]).toBe("11 teen"); // 1,195 XP
+    expect(seen[12]).toBe("12 adult"); // 1,295 XP
   });
 
   it("earns nothing for weeks it never saw, and does not age through them", () => {
@@ -257,7 +257,7 @@ describe("XP and age", () => {
     sim = poll(sleep(sim, TO_FIRST_RESET + 2 * WEEK_MS + HOUR), S);
     expect(sim.pet).toMatchObject({ age: 0, xp: 20 });
     // Only the week the pet watched is in its history, so it did not run away.
-    expect(sim.pet.weeks).toEqual([24]);
+    expect(sim.pet.weeks).toEqual([25]);
     expect(view(sim).kind).toBe("pet");
   });
 
@@ -307,16 +307,16 @@ describe("XP and age", () => {
 
 describe("a pet from 0.1.0", () => {
   it("keeps its age, gets this week's usage as XP, and has a birthday at its next read", () => {
-    // A child at 64% of its week, like Crixus when the XP rules arrived.
+    // A child at 65% of its week, close to Crixus when the XP rules arrived.
     const sim = feedWeek(child(), 10, S);
     const { xp: _xp, lastBirthday: _birthday, ...rest } = sim.pet;
     const upgraded = upgradePet({ ...rest, version: 1 });
-    expect(upgraded).toMatchObject({ version: 3, age: 1, xp: 64, lastBirthday: null });
+    expect(upgraded).toMatchObject({ version: 4, age: 1, xp: 65, lastBirthday: null });
 
     // Age 2 costs 60 XP, so the first read after the update pays for it.
     const next = poll({ ...sim, pet: upgraded }, S);
     expect(next.events.at(-1)).toMatchObject({ type: "birthday", age: 2 });
-    expect(next.pet).toMatchObject({ age: 2, xp: 4 });
+    expect(next.pet).toMatchObject({ age: 2, xp: 5 });
   });
 
   it("gives an egg no XP", () => {
@@ -335,8 +335,22 @@ describe("a pet from 0.2.0", () => {
     const sim = named(child());
     const { lastBirthday: _birthday, ...rest } = sim.pet;
     const upgraded = upgradePet({ ...rest, version: 2 });
-    expect(upgraded).toEqual({ ...sim.pet, version: 3, lastBirthday: null });
+    expect(upgraded).toEqual({ ...sim.pet, version: 4, lastBirthday: null });
     expect(viewPet(upgraded, new Date(sim.fake.now), S)).toMatchObject({ celebrating: null });
+  });
+});
+
+describe("an egg from before the longer incubation", () => {
+  it("keeps its cracks: its warmth is scaled to the 30 it now needs", () => {
+    const old = { ...feed(install(), 9, S).pet, version: 3 as const };
+    const upgraded = upgradePet(old);
+    expect(upgraded).toMatchObject({ version: 4, warmth: 27 });
+    expect(viewPet(upgraded, START, S)).toMatchObject({ kind: "egg", crack: "full" });
+  });
+
+  it("leaves a hatched pet's warmth alone", () => {
+    const pet = { ...hatched().pet, warmth: 10, version: 3 as const };
+    expect(upgradePet(pet).warmth).toBe(10);
   });
 });
 
@@ -389,7 +403,7 @@ describe("neglect", () => {
   it("runs away after two empty weeks and comes back at the next meal", () => {
     let sim = named(child());
     sim = wait(sim, TO_FIRST_RESET + 2 * WEEK_MS + HOUR, S);
-    expect(sim.pet.weeks).toEqual([54, 0, 0]);
+    expect(sim.pet.weeks).toEqual([55, 0, 0]);
     expect(types(sim).at(-1)).toBe("ran-away");
     expect(view(sim)).toMatchObject({ kind: "ran-away", age: 1, name: "Mochi" });
 
@@ -406,7 +420,7 @@ describe("neglect", () => {
 
   it("does not let a baby run away", () => {
     const sim = wait(hatched(), TO_FIRST_RESET + 2 * WEEK_MS + HOUR, S);
-    expect(sim.pet.weeks).toEqual([4, 0, 0]);
+    expect(sim.pet.weeks).toEqual([5, 0, 0]);
     expect(count(sim, "ran-away")).toBe(0);
     expect(view(sim)).toMatchObject({ kind: "pet", stage: "baby", mood: "hungry" });
   });
@@ -414,18 +428,18 @@ describe("neglect", () => {
   it("does not run away from a week that was thin but not empty", () => {
     let sim = wait(child(), TO_FIRST_RESET + WEEK_MS + HOUR, S);
     sim = wait(feed(sim, 40, S), WEEK_MS, S);
-    expect(sim.pet.weeks).toEqual([54, 0, 7]);
+    expect(sim.pet.weeks).toEqual([55, 0, 7]);
     expect(view(sim).kind).toBe("pet");
   });
 
   it("sulks after thin weeks and recovers when fed well", () => {
     let sim = wait(child(), TO_FIRST_RESET + HOUR, S);
-    expect(sim.pet.weeks).toEqual([54]);
+    expect(sim.pet.weeks).toEqual([55]);
     expect(isUnderfed(sim.pet)).toBe(false); // One week of history is not enough.
 
     sim = wait(feed(sim, 40, S), WEEK_MS, S);
     sim = wait(feed(sim, 40, S), WEEK_MS, S);
-    expect(sim.pet.weeks).toEqual([54, 7, 7]);
+    expect(sim.pet.weeks).toEqual([55, 7, 7]);
     sim = wait(feed(sim, 1, S), 10 * MINUTE, S);
     expect(view(sim)).toMatchObject({ mood: "sulky" });
 

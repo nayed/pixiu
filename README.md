@@ -26,7 +26,7 @@ Pixiu is not on the Chrome Web Store. You load it yourself, in Chrome or another
 4. Pin Pixiu to the toolbar. It starts as an egg.
 5. Open [claude.ai](https://claude.ai) once while signed in, so Pixiu can find your account. After that it needs no Claude tab.
 
-Then use Claude as usual, from any app. The egg warms as you use it and hatches once you have used about 10% of a session.
+Then use Claude as usual, from any app. The egg warms as you use it and hatches once you have used about 30% of a session.
 
 To update, export your pet first (popup settings, "Back up or restore"), replace the folder's contents with the new version, and press the reload button on Pixiu's card in `chrome://extensions`. Reloading keeps the pet. Removing the extension deletes it, which is what the export is for.
 

@@ -7,11 +7,11 @@ const HOUR_MS = 60 * MINUTE_MS;
 export const WEEK_MS = 7 * 24 * HOUR_MS;
 
 export const RULES = {
-  /** Session points the egg must eat before it hatches: one cookie. */
-  hatchWarmth: 10,
-  /** Warmth at which the first crack and the full crack appear. */
-  firstCrackWarmth: 4,
-  fullCrackWarmth: 9,
+  /** Session points the egg must eat before it hatches: three cookies. */
+  hatchWarmth: 30,
+  /** Warmth at which the first crack and the full crack appear: 40% and 90% of the way. */
+  firstCrackWarmth: 12,
+  fullCrackWarmth: 27,
 
   /** Waking time without a meal before the pet is hungry. */
   hungryAfterMs: 6 * HOUR_MS,
