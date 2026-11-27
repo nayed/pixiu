@@ -73,7 +73,8 @@ export type PetStateV1 = Omit<PetStateV2, "version" | "xp"> & { version: 1 };
  * week is also credited the part of the week from before it hatched, which the old rules would
  * have rewarded at the reset anyway.
  *
- * Older pets have no birthday on record, so nothing celebrates by surprise after an update.
+ * Older pets have no birthday on record, so a pet from 0.2.0 does not celebrate after an update.
+ * A pet from 0.1.0 does celebrate if its credited XP pays for a catch-up birthday at its next read.
  */
 export function upgradePet(pet: PetState | PetStateV2 | PetStateV1): PetState {
   if (pet.version === 1) {

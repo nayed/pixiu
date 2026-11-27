@@ -40,7 +40,7 @@ The pet logic sees only this, refreshed on each poll:
 ## Birthdays
 
 - **Decided (Nayed, 2026-11-26):** the pet celebrates each birthday for 24 hours, so a birthday that happens while nobody is looking is still seen.
-- **Decided (Nayed, 2026-11-26):** the pet remembers its last birthday: when it was, the age it reached, and the age before. Pets from 0.2.0 and older start with none, so nothing celebrates by surprise after an update.
+- **Decided (Nayed, 2026-11-26):** the pet remembers its last birthday: when it was, the age it reached, and the age before. Pets from 0.2.0 and older start with none, so a pet from 0.2.0 does not celebrate after an update. A pet from 0.1.0 does, if the XP it is credited pays for a catch-up birthday.
 - **Decided (Nayed, 2026-11-26):** several ages paid for at once make one celebration, for the age reached.
 - **Decided (Nayed, 2026-11-26):** a pet with no name waits to celebrate until it has one, and the party pauses while it can't reach Claude.
 - **Decided (Nayed, 2026-11-26):** a birthday that brings a new stage says so: "Now a child!", "Now a teen!", "Now an adult!". Any other says "Happy birthday!".

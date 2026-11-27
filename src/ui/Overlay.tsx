@@ -397,7 +397,7 @@ function Card(props: OverlayProps & { view: PetView }) {
 
 function Heading({ title, detail }: { title: string; detail: string }) {
   return (
-    <div class="ov-row">
+    <div class="ov-row ov-heading">
       <h2>{title}</h2>
       <p class="ov-dim">{detail}</p>
     </div>

@@ -263,7 +263,8 @@
   gap: 6px;
 }
 
-.px-footer {
+/* Scoped to the popup so it beats the reset of paragraph margins above. */
+.pixiu .px-footer {
   margin-top: auto;
   padding-top: 12px;
   border-top: 2px solid var(--divider);

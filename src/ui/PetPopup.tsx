@@ -510,7 +510,7 @@ function foodNote(mood: Mood, pet: PetState, session: UsageWindow, now: Date): s
   return "No session running";
 }
 
-/** The banner in the sky on a birthday. Growing into a new stage gets its own. */
+/** The banner on the grass on a birthday. Growing into a new stage gets its own. */
 const BANNERS: Record<Stage, string> = {
   baby: "Happy birthday!",
   child: "Now a child!",
