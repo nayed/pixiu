@@ -136,19 +136,19 @@ function moodItems(stage: { age: number; xp: number; week: number }): SheetItem[
 
 const BOARDS: Record<string, () => ComponentChildren> = {
   "first-run-popup": () => <Popup pet={egg(0, "not-set-up")} />,
-  "egg-popup": () => <Popup pet={egg(4)} />,
+  "egg-popup": () => <Popup pet={egg(12)} />,
   "egg-toolbar-icon": () => (
     <IconSheet
       title="Toolbar icon: egg"
       subtitle="Before hatching, the icon is the egg. The cracks show how close it is."
       items={[
         { name: "New egg", note: "Nothing eaten yet", icon: iconOf(egg(0)) },
-        { name: "Warming", note: "First crack at 40% warmth", icon: iconOf(egg(4)) },
-        { name: "About to hatch", note: "Cracked across at 90%", icon: iconOf(egg(9)) },
+        { name: "Warming", note: "First crack at 40% warmth", icon: iconOf(egg(12)) },
+        { name: "About to hatch", note: "Cracked across at 90%", icon: iconOf(egg(27)) },
       ]}
     />
   ),
-  "egg-on-page-overlay": () => <ClaudePage pet={egg(4)} />,
+  "egg-on-page-overlay": () => <ClaudePage pet={egg(12)} />,
 
   "hatching-popup": () => <Popup pet={pet({ ...STAGES.baby, xp: 0, name: null })} />,
   "hatching-toolbar-icon": () => {

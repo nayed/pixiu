@@ -119,7 +119,7 @@ See `artboards/*-popup.png`. Top to bottom:
 5. "This week" with the time until the weekly reset, for example "resets in 5 h 21 min".
 6. A switch to show or hide the pet on the Claude page.
 
-Variants: the first run (the egg and an "Open Claude" button, before the account is found), the egg (warmth thermometer in place of the ruler, no cookies), hatching (name field and a "Say hello" button), ran away (the note left on the grass), a birthday (for 24 hours: "Happy birthday!" or the new stage written on the grass, sparkles, and a hop; see `artboards/birthday-popup.png` and `artboards/grew-up-popup.png`), and can't reach Claude (gray scene, a reason, and an "Open Claude" button when signed out).
+Variants: the first run (the egg and an "Open Claude" button, before the account is found), the egg (warmth thermometer in place of the ruler, a line saying what it measures, and the session and weekly usage as two rows with ten-segment bars: food orange for the session, the ruler colors for the week; no cookies), hatching (name field and a "Say hello" button), ran away (the note left on the grass), a birthday (for 24 hours: "Happy birthday!" or the new stage written on the grass, sparkles, and a hop; see `artboards/birthday-popup.png` and `artboards/grew-up-popup.png`), and can't reach Claude (gray scene, a reason, and an "Open Claude" button when signed out).
 
 Keep the text short. An earlier version had a status sentence that repeated what the face already showed, and it was removed.
 
