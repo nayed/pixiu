@@ -119,7 +119,7 @@ See `artboards/*-popup.png`. Top to bottom:
 5. "This week" with the time until the weekly reset, for example "resets in 5 h 21 min".
 6. A switch to show or hide the pet on the Claude page.
 
-Variants: the first run (the egg and an "Open Claude" button, before the account is found), the egg (warmth thermometer in place of the ruler, a line saying what it measures, and the session and weekly usage as two rows with ten-segment bars: food orange for the session, the ruler colors for the week; no cookies), hatching (name field and a "Say hello" button), ran away (the note left on the grass), a birthday (for 24 hours: "Happy birthday!" or the new stage written on the grass, sparkles, and a hop; see `artboards/birthday-popup.png` and `artboards/grew-up-popup.png`), and can't reach Claude (gray scene, a reason, and an "Open Claude" button when signed out).
+Variants: the first run (the egg and an "Open Claude" button, before the account is found), the egg (warmth thermometer in place of the ruler, a line saying what it measures, and the session and weekly usage as two rows with ten-segment bars: food orange for the session, the ruler colors for the week, once Pixiu has read usage at least once; no cookies), hatching (name field and a "Say hello" button), ran away (the note left on the grass), a birthday (for 24 hours: "Happy birthday!" or the new stage written on the grass, sparkles, and a hop; see `artboards/birthday-popup.png` and `artboards/grew-up-popup.png`), and can't reach Claude (gray scene, a reason, and an "Open Claude" button when signed out). Settings hold renaming, sleeping hours, links to the backup page and (in debug builds) the debug page, and the version at the bottom right.
 
 Keep the text short. An earlier version had a status sentence that repeated what the face already showed, and it was removed.
 
@@ -134,7 +134,8 @@ See `artboards/*-toolbar-icon.png`. The icon is the face sprite for the pet's st
 | Stuffed | `zz` |
 | Hatched, not named yet | `!` |
 | Can't reach Claude | `?` |
-| Ran away, egg | None |
+| First run (account not found yet) | `!` |
+| Ran away, egg (account found) | None |
 
 The badge text is **Proposed**, and built as proposed. On a birthday the badge stays the same and the tooltip adds "Birthday today!". The dark outline disappears on dark toolbars, but the body color carries the shape. Check the icons on both light and dark themes.
 

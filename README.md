@@ -8,7 +8,7 @@ A Chrome extension that shows your Claude plan usage as a Tamagotchi-style virtu
 
 ## Status
 
-Version 0.2.0: all of version one in [docs/PLAN.md](docs/PLAN.md), plus the on-page overlay and aging with XP. The extension reads usage in the background, runs the pet engine on every read, and shows the pet in the popup and on the toolbar icon, with a badge. The pet grows up with XP: every 1% of your weekly usage is 1 XP, and each age costs a little more than the one before. Each birthday is celebrated for a day. The pet also sits in a small window in the corner of claude.ai: hover it for its numbers, drag it to move it, and hide it from its card or from the switch in the popup.
+The latest release is 0.2.0: all of version one in [docs/PLAN.md](docs/PLAN.md), plus the on-page overlay and aging with XP. `main` also has changes for the next release: birthday celebrations, a longer incubation, and usage on the egg's popup. The extension reads usage in the background, runs the pet engine on every read, and shows the pet in the popup and on the toolbar icon, with a badge. The pet grows up with XP: every 1% of your weekly usage is 1 XP, and each age costs a little more than the one before. On `main`, each birthday is celebrated for a day. The pet also sits in a small window in the corner of claude.ai: hover it for its numbers, drag it to move it, and hide it from its card or from the switch in the popup.
 
 Known limits: an account with no session limit never hatches its egg, and Claude's usage address is undocumented, so a change on Claude's side can stop Pixiu from reading it until an update.
 
@@ -26,7 +26,7 @@ Pixiu is not on the Chrome Web Store. You load it yourself, in Chrome or another
 4. Pin Pixiu to the toolbar. It starts as an egg.
 5. Open [claude.ai](https://claude.ai) once while signed in, so Pixiu can find your account. After that it needs no Claude tab.
 
-Then use Claude as usual, from any app. The egg warms as you use it and hatches once you have used about 30% of a session.
+Then use Claude as usual, from any app. The egg warms as you use it and hatches once you have used about 10% of a session in 0.2.0, or 30% from the next release.
 
 To update, export your pet first (popup settings, "Back up or restore"), replace the folder's contents with the new version, and press the reload button on Pixiu's card in `chrome://extensions`. Reloading keeps the pet. Removing the extension deletes it, which is what the export is for.
 
@@ -70,7 +70,7 @@ Then load `.output/chrome-mv3` as in steps 2 to 5 above.
 | `src/lib/usage/`                        | The normalized usage snapshot and the Claude adapter that produces it.               |
 | `src/lib/pet/`                          | The pet: rule constants, state, the engine step, and the view every surface renders. |
 | `src/lib/sprites/`                      | The drawings as character grids, and the code that picks and paints them.            |
-| `src/ui/`                               | The pet popup and the backup controls as components, shared with the debug page.     |
+| `src/ui/`                               | The popup, overlay, settings, and backup components and their shared pieces.         |
 | `src/lib/sim/`                          | A fake Claude and clock, for the tests and the debug page.                           |
 | `src/lib/backup.ts`                     | The backup file format: export, validation, and import.                              |
 | `src/lib/icon.ts`, `src/lib/toolbar.ts` | Which icon and badge to show, and putting them on the toolbar.                       |
