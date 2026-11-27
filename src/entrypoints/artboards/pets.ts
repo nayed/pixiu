@@ -1,7 +1,7 @@
 // The pets on the artboards. Each is built by hand at a fixed moment, so the pictures come out
 // the same every time: the same countdowns, the same moods, whatever the date or time zone.
 
-import type { Settings } from "@/lib/pet/config";
+import { RULES, type Settings } from "@/lib/pet/config";
 import { newPet, type PetState } from "@/lib/pet/state";
 import type { UsageFailureReason } from "@/lib/usage/snapshot";
 
@@ -23,7 +23,7 @@ const reading = (session: number, week: number, minutesAgo: number) => ({
   long: { percent: week, resetsAt: at(3 * DAY + 4 * HOUR) },
 });
 
-/** An egg with this much warmth, out of the 10 it needs. */
+/** An egg with this much warmth, out of the RULES.hatchWarmth (30) it needs. */
 export function egg(warmth: number, blind: UsageFailureReason | null = null): PetState {
   return {
     ...newPet(new Date(at(-DAY))),
@@ -61,7 +61,7 @@ export function pet(look: Look = {}): PetState {
   return {
     ...newPet(new Date(at(-60 * DAY))),
     name,
-    warmth: 10,
+    warmth: RULES.hatchWarmth,
     hatchedAt: at(-50 * DAY),
     age,
     xp,

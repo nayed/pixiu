@@ -33,14 +33,14 @@ describe("backup", () => {
     const old = { ...rest, version: 1 };
     const backup = createBackup(old as never, undefined, undefined, NOW);
     const restored = validateBackup(JSON.parse(JSON.stringify(backup)));
-    expect(restored?.pet).toEqual({ ...rest, version: 3, xp: rest.weekPeak, lastBirthday: null });
+    expect(restored?.pet).toEqual({ ...rest, version: 4, xp: rest.weekPeak, lastBirthday: null });
   });
 
   it("brings a pet saved by 0.2.0 up to date, with no birthday on record", () => {
     const { lastBirthday: _birthday, ...rest } = grownPet();
     const backup = createBackup({ ...rest, version: 2 } as never, undefined, undefined, NOW);
     const restored = validateBackup(JSON.parse(JSON.stringify(backup)));
-    expect(restored?.pet).toEqual({ ...rest, version: 3, lastBirthday: null });
+    expect(restored?.pet).toEqual({ ...rest, version: 4, lastBirthday: null });
   });
 
   it("keeps the pet when the settings and the log are missing or broken", () => {

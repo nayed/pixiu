@@ -32,7 +32,7 @@ const HOUR = 60 * MINUTE;
 const DAY = 24 * HOUR;
 const settings = DEFAULT_SETTINGS;
 
-const FEEDS = [1, 10, 22, 100];
+const FEEDS = [1, 10, 30, 100];
 const WAITS: [string, number][] = [
   ["5 min", 5 * MINUTE],
   ["1 h", HOUR],

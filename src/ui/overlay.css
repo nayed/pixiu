@@ -174,20 +174,9 @@
   color: #8cc8ff;
 }
 
-.ov-cookies,
-.ov-segments {
+.ov-cookies {
   display: flex;
   gap: 3px;
-}
-
-.ov-segments i {
-  flex-grow: 1;
-  height: 8px;
-  background: var(--divider);
-}
-
-.ov-segments i.ov-on {
-  background: var(--fill);
 }
 
 .ov-button {

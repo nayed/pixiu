@@ -311,7 +311,7 @@ describe("a pet from 0.1.0", () => {
     const sim = feedWeek(child(), 10, S);
     const { xp: _xp, lastBirthday: _birthday, ...rest } = sim.pet;
     const upgraded = upgradePet({ ...rest, version: 1 });
-    expect(upgraded).toMatchObject({ version: 3, age: 1, xp: 65, lastBirthday: null });
+    expect(upgraded).toMatchObject({ version: 4, age: 1, xp: 65, lastBirthday: null });
 
     // Age 2 costs 60 XP, so the first read after the update pays for it.
     const next = poll({ ...sim, pet: upgraded }, S);
@@ -335,8 +335,22 @@ describe("a pet from 0.2.0", () => {
     const sim = named(child());
     const { lastBirthday: _birthday, ...rest } = sim.pet;
     const upgraded = upgradePet({ ...rest, version: 2 });
-    expect(upgraded).toEqual({ ...sim.pet, version: 3, lastBirthday: null });
+    expect(upgraded).toEqual({ ...sim.pet, version: 4, lastBirthday: null });
     expect(viewPet(upgraded, new Date(sim.fake.now), S)).toMatchObject({ celebrating: null });
+  });
+});
+
+describe("an egg from before the longer incubation", () => {
+  it("keeps its cracks: its warmth is scaled to the 30 it now needs", () => {
+    const old = { ...feed(install(), 9, S).pet, version: 3 as const };
+    const upgraded = upgradePet(old);
+    expect(upgraded).toMatchObject({ version: 4, warmth: 27 });
+    expect(viewPet(upgraded, START, S)).toMatchObject({ kind: "egg", crack: "full" });
+  });
+
+  it("leaves a hatched pet's warmth alone", () => {
+    const pet = { ...hatched().pet, warmth: 10, version: 3 as const };
+    expect(upgradePet(pet).warmth).toBe(10);
   });
 });
 

@@ -31,6 +31,7 @@ import {
   sprite,
 } from "@/lib/sprites/sprites";
 import type { UsageFailureReason, UsageWindow } from "@/lib/usage/snapshot";
+import { SegmentBar } from "./SegmentBar";
 import { SettingsPanel } from "./SettingsPanel";
 import { Sprite } from "./Sprite";
 
@@ -270,18 +271,6 @@ function OverlaySwitch(props: PetPopupProps & { who: string }) {
   );
 }
 
-/** Ten segments filled to `percent`, for the usage rows under the egg. */
-function Segments(props: { percent: number; color: string }) {
-  const filled = Math.max(0, Math.min(10, Math.round(props.percent / 10)));
-  return (
-    <div class="px-segments" aria-hidden="true" style={{ "--fill": props.color }}>
-      {Array.from({ length: 10 }, (_, index) => (
-        <i key={index} class={index < filled ? "px-on" : undefined} />
-      ))}
-    </div>
-  );
-}
-
 /** A Claude limit as the egg's popup shows it: the percent used and when it resets. */
 function UsageRow(props: { label: string; window: UsageWindow; now: Date; color: string }) {
   const { label, window, now, color } = props;
@@ -294,7 +283,7 @@ function UsageRow(props: { label: string; window: UsageWindow; now: Date; color:
           {percent}%{window.resetsAt && `, resets in ${timeLeftText(window.resetsAt, now)}`}
         </p>
       </div>
-      <Segments percent={percent} color={color} />
+      <SegmentBar percent={percent} color={color} />
     </div>
   );
 }
@@ -328,15 +317,18 @@ function Egg(props: {
         <Meter percent={percent} color="var(--warmth)" label={`Egg warmth: ${percent} percent`} />
       </Scene>
       <p class="px-dim">{note}</p>
-      <div class="px-section">
-        <UsageRow label="Session" window={session} now={now} color="var(--food)" />
-        <UsageRow
-          label="This week"
-          window={week}
-          now={now}
-          color={rulerColor(Math.round(week.percent))}
-        />
-      </div>
+      {/* Before the first read there are no numbers yet, and 0% would say nothing was used. */}
+      {pet.reading && (
+        <div class="px-section">
+          <UsageRow label="Session" window={session} now={now} color="var(--food)" />
+          <UsageRow
+            label="This week"
+            window={week}
+            now={now}
+            color={rulerColor(Math.round(week.percent))}
+          />
+        </div>
+      )}
       {props.children}
     </>
   );

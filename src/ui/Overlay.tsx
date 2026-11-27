@@ -21,6 +21,7 @@ import {
   sprite,
 } from "@/lib/sprites/sprites";
 import type { UsageFailureReason } from "@/lib/usage/snapshot";
+import { SegmentBar } from "./SegmentBar";
 import { Sprite } from "./Sprite";
 
 /** Screen pixels per sprite pixel in the window. */
@@ -280,17 +281,6 @@ function Mark({ children }: { children: ComponentChildren }) {
 
 // The card
 
-function Segments({ percent, color }: { percent: number; color: string }) {
-  const filled = Math.max(0, Math.min(10, Math.round(percent / 10)));
-  return (
-    <div class="ov-segments" aria-hidden="true" style={{ "--fill": color }}>
-      {Array.from({ length: 10 }, (_, index) => (
-        <i key={index} class={index < filled ? "ov-on" : undefined} />
-      ))}
-    </div>
-  );
-}
-
 const LOST_NOTE: Record<UsageFailureReason, string> = {
   "signed-out": "You are signed out of Claude.",
   offline: "No internet connection.",
@@ -325,7 +315,7 @@ function Card(props: OverlayProps & { view: PetView }) {
             <span>Warmth</span>
             <span class="ov-food">{percent}%</span>
           </div>
-          <Segments percent={percent} color="var(--food)" />
+          <SegmentBar percent={percent} color="var(--food)" />
         </div>
         {lost || <p class="ov-dim">{note}</p>}
         {hide}
@@ -388,7 +378,7 @@ function Card(props: OverlayProps & { view: PetView }) {
             {growth.xp} / {growth.needed} XP
           </span>
         </div>
-        <Segments percent={(growth.xp / growth.needed) * 100} color="var(--growth)" />
+        <SegmentBar percent={(growth.xp / growth.needed) * 100} color="var(--growth)" />
       </div>
       {hide}
     </section>
