@@ -90,7 +90,7 @@ function moodFor(state: PetState, stage: Stage, now: Date, settings: Settings): 
   if (currentWindow(state.reading?.short, now).percent >= 100) return "stuffed";
 
   if (hungerMs(state, now, settings) >= RULES.hungryAfterMs) return "hungry";
-  // The baby stage lasts one week, too short to sulk.
+  // Babies never sulk (RULES.md, Moods), even though with XP the baby stage can last more than a week.
   if (stage !== "baby" && isUnderfed(state)) return "sulky";
   return "happy";
 }

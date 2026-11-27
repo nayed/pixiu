@@ -1,4 +1,4 @@
-// Ten segments filled to a percent: the overlay's food and growth bars, and the usage rows
+// Ten segments filled to a percent: the overlay's egg warmth and growth bars, and the usage rows
 // under the egg in the popup. The color comes in as a CSS value.
 
 import "./segment-bar.css";

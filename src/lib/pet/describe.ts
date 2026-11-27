@@ -1,4 +1,5 @@
-// Plain-text descriptions of the pet, for the log, the bare popup, and the debug page.
+// Plain-text descriptions of the pet, for the log, the toolbar tooltip, the backup page, and the
+// debug page.
 
 import { RULES } from "./config";
 import type { PetEvent } from "./engine";

@@ -3,7 +3,7 @@ import { clockToMinutes, minutesToClock } from "@/lib/format";
 import { RULES } from "@/lib/pet/config";
 import type { PetPopupProps } from "./PetPopup";
 
-/** Renaming and sleeping hours. Nothing else in settings is designed yet. */
+/** Renaming, sleeping hours, links to the backup and debug pages, and the version. */
 export function SettingsPanel(props: PetPopupProps & { onDone: () => void }) {
   const { pet, settings, onName, onSaveSettings, onDone, backupUrl, debugUrl, version } = props;
   const hatched = pet.hatchedAt !== null;

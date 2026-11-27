@@ -1,4 +1,4 @@
-// Messages from the popup to the background worker, which is the only writer of the pet.
+// Messages from the extension's pages and content script to the background worker, which is the only writer of the pet.
 
 /** Asks for a fresh usage read. */
 export const POLL_NOW = "poll-now";
