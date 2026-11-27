@@ -33,6 +33,7 @@ The docs mark each rule with one of these, because not everything was decided wi
 - **Proposed**: Claude suggested it during design and it was not objected to, but it was never explicitly confirmed. Safe to build, cheap to change.
 - **Open**: nobody has decided. Ask before building.
 - **Built**: settled while building the extension, without a separate decision. It is what the extension does now, and cheap to change.
+- **Replaced**: an earlier rule that no longer applies, kept for history.
 
 ## First prompt for Claude Code
 

@@ -1,4 +1,4 @@
-# Pushing a tag like v0.2.0 runs the checks, builds the extension zip, and makes a draft
+# Pushing a tag like v1.2.3 runs the checks, builds the extension zip, and makes a draft
 # release with the zip attached. Read the draft, write its notes, then publish it by hand.
 name: Release
 

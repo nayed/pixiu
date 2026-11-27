@@ -43,7 +43,7 @@ Claude paid plans have a five-hour session limit and a weekly limit. Each maps t
 | Weekly percent used | Growth: each point is 1 XP toward the next age | A height ruler beside the pet |
 | Weekly reset | The end of a week, for condition and neglect | Nothing on screen |
 
-The pet's age follows usage, not the calendar: each age costs a little more XP than the one before. Until 0.1.0, each weekly reset was a birthday and one week was one year; see RULES.md.
+The pet's age follows usage, not the calendar: each age costs a little more XP than the one before. Through 0.1.0, each weekly reset was a birthday and one week was one year; see RULES.md.
 
 ## What the data test changed
 

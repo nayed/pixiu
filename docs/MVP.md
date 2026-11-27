@@ -43,7 +43,7 @@ Ask Nayed before building anything that depends on these.
 9. **Polling interval.** 5 minutes is proposed. 2 minutes worked for an hour in testing. **Settled:** every 5 minutes, and every 30 seconds while a claude.ai tab is in front and in use.
 10. **Paused time during an outage.** Proposed: the pet does not get hungry while it can't reach Claude. **Built** as proposed.
 11. **Badge text.** The `62`, `!`, `zz`, `?` scheme is proposed. **Built** as proposed.
-12. **Settings.** The popup has a settings button and promises renaming there. Nothing else in settings is designed. **Built:** renaming, sleeping hours, and a link to the backup page, which exports the pet to a file and imports it again.
+12. **Settings.** The popup has a settings button and promises renaming there. Nothing else in settings is designed. **Built:** renaming, sleeping hours, a link to the backup page, which exports the pet to a file and imports it again, the extension's version at the bottom right, and a Debug page link in debug builds.
 13. **Usage credits.** What a stuffed pet does when usage continues past 100%. Still open.
 14. **Accounts with no session limit.** Still open. Such an egg never hatches today.
 15. **Early limit resets.** Proposed: treat like a normal reset. **Built:** treated like a normal reset.

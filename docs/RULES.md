@@ -1,6 +1,6 @@
 # Pet rules
 
-Status words (Decided, Proposed, Open) are explained in README.md.
+Status words (Decided, Proposed, Open, Built, Replaced) are explained in README.md.
 
 ## Inputs
 
@@ -34,7 +34,7 @@ The pet logic sees only this, refreshed on each poll:
 - **Decided (Nayed, 2026-11-25):** the weekly reset is no longer a birthday. It still closes the week for condition and neglect.
 - **Decided:** the ruler beside the pet shows the weekly percent, as before. The XP toward the next age is in the row below it, and the time until the weekly reset in the row after that.
 - **Decided:** the pet is long-lived. Using the whole weekly limit every week, it reaches adulthood in about 13 weeks, the "about three months" first designed. Lighter use takes longer.
-- **Replaced (2026-11-25):** until 0.1.0, each weekly reset was a birthday and the weekly percent was "growth this week." Pets from 0.1.0 keep their age and are credited the usage of the week they were in as XP.
+- **Replaced (2026-11-25):** through 0.1.0, each weekly reset was a birthday and the weekly percent was "growth this week." Pets from 0.1.0 keep their age and are credited the usage of the week they were in as XP.
 - **Decided:** a drop in the weekly percent is a new week only when the week has ended or Claude reports a later reset time, as after an early reset. Any other drop is a correction and earns no XP.
 
 ## Birthdays
@@ -63,11 +63,11 @@ The age boundaries for child, teen, and adult were Claude's suggestion to match 
 
 - **Decided:** a new install starts with an egg.
 - **Decided:** warmth is usage since install, counted in session points.
-- **Decided (Nayed, 2026-11-27):** the egg hatches after three cookies' worth of usage, 30% of a session. It was one cookie, 10%, until 0.2.0; an egg already warming keeps its warmth and needs the rest.
+- **Decided (Nayed, 2026-11-27):** the egg hatches after three cookies' worth of usage, 30% of a session. It was one cookie, 10%, through 0.2.0. An egg already warming keeps the same share of the way to hatching (its warmth is tripled), so its cracks stay as they were.
 - **Decided:** warmth never drops. If the user stops for a day, the egg waits.
 - **Proposed:** the egg shows three states: no cracks (nothing used yet), one small crack (warming), cracked all the way across (about to hatch). It sits still when new, wobbles occasionally while warming, and wobbles fast when about to hatch.
 - **Built:** the first crack appears at 40% warmth and the full crack at 90%, the samples the mockups used.
-- **Note:** because meals arrive in jumps, the 10% threshold can be crossed between two polls. The egg may go straight from no cracks to hatching. That is acceptable.
+- **Note:** because meals arrive in jumps, the hatching threshold can be crossed between two polls. The egg may go straight from no cracks to hatching. That is acceptable.
 
 ## Hatching
 

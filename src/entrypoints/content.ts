@@ -29,7 +29,7 @@ export default defineContentScript({
 const CHECK_EVERY_MS = 5_000;
 
 /**
- * Asks the background worker for usage reads every few seconds while this tab is in front and
+ * Asks the background worker for a usage read every 30 seconds while this tab is in front and
  * in use, so a meal shows on the page soon after the reply that caused it. Otherwise the
  * regular five-minute poll feeds the pet.
  */
