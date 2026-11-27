@@ -5,7 +5,7 @@ import type { PetPopupProps } from "./PetPopup";
 
 /** Renaming and sleeping hours. Nothing else in settings is designed yet. */
 export function SettingsPanel(props: PetPopupProps & { onDone: () => void }) {
-  const { pet, settings, onName, onSaveSettings, onDone, backupUrl, debugUrl } = props;
+  const { pet, settings, onName, onSaveSettings, onDone, backupUrl, debugUrl, version } = props;
   const hatched = pet.hatchedAt !== null;
   const [name, setName] = useState(pet.name ?? "");
   const [start, setStart] = useState(minutesToClock(settings.sleep.startMinute));
@@ -72,19 +72,31 @@ export function SettingsPanel(props: PetPopupProps & { onDone: () => void }) {
           Save
         </button>
       </form>
-      {(backupUrl || debugUrl) && (
-        <p class="px-footer px-links">
-          {backupUrl && (
-            <a href={backupUrl} target="_blank" rel="noreferrer">
-              Back up or restore
-            </a>
+      {(backupUrl || debugUrl || version) && (
+        // A div, not a paragraph: the popup resets every paragraph's margins, which would undo
+        // the footer's push to the bottom.
+        <div class="px-footer px-links">
+          <span class="px-link-group">
+            {backupUrl && (
+              <a href={backupUrl} target="_blank" rel="noreferrer">
+                Back up or restore
+              </a>
+            )}
+            {debugUrl && (
+              <a href={debugUrl} target="_blank" rel="noreferrer">
+                Debug page
+              </a>
+            )}
+          </span>
+          {version && (
+            <span class="px-dim px-version">
+              {/* Read as "Version 0.2.0", shown as "v0.2.0". */}
+              <span class="px-visually-hidden">Version </span>
+              <span aria-hidden="true">v</span>
+              {version}
+            </span>
           )}
-          {debugUrl && (
-            <a href={debugUrl} target="_blank" rel="noreferrer">
-              Debug page
-            </a>
-          )}
-        </p>
+        </div>
       )}
     </>
   );
