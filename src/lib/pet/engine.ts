@@ -148,6 +148,7 @@ export function step(previous: PetState, snapshot: UsageSnapshot, settings: Sett
   if (state.hatchedAt !== null) {
     const grown = grow(state.age, state.xp);
     if (grown.age > state.age) {
+      state.lastBirthday = { at, age: grown.age, fromAge: state.age };
       state.age = grown.age;
       state.xp = grown.xp;
       events.push({ type: "birthday", at, age: state.age });

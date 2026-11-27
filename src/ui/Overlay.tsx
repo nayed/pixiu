@@ -143,16 +143,43 @@ function actorTop(stage: Stage): number {
 /** Where the cookie being eaten sits, in front of the mouth. */
 const COOKIE_TOP: Record<Stage, number> = { baby: 50, child: 44, teen: 40, adult: 40 };
 
-const SPARKLES: {
+type SparkleSpot = {
   name: "sparkle-white" | "sparkle-gold";
   left: number;
   top: number;
   pace: string;
-}[] = [
+};
+
+/** Around the pet in its shell. */
+const HATCH_SPARKLES: SparkleSpot[] = [
   { name: "sparkle-white", left: 8, top: 12, pace: "0.9s" },
   { name: "sparkle-gold", left: 108, top: 8, pace: "1.3s" },
   { name: "sparkle-white", left: 110, top: 44, pace: "0.7s" },
 ];
+
+/** Beside a grown pet on its birthday, clear of the "z Z" of a nap. */
+const BIRTHDAY_SPARKLES: SparkleSpot[] = [
+  { name: "sparkle-white", left: 10, top: 30, pace: "0.9s" },
+  { name: "sparkle-gold", left: 24, top: 46, pace: "1.3s" },
+  { name: "sparkle-white", left: 8, top: 60, pace: "0.7s" },
+];
+
+function Sparkles({ spots }: { spots: SparkleSpot[] }) {
+  return (
+    <>
+      {spots.map((sparkle) => (
+        <div
+          key={`${sparkle.left} ${sparkle.top}`}
+          class="ov-prop ov-twinkle"
+          aria-hidden="true"
+          style={{ ...place(sparkle.left, sparkle.top), "--pace": sparkle.pace }}
+        >
+          <Sprite sprite={sprite(sparkle.name)} scale={2} />
+        </div>
+      ))}
+    </>
+  );
+}
 
 function Blink({ row }: { row: number }) {
   return (
@@ -211,16 +238,7 @@ function Actor({ view, pet }: { view: PetView; pet: PetState }) {
   if (view.name === null && stage === "baby") {
     return (
       <>
-        {SPARKLES.map((sparkle) => (
-          <div
-            key={sparkle.left}
-            class="ov-prop ov-twinkle"
-            aria-hidden="true"
-            style={{ ...place(sparkle.left, sparkle.top), "--pace": sparkle.pace }}
-          >
-            <Sprite sprite={sprite(sparkle.name)} scale={2} />
-          </div>
-        ))}
+        <Sparkles spots={HATCH_SPARKLES} />
         <div class="ov-actor ov-hop" style={place(24, 6)}>
           <Sprite sprite={sprite("hatch-hatched")} scale={UNIT} />
           <Blink row={HATCHED_BLINK_ROW} />
@@ -235,6 +253,8 @@ function Actor({ view, pet }: { view: PetView; pet: PetState }) {
   const eating = mood === "eating" && pet.lastBite !== null;
   return (
     <>
+      {/* Quieter than the popup: sparkles, but no hop over a page people work in. */}
+      {view.celebrating && <Sparkles spots={BIRTHDAY_SPARKLES} />}
       <div class={`ov-actor ov-bob ${motion}`} style={place(40, actorTop(stage))}>
         <Sprite sprite={bodySprite(stage, mood)} scale={UNIT} />
         {blinks && <Blink row={BLINK_ROW[stage]} />}
@@ -314,7 +334,8 @@ function Card(props: OverlayProps & { view: PetView }) {
   }
 
   const name = view.name ?? "Your pet";
-  const age = `Age ${view.age}`;
+  const age =
+    view.kind === "pet" && view.celebrating ? `Age ${view.age} today!` : `Age ${view.age}`;
 
   if (view.kind === "ran-away") {
     return (
@@ -376,7 +397,7 @@ function Card(props: OverlayProps & { view: PetView }) {
 
 function Heading({ title, detail }: { title: string; detail: string }) {
   return (
-    <div class="ov-row">
+    <div class="ov-row ov-heading">
       <h2>{title}</h2>
       <p class="ov-dim">{detail}</p>
     </div>

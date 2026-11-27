@@ -17,7 +17,7 @@ This folder started as the handoff from the design conversation to implementatio
 
 | Path | What it holds |
 |---|---|
-| `artboards/*.png` | Every surface of the built extension (23 images), at 2x. `pnpm artboards` takes them again from the real components, so they match the code. |
+| `artboards/*.png` | Every surface of the built extension (26 images), at 2x. `pnpm artboards` takes them again from the real components, so they match the code. |
 | `artboards/source/` | The original design canvas sources (`.dc.html`) and its layout file, from before the build. They show the first design, which differs in places: the Pixelify Sans font and birthdays on the weekly reset. Reference only; the sprite data inside them is already extracted into `assets/`. |
 | `assets/sprites/*.png` | Every sprite as a pixel-exact PNG at 1x (16 x 16, transparent), ready to use. |
 | `assets/sprites.json` | The same sprites as character grids plus palettes. This is the source of truth for the drawings. |

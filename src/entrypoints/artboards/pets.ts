@@ -49,6 +49,8 @@ type Look = {
   blind?: UsageFailureReason | null;
   /** How long ago the last read that worked was. */
   seenMinutesAgo?: number;
+  /** A birthday this many hours ago, from this age to the pet's age. */
+  birthday?: { hoursAgo: number; fromAge: number };
 };
 
 /** A hatched pet, named Pixiu, in the mood asked for. */
@@ -63,6 +65,9 @@ export function pet(look: Look = {}): PetState {
     hatchedAt: at(-50 * DAY),
     age,
     xp,
+    lastBirthday: look.birthday
+      ? { at: at(-look.birthday.hoursAgo * HOUR), age, fromAge: look.birthday.fromAge }
+      : null,
     reading: reading(mood === "stuffed" ? 100 : session, week, look.seenMinutesAgo ?? 1),
     blind: look.blind ?? null,
     lastMealAt: ateAt,

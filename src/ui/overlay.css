@@ -151,6 +151,15 @@
   gap: 8px;
 }
 
+/* A long name with a birthday's "Age 14 today!" moves the age below the name. */
+.ov-heading {
+  flex-wrap: wrap;
+}
+
+.ov-heading p {
+  white-space: nowrap;
+}
+
 .ov-stat {
   display: flex;
   flex-direction: column;
