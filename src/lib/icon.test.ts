@@ -33,8 +33,8 @@ function iconOf(sim: Simulation) {
 describe("toolbarIcon", () => {
   it("is the egg with no badge before hatching, cracking as it warms", () => {
     expect(iconOf(install())).toMatchObject({ sprite: sprite("egg-new"), badge: "" });
-    expect(iconOf(feed(install(), 5, S)).sprite).toBe(sprite("egg-warming"));
-    expect(iconOf(feed(install(), 9, S)).sprite).toBe(sprite("egg-hatching"));
+    expect(iconOf(feed(install(), 12, S)).sprite).toBe(sprite("egg-warming"));
+    expect(iconOf(feed(install(), 27, S)).sprite).toBe(sprite("egg-hatching"));
   });
 
   it("asks for attention before the account is found", () => {
@@ -43,9 +43,9 @@ describe("toolbarIcon", () => {
   });
 
   it("keeps a ! badge on the hatched baby until it has a name", () => {
-    const hatched = feed(install(), 22, S);
+    const hatched = feed(install(), 30, S);
     expect(iconOf(hatched)).toMatchObject({ sprite: sprite("hatch-hatched"), badge: "!" });
-    expect(iconOf(named(hatched)).badge).toBe("22");
+    expect(iconOf(named(hatched)).badge).toBe("30");
   });
 
   it("shows the session percent while happy, and the happy face while eating", () => {
@@ -67,9 +67,9 @@ describe("toolbarIcon", () => {
   });
 
   it("shows ! when hungry and zz when stuffed", () => {
-    const hungry = wait(named(feed(install(), 22, S)), 7 * HOUR, S);
+    const hungry = wait(named(feed(install(), 30, S)), 7 * HOUR, S);
     expect(iconOf(hungry)).toMatchObject({ sprite: sprite("baby-face-hungry"), badge: "!" });
-    const stuffed = wait(feed(named(feed(install(), 22, S)), 78, S), 10 * MINUTE, S);
+    const stuffed = wait(feed(named(feed(install(), 30, S)), 78, S), 10 * MINUTE, S);
     expect(iconOf(stuffed)).toMatchObject({ sprite: sprite("baby-face-stuffed"), badge: "zz" });
   });
 
@@ -81,12 +81,12 @@ describe("toolbarIcon", () => {
   });
 
   it("is the note with no badge when the pet ran away", () => {
-    const sim = wait(asChild(named(feed(install(), 22, S))), 3 * WEEK, S);
+    const sim = wait(asChild(named(feed(install(), 30, S))), 3 * WEEK, S);
     expect(iconOf(sim)).toMatchObject({ sprite: sprite("note-ran-away"), badge: "" });
   });
 
   it("turns gray with a ? badge when Claude can't be reached", () => {
-    const pet = setFailure(wait(asChild(named(feed(install(), 22, S))), WEEK, S), "signed-out", S);
+    const pet = setFailure(wait(asChild(named(feed(install(), 30, S))), WEEK, S), "signed-out", S);
     expect(iconOf(pet)).toMatchObject({
       sprite: sprite("child-face-lost"),
       badge: "?",
@@ -97,16 +97,16 @@ describe("toolbarIcon", () => {
   });
 
   it("says it is a birthday in the tooltip for a day, and keeps the food badge", () => {
-    const sim = named(feedWeek(feed(install(), 22, S), 50, S));
+    const sim = named(feedWeek(feed(install(), 30, S), 50, S));
     expect(iconOf(sim)).toMatchObject({
-      badge: "22",
+      badge: "30",
       title: expect.stringMatching(/Birthday today!$/),
     });
     expect(iconOf(wait(sim, 25 * HOUR, S)).title).not.toMatch(/Birthday/);
   });
 
   it("never has a badge longer than three characters, and always has a tooltip", () => {
-    let sim = named(feed(install(), 22, S));
+    let sim = named(feed(install(), 30, S));
     for (let step = 0; step < 60; step++) {
       sim = wait(feed(sim, step % 7 === 0 ? 100 : 3, S), 9 * HOUR, S);
       const icon = iconOf(sim);

@@ -10,7 +10,7 @@ const NOW = new Date("2026-11-20T09:00:00Z");
 /** A named child with a reading, a meal, and a completed week behind it. */
 function grownPet() {
   let sim = poll(createSimulation(START, new Date("2026-11-19T04:00:00Z")), DEFAULT_SETTINGS);
-  sim = feed(sim, 22, DEFAULT_SETTINGS);
+  sim = feed(sim, 30, DEFAULT_SETTINGS);
   sim = feedWeek(sim, 50, DEFAULT_SETTINGS);
   sim = wait(sim, 3 * 24 * 3_600_000, DEFAULT_SETTINGS);
   return namePet(sim.pet, "Mochi");
